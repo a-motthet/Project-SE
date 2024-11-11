@@ -6,6 +6,10 @@ import mypic from "../images/1.jpg";
 function LoginPage() {
   const navigate = useNavigate(); // Initialize the navigate function
 
+  const handleLogin = () => {
+    navigate("/"); // Navigate to the login page
+  };
+
   const handleRegister = () => {
     navigate("/register"); // Navigate to the login page
   };
@@ -59,6 +63,7 @@ function LoginPage() {
               <button
                 className="bg-puple-b hover:bg-puple-md text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 type="button"
+                onClick={handleLogin}
               >
                 Login
               </button>
