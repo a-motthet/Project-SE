@@ -19,7 +19,7 @@ function Home() {
         </div>
         <div>
           <h4 className="text-center text-[45px] font-bold font-sans my-8  font-chela ">
-            WHY ANIMALOVER ?
+            WHY ANIMALOVER 
           </h4>
           <Why />
         </div>
