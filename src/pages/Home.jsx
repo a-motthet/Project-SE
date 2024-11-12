@@ -1,17 +1,15 @@
-import React from 'react';
-import Card from './Card';     
-import Recomend from './Recomend'; 
-import Why from './Why'
-import Ex from './Ex'
-
-
+import React from "react";
+import Welcome from "./Welcome";
+import Recomend from "./Recomend";
+import Why from "./Why";
+import Ex from "./Ex";
 
 function Home() {
   return (
     <div>
       <main className="flex-grow">
         <div className="mb-8">
-          <Card />
+          <Welcome />
         </div>
         <div>
           <Recomend />
