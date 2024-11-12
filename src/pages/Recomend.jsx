@@ -16,53 +16,58 @@ function Recomend() {
 
   const RecommendedItem = ({ title, path, imgSrc }) => (
     <div
-      className="bg-gray-100 p-4 rounded-lg shadow flex flex-col items-center transition-transform duration-300 hover:scale-105 mx-auto px-4 gap-2 max-w-xs"
+      className="bg-gray-100 rounded-lg flex flex-col items-center transition-transform duration-300 hover:scale-105 w-[220px] h-[220px] my-[15px] mx-[100px]"
       onClick={() => handleNavigation(path)}
     >
       <img
         src={imgSrc}
         alt="Profile"
-        className="w-30 h-30 rounded-full object-cover mb-4"
+        className="w-32 h-32 rounded-full object-cover mb-2 my-[35px]"
       />
       <h4 className="font-semibold mb-4">{title}</h4>
     </div>
   );
 
   return (
-    <main className="bg-white">
-      <div className="mt-8">
-        <div className="flex items-center mb-5 ">
-          <h3 className="text-xl font-bold py-2 mx-6 ">รายการทั้งหมด</h3>
-        </div>
-        <div className="grid  md:grid-cols-3 gap-4 cursor-pointer">
-          <RecommendedItem
-            title="สัตว์เลี้ยงของฉัน"
-            path="/Mypet"
-            imgSrc={mypic1}
-          />
-          <RecommendedItem
-            title="เพิ่มสัตว์เลี้ยง"
-            path="/Addpet"
-            imgSrc={mypic2}
-          />
-          <RecommendedItem
-            title="แนะนำโภชนาการ"
-            path="/pet-benfit"
-            imgSrc={mypic3}
-          />
-          <RecommendedItem
-            title="ข้อมูลสุขภาพของสัตว์เลี้ยง"
-            path="/pet-health"
-            imgSrc={mypic4}
-          />
-          <RecommendedItem
-            title="คลินิกรักษาสัตว์ใกล้เคียง"
-            path="/pet-clinic"
-            imgSrc={mypic5}
-          />
+    <>
+      <div className="bg-white ml-[320px] mr-[320px] h-[250px] rounded-large">
+        <div className="mt-5">
+          <div className="grid grid-cols-3 my-5">
+            <RecommendedItem
+              title="สัตว์เลี้ยงของฉัน"
+              path="/Mypet"
+              imgSrc={mypic1}
+            />
+            <RecommendedItem
+              title="เพิ่มสัตว์เลี้ยง"
+              path="/Addpet"
+              imgSrc={mypic2}
+            />
+            <RecommendedItem
+              title="แนะนำโภชนาการ"
+              path="/pet-benfit"
+              imgSrc={mypic3}
+            />
+          </div>
         </div>
       </div>
-    </main>
+      <div className="bg-white ml-[320px] mr-[320px] h-[250px] rounded-large">
+        <div className="mt-5">
+          <div className="grid grid-cols-3 my-5">
+            <RecommendedItem
+              title="คลินิกรักษาใกล้เคียง"
+              path="/Mypet"
+              imgSrc={mypic4}
+            />
+            <RecommendedItem
+              title="แนะนำโถชนาการ"
+              path="/Addpet"
+              imgSrc={mypic5}
+            />
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 
