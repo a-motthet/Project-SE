@@ -7,7 +7,7 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    navigate("/"); // Navigate to the login page
+    navigate("/Home"); // Navigate to the login page
   };
 
   const handleRegister = () => {
