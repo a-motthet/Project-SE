@@ -1,5 +1,6 @@
 import React from "react";
 import mypic from "../images/2.jpg";
+import Navbar from "../components/Navbar";
 import { IoBookmark } from "react-icons/io5";
 import { FaDog, FaList } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -17,27 +18,11 @@ function Home() {
   };
 
   return (
-    <div className="bg-[#EBE4F2] min-h-screen flex flex-col">
-      <header className="bg-[#6373B7] py-4 text-white">
-        <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center">
-            <h1 className="ml-4 text-2xl font-bold">Animalover</h1>
-            <FaDog className="mx-2 size-6" />
-          </div>
-          <nav className="flex space-x-6">
-            <a className="hover:underline text-white">Home</a>
-            <a href="#" className="hover:underline text-white">
-              Pet
-            </a>
-            <a href="#" className="hover:underline text-white">
-              Contact Us
-            </a>
-            <a className="hover:underline text-white" onClick={handleLogin}>
-              Login
-            </a>
-          </nav>
-        </div>
-      </header>
+    <>
+      <div className="App">
+        <Navbar />
+        {/* Other content */}
+      </div>
 
       <main className="container mx-auto py-12 px-4 md:px-0">
         <div className="bg-[#6373B7] p-9 rounded-lg shadow-md flex items-center gap-4">
@@ -143,7 +128,7 @@ function Home() {
           </div>
         </div>
       </main>
-    </div>
+    </>
   );
 }
 
