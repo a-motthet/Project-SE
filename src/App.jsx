@@ -1,12 +1,16 @@
 import "./index.css";
 import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
 import Home from "./pages/Home";
-import Mypet from './pages/Mypet';
+import Mypet from "./pages/Mypet";
 import Navbar from "./pages/Navbar";
 import Detailpet from "./pages/Detailpet";
-
 
 function App() {
   return (
@@ -19,10 +23,12 @@ function App() {
 function MainContent() {
   const location = useLocation();
 
-  const showNavbar = location.pathname !== "/" && location.pathname !== "/register";
+  const showNavbar =
+    location.pathname !== "/" && location.pathname !== "/register";
 
   return (
     <>
+    <body className="bg-puple-b">
       {showNavbar && <Navbar />}
       <Routes>
         <Route path="/" element={<LoginPage />} />
@@ -31,7 +37,9 @@ function MainContent() {
         <Route path="/Mypet" element={<Mypet />} />
         <Route path="/Detailpet/:id" element={<Detailpet />} />
       </Routes>
+      </body>
     </>
+
   );
 }
 
