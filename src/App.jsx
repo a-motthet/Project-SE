@@ -10,6 +10,7 @@ import {
 import Home from "./pages/Home";
 import Mypet from "./pages/Mypet";
 import Navbar from "./pages/Navbar";
+import Detailpet from "./pages/Detailpet";
 
 function App() {
   return (
@@ -27,16 +28,18 @@ function MainContent() {
 
   return (
     <>
-      <body className="bg-puple-b">
-        {showNavbar && <Navbar />}
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/Home" element={<Home />} />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route path="/Mypet" element={<Mypet />} />
-        </Routes>
+    <body className="bg-puple-b">
+      {showNavbar && <Navbar />}
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/Home" element={<Home />} />
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/Mypet" element={<Mypet />} />
+        <Route path="/Detailpet/:id" element={<Detailpet />} />
+      </Routes>
       </body>
     </>
+
   );
 }
 
