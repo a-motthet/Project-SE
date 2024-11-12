@@ -7,11 +7,11 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    navigate("/Home"); // Navigate to the login page
+    navigate("/Home"); 
   };
 
   const handleRegister = () => {
-    navigate("/register"); // Navigate to the register page
+    navigate("/register"); 
   };
 
   return (

@@ -7,7 +7,7 @@ function Ex() {
 
     
       <header className="mt-8 p-4">
-        <h1 className="text-3xl font-bold text-center text-[#6373B7] mb-5">ประสบการณ์จากครอบครัว Animlover</h1>
+        <h1 className="text-3xl font-bold text-center text-[#6373B7] mb-5">ประสบการณ์จากครอบครัว Animalover</h1>
       </header>
 
   

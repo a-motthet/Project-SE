@@ -1,9 +1,19 @@
 import React, { useState } from "react";
 import mypic from "../images/1.jpg";
+import { useNavigate } from "react-router-dom";
 import { FaAngleDown } from "react-icons/fa";
 
 function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogin = () => {
+    navigate("/");
+  };
+
+  const handleNavigation = (path) => {
+    navigate(path);
+  };
 
   const handleMouseEnter = () => {
     setIsOpen(true);
@@ -14,7 +24,7 @@ function Navbar() {
   };
 
   return (
-    <nav className="bg-puple-b p-4 flex items-center justify-between rounded-b-lg shadow-md">
+    <nav className="bg-puple-b p-4 flex items-center justify-between  shadow-md">
       <div className="flex items-center">
         <img
           src={mypic}
@@ -24,17 +34,16 @@ function Navbar() {
         <a className="text-white text-[30px] font-extrabold ">Animalover</a>
       </div>
 
-      {/* Menu Items */}
       <div className="flex items-center space-x-10 mr-20">
         <button
           onMouseEnter={handleMouseLeave}
           className="text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-puple-holdber hover:shadow-md"
+          onClick={() => handleNavigation("/Home")}
         >
           Home
         </button>
         <div className="relative group">
           <button
-            //onClick={toggleDropdown}
             onMouseEnter={handleMouseEnter}
             className="text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-puple-holdber hover:shadow-md flex items-center"
           >
@@ -43,10 +52,7 @@ function Navbar() {
           <div onMouseLeave={handleMouseLeave}>
             {isOpen && (
               <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg">
-                {/* Arrow at the top of the dropdown */}
                 <div className="absolute top-0 left-6 w-3 h-3 bg-white transform rotate-45 -mt-1"></div>
-
-                {/* Dropdown Items */}
                 <div className="py-2">
                   <a
                     href="#"
@@ -92,8 +98,9 @@ function Navbar() {
         <button
           onMouseEnter={handleMouseLeave}
           className="text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-puple-holdber hover:shadow-md"
+          onClick={handleLogin}
         >
-          login
+          Login
         </button>
       </div>
     </nav>
