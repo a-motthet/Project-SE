@@ -3,6 +3,7 @@ import Welcome from "./Welcome";
 import Recomend from "./Recomend";
 import Why from "./Why";
 import Ex from "./Ex";
+import ActiveSlider from "../components/ActiveSlider";
 
 function Home() {
   return (
@@ -19,12 +20,12 @@ function Home() {
         </div>
         <div>
           <h4 className="text-center text-[45px] font-bold font-sans my-8  font-chela ">
-            WHY ANIMALOVER ? sdsadasdas
+            WHY ANIMALOVER ?
           </h4>
           <Why />
         </div>
-        <div>
-          <Ex />
+        <div className="mt-8">
+          <ActiveSlider />
         </div>
       </main>
     </div>
