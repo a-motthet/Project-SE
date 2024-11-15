@@ -56,12 +56,12 @@ function Recomend() {
           <div className="grid grid-cols-3 my-5">
             <RecommendedItem
               title="คลินิกรักษาใกล้เคียง"
-              path="/Mypet"
+              path="/clinicNear"
               imgSrc={mypic4}
             />
             <RecommendedItem
               title="แนะนำโถชนาการ"
-              path="/Addpet"
+              path="/pet-insernace"
               imgSrc={mypic5}
             />
           </div>

@@ -1,9 +1,43 @@
 import React, { useState } from 'react';
 import mypic from '../images/2.jpg';
 
+const NotificationPopup = ({  onClose }) => (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+    <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
+      <h2 className="text-[#6373B7] text-lg font-bold mb-2">แจ้งเตือน</h2>
+      <p className="text-[#6373B7] mb-4">เเก้ไขสัตว์เลี้ยงเสร็จสิ้น</p>
+      <button
+        onClick={() => onClose()}
+        className="bg-[#6373B7] text-white px-4 py-2 rounded-md"
+      >
+        ยืนยัน
+      </button>
+    </div>
+  </div>
+);
+
+const NotificationMessagePopup = ({  onClose }) => (
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+    <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
+      <h2 className="text-[#6373B7] text-lg font-bold mb-2">แจ้งเตือน</h2>
+      <p className="text-[#6373B7] mb-4">ลบสัตว์เลี้ยงเสร็จสิ้น</p>
+      <button
+        onClick={() => onClose()}
+        className="bg-[#6373B7] text-white px-4 py-2 rounded-md"
+      >
+        ยืนยัน
+      </button>
+    </div>
+  </div>
+);
+
+
+
 const PetProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
+  const [ShowNotificationMessage, setShowNotificationMessage] = useState(false);
   const [petName, setPetName] = useState('สมหมาย');
   const [petType, setPetType] = useState('แมว');
   const [petSex, setPetSex] = useState('ชาย');
@@ -23,14 +57,14 @@ const PetProfile = () => {
     if (isEditing) {
       setPetType(editPetType);
       setPetWeight(petWeight);
-      alert('แก้ไขสัตว์เลี้ยงเสร็จสิ้น');
+      setShowNotification(true);
     }
     setIsEditing(!isEditing);
   };
 
   const handleDelete = () => {
     if (petNameToDelete === petName) {
-      alert('ลบข้อมูลสัตว์เลี้ยงเรียบร้อย');
+      setShowNotificationMessage(true);
       setShowDeletePopup(false);
     } else {
       alert('กรุณาระบุชื่อสัตว์เลี้ยงให้ถูกต้อง');
@@ -78,6 +112,7 @@ const PetProfile = () => {
               </>
             ) : (
               <>
+                {/* Editing Form */}
                 <h2 className="text-[#6373B7] text-lg font-bold mb-4">แก้ไขสัตว์เลี้ยงของท่าน</h2>
                 <div className="w-full mb-4">
                   <label className="block text-[#6373B7] mb-1">ชื่อสัตว์เลี้ยง:</label>
@@ -181,7 +216,6 @@ const PetProfile = () => {
                     />
                   )}
                 </div>
-
                 <button 
                   onClick={toggleEditMode} 
                   className="w-full bg-[#6373B7] text-white p-3 rounded-md mt-4 px-12"
@@ -200,54 +234,56 @@ const PetProfile = () => {
                 alt="Profile" 
                 className="w-full h-full rounded-full object-cover"
               />
-              {/* Clickable Overlay Button for Upload */}
-                <label className="absolute bottom-0 right-0 bg-white p-2 px-3 rounded-full shadow-md cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 flex items-center justify-center text-[#6373B7] font-semibold text-sm">
-                  Upload
-                  <input 
-                    type="file" 
-                    onChange={handleProfilePicChange} 
-                    className="hidden" 
-                  />
-                </label>
+              <label className="absolute bottom-0 right-0 bg-white p-2 px-3 rounded-full shadow-md cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 flex items-center justify-center text-[#6373B7] font-semibold text-sm">
+                Upload
+                <input 
+                  type="file" 
+                  onChange={handleProfilePicChange} 
+                  className="hidden" 
+                />
+              </label>
             </div>
-            <p className="text-[#6373B7] font-bold text-lg"></p>
           </div>
         </div>
       </div>
 
       {/* Delete Popup */}
       {showDeletePopup && (
-          <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50">
-            <div className="bg-white p-6 rounded-md w-1/3 text-center">
-              <p className="text-lg font-semibold text-[#6373B7] mb-4">คำเตือน</p>
-              <p className="text-sm text-[#6373B7] mb-4">หากลบสัตว์เลี้ยงของท่านแล้วจะไม่สามารถกู้ข้อมูลกลับมาคืนได้ โปรดทำการนี้ด้วยความระมัดระวัง
-              โปรดระบุชื่อสัตว์เลี้ยงของท่านเพื่อทำการลบอย่างสมบูรณ์
-              </p>              
-              <input 
-                type="text" 
-                placeholder="กรุณาระบุชื่อสัตว์เลี้ยง"
-                value={petNameToDelete}
-                onChange={(e) => setPetNameToDelete(e.target.value)}
-                className="w-full p-3 border-2 border-gray-300 rounded-md mb-4"
-              />
-              <div className="flex justify-center space-x-10">
-                <button 
-                  onClick={handleDelete} 
-                  className="bg-[#6373B7] text-white px-4 py-2 rounded-md"
-                >
-                  ยืนยัน
-                </button>
-                <button 
-                  onClick={() => setShowDeletePopup(false)} 
-                  className="bg-[#6373B7] text-white px-4 py-2 rounded-md"
-                >
-                  ยกเลิก
-                </button>
-              </div>
+        <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center ">
+          <div className="bg-white p-6 rounded-md w-1/3 text-center">
+            <p className="text-lg font-semibold text-[#6373B7] mb-4">คำเตือน</p>
+            <p className="text-sm text-[#6373B7] mb-4">หากลบสัตว์เลี้ยงของท่านแล้วจะไม่สามารถกู้ข้อมูลกลับมาคืนได้ โปรดทำการนี้ด้วยความระมัดระวัง โปรดระบุชื่อสัตว์เลี้ยงของท่านเพื่อทำการลบอย่างสมบูรณ์</p>
+            <input 
+              type="text" 
+              placeholder="กรุณาระบุชื่อสัตว์เลี้ยง"
+              value={petNameToDelete}
+              onChange={(e) => setPetNameToDelete(e.target.value)}
+              className="w-full p-3 border-2 border-gray-300 rounded-md mb-4"
+            />
+            <div className="flex justify-center space-x-10">
+              <button 
+                onClick={handleDelete} 
+                className="bg-[#6373B7] text-white px-4 py-2 rounded-md"
+              >
+                ยืนยัน
+              </button>
+              <button 
+                onClick={() => setShowDeletePopup(false)} 
+                className="bg-[#6373B7] text-white px-4 py-2 rounded-md"
+              >
+                ยกเลิก
+              </button>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
+      {showNotification && (
+        <NotificationPopup onClose={() => setShowNotification(false)} />
+      )}
+      {ShowNotificationMessage && (
+        <NotificationMessagePopup onClose={() => setShowNotificationMessage(false)} />
+      )}
+    </div>
   );
 };
 
