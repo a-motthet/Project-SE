@@ -12,6 +12,7 @@ import Home from "./pages/Home";
 import Mypet from "./pages/Mypet";
 import Navbar from "./pages/Navbar";
 import Detailpet from "./pages/Detailpet";
+import Addpet from "./pages/Addpet";
 import Footer from "./components/Footer"; // นำเข้า Footer
 
 function App() {
@@ -40,6 +41,7 @@ function MainContent() {
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/Mypet" element={<Mypet />} />
             <Route path="/Detailpet/:id" element={<Detailpet />} />
+            <Route path="/Addpet/" element={<Addpet />} />
           </Routes>
         </div>
         {showFooter && <Footer />}
