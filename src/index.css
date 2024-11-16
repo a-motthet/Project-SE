@@ -2,6 +2,25 @@ body {
     font-family: 'Inter', sans-serif;
   }
 
+  /* styles.css */
+.flex.items-stretch {
+  display: flex;
+  align-items: stretch; /* ทำให้กล่องมีความสูงเท่ากัน */
+  gap: 8px; /* เพิ่มช่องว่างระหว่างกล่อง */
+}
+
+.flex-none {
+  flex: none; /* ป้องกันกล่องแรกยืดออก */
+}
+
+.pet-head {
+  flex: 1; /* ให้กล่อง PetHead ยืดตามพื้นที่ที่เหลือ */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

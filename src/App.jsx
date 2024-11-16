@@ -13,6 +13,9 @@ import Mypet from "./pages/Mypet";
 import Navbar from "./pages/Navbar";
 import Detailpet from "./pages/Detailpet";
 import Addpet from "./pages/Addpet";
+import Pet_benefit from "./pages/Pet_benefit";
+import HealthpetPage from "./pages/HealthpetPage";
+
 import Footer from "./components/Footer"; // นำเข้า Footer
 
 function App() {
@@ -42,6 +45,8 @@ function MainContent() {
             <Route path="/Mypet" element={<Mypet />} />
             <Route path="/Detailpet/:id" element={<Detailpet />} />
             <Route path="/Addpet/" element={<Addpet />} />
+            <Route path="/Pet_benefit/" element={<Pet_benefit />} />
+            <Route path="/HealthpetPage/" element={<HealthpetPage />} />
           </Routes>
         </div>
         {showFooter && <Footer />}
