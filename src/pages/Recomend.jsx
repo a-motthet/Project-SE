@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import mypic1 from "../images/3.jpg";
-import mypic2 from "../images/8.jpg";
-import mypic3 from "../images/5.jpg";
-import mypic4 from "../images/6.jpg";
+import mypic1 from "../images/4.jpg";
+import mypic2 from "../images/3.jpg";
+import mypic3 from "../images/6.jpg";
+import mypic4 from "../images/8.jpg";
 import mypic5 from "../images/7.jpg";
 import { useNavigate } from "react-router-dom";
 
@@ -44,8 +44,8 @@ function Recomend() {
               imgSrc={mypic2}
             />
             <RecommendedItem
-              title="แนะนำโภชนาการ"
-              path="/pet-benfit"
+              title="ข้อมูลสุขภาพ"
+              path="/pet-insernace"
               imgSrc={mypic3}
             />
           </div>
@@ -60,8 +60,8 @@ function Recomend() {
               imgSrc={mypic4}
             />
             <RecommendedItem
-              title="แนะนำโถชนาการ"
-              path="/pet-insernace"
+              title="แนะนำโภชนาการ"
+              path="/pet-benfit"
               imgSrc={mypic5}
             />
           </div>
