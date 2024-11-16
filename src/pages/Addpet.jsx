@@ -52,7 +52,7 @@ const Addpet = () => {
   };
 
   return (
-    <div className="bg-[#EBE4F2] min-h-screen flex flex-col items-center">
+    <div className="bg-[#EBE4F2]  flex flex-col items-center">
       <div className="container mx-auto p-8 flex flex-col items-center">
         <div className="p-6 bg-white rounded-lg shadow-xl flex flex-col lg:flex-row items-center w-full sm:w-3/5 lg:w-3/5">
           <div className="lg:w-2/3 w-full lg:pr-8">

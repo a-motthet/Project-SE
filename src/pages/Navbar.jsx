@@ -47,6 +47,7 @@ function Navbar() {
             onMouseEnter={handleMouseEnter}
             className="text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-puple-holdber hover:shadow-md flex items-center"
           >
+            
             Pet <FaAngleDown className="ml-2" />
           </button>
           <div onMouseLeave={handleMouseLeave}>
@@ -55,13 +56,13 @@ function Navbar() {
                 <div className="absolute top-0 left-6 w-3 h-3 bg-white transform rotate-45 -mt-1"></div>
                 <div className="py-2">
                   <a
-                    href="#"
+                    href="/Mypet"
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-center"
                   >
                     สัตว์เลี้ยงของฉัน
                   </a>
                   <a
-                    href="#"
+                    href="/Addpet"
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-center"
                   >
                     เพิ่มสัตว์เลี้ยง
