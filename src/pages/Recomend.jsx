@@ -45,7 +45,7 @@ function Recomend() {
             />
             <RecommendedItem
               title="แนะนำโภชนาการ"
-              path="/pet-benfit"
+              path="/Pet_benefit"
               imgSrc={mypic3}
             />
           </div>
