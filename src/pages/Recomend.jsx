@@ -45,7 +45,7 @@ function Recomend() {
             />
             <RecommendedItem
               title="ข้อมูลสุขภาพ"
-              path="/pet-insernace"
+              path="/healthpetPage"
               imgSrc={mypic3}
             />
           </div>
@@ -61,7 +61,7 @@ function Recomend() {
             />
             <RecommendedItem
               title="แนะนำโภชนาการ"
-              path="/pet-benfit"
+              path="/Pet_benefit"
               imgSrc={mypic5}
             />
           </div>
