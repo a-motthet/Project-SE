@@ -56,7 +56,7 @@ function Recomend() {
           <div className="grid grid-cols-3 my-5">
             <RecommendedItem
               title="คลินิกรักษาใกล้เคียง"
-              path="/clinicNear"
+              path="/ClinicNear"
               imgSrc={mypic4}
             />
             <RecommendedItem
