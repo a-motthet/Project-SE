@@ -68,19 +68,19 @@ function Navbar() {
                     เพิ่มสัตว์เลี้ยง
                   </a>
                   <a
-                    href="#"
+                    href="/HealthpetPage"
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-center"
                   >
                     ข้อมูลสุขภาพ
                   </a>
                   <a
-                    href="#"
+                    href="/ClinicNear"
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-center"
                   >
                     คลินิกใกล้เคียง
                   </a>
                   <a
-                    href="#"
+                    href="/Pet_benefit"
                     className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-center"
                   >
                     แนะนำโภชนาการ
