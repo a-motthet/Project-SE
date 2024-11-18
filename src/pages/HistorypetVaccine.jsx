@@ -1,84 +1,132 @@
-import React from "react";
-import mypic from "../images/2.jpg";
+import React, { useState } from "react";
 
-function healthpetPage() {
-  const petType = "แมว";
-  const petSex = "ผู้";
-  const petAge = "19";
-  const petA = "XXXX";
-  const petB = "XXXX";
-  const petWeight = "20 Kg.";
-  const petVaccine = "วัคซีนป้องกันโรคพิษสุนัขบ้า";
-  const petHealthDate = "XX-XX-XXXX";
+export default function VaccinationForm() {
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    setIsPopupVisible(true);
+  };
+
+  const NotificationPopup = ({ onClose }) => (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+      <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
+        <h2 className="text-puple-b text-lg font-bold mb-2">แจ้งเตือน</h2>
+        <p className="text-puple-b mb-4">เพิ่มข้อมูลสำเร็จ</p>
+        <button
+          onClick={onClose}
+          className="bg-puple-b text-white px-4 py-2 rounded-md hover:bg-puple-holdber "
+        >
+          ยืนยัน
+        </button>
+      </div>
+    </div>
+  );
 
   return (
-    <>
-      <div className="mr-[320px] ml-[320px] my-5 h-[700px] bg-white rounded-large shadow-inner">
-        <p className="p-8 text-puple-b text-3xl font-bold ">
-          ประวัติการได้รับวัคซีน:
-        </p>
-        <div className="grid grid-cols-1 mb-2">
-          <div className="ml-8 text-puple-b text-xl">โรคประจำตัว : {petB}</div>
-        </div>
-      </div>
-      <div className="grid grid-cols-4 items-center">
-        <div className="col-span-3">
-          <div className="grid grid-cols-2 mb-2">
-            <div className="ml-8 text-puple-b text-xl">
-              ชนิดสัตว์เลี้ยง: {petType}
-            </div>
-            <div className="text-puple-b text-xl">เพศของสัตว์: {petSex}</div>
-          </div>
-          <div className="grid grid-cols-2 mb-2">
-            <div className="ml-8 text-puple-b text-xl">
-              อายุของสัตว์เลี้ยง: {petAge}
-            </div>
-            <div className="text-puple-b text-xl">
-              น้ำหนักของสัตว์เลี้ยง: {petWeight}
-            </div>
-          </div>
-          <div className="grid grid-cols-1 mb-2">
-            <div className="ml-8 text-puple-b text-xl">
-              สายพันธ์สัตว์เลี้ยง: {petA}
-            </div>
-          </div>
-          <div className="flex justify-center items-center pr-8">
-            <img
-              src={mypic}
-              alt="สัตว์เลี้ยง"
-              className="w-48 object-cover rounded-full border border-gray-300"
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="bg-white shadow-md rounded-large p-8 w-full max-w-screen-lg">
+        <h2 className="text-puple-b text-3xl font-bold mb-4 ">
+          ประวัติการฉีดวัคซีน :
+        </h2>
+        <form onSubmit={handleFormSubmit}>
+          {/* วัคซีน */}
+          <div className="mb-4">
+            <label
+              className="block text-puple-b text-2xl mb-2"
+              htmlFor="vaccine"
+            >
+              วัคซีน
+            </label>
+            <input
+              type="text"
+              id="vaccine"
+              className="w-full px-3 py-4 border rounded-large text-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-puple-b focus:border-transparent"
+              placeholder="โปรดระบุชื่อวัคซีน"
             />
           </div>
-        </div>
-        <div>
-          <div className="p-8 flex flex-col text-puple-b text-3xl font-bold ">
-            ประวัติการได้รับวัคซีน:
+          <div className="grid grid-cols-2 gap-32 mb-2 ">
+            {/* วันที่ฉีดวัคซีน */}
+            <div className="mb-4">
+              <label
+                className="block text-puple-b text-2xl mb-2"
+                htmlFor="vaccineDate"
+              >
+                วันที่ที่ฉีดวัคซีน
+              </label>
+              <input
+                type="date"
+                id="vaccineDate"
+                className="w-full px-3 py-4 border rounded-large text-xl text-puple-box shadow-sm focus:outline-none focus:ring-2 focus:ring-puple-b focus:border-transparent"
+              />
+            </div>
+
+            {/* วันหมดอายุ */}
+            <div className="mb-4">
+              <label
+                className="block text-puple-b text-2xl mb-2"
+                htmlFor="expiryDate"
+              >
+                วันหมดอายุ
+              </label>
+              <input
+                type="date"
+                id="expiryDate"
+                className="w-full px-3 py-4 border rounded-large text-xl text-puple-box shadow-sm focus:outline-none focus:ring-2 focus:ring-puple-b focus:border-transparent"
+              />
+            </div>
           </div>
-          <div className="mx-8">
-            <div className="w-full h-auto p-4 border-2 border-gray-300 bg-black bg-opacity-5 rounded-large text-puple-b text-2xl content-center">
-              {petVaccine}
-            </div>
-            <div className="text-end underline text-puple-b hover:text-blue-600/100">
-              ดูเพิ่มเติม
-            </div>
-            <button className="text-center text-red-500 text-xl ">
-              หมายเหตุ : (ทุก 1-3 ปี ขึ้นอยู่กับชนิดวัคซีนและกฎหมาย)
+          <h2 className="text-puple-b text-3xl font-bold mb-4 ">
+            ประวัติการตรวจสุขภาพ :
+          </h2>
+
+          {/* วันที่ตรวจสุขภาพ */}
+          <div className="mb-4">
+            <label
+              className="block text-puple-b text-2xl mb-2"
+              htmlFor="checkupDate"
+            >
+              วันที่ตรวจสุขภาพ:
+            </label>
+            <input
+              type="date"
+              id="checkupDate"
+              className="w-auto px-3 py-4 border rounded-large text-xl text-puple-box shadow-sm focus:outline-none focus:ring-2 focus:ring-puple-box focus:border-transparent"
+            />
+          </div>
+
+          {/* ข้อมูลเพิ่มเติม */}
+          <div className="mb-4">
+            <label
+              className="block text-puple-b text-2xl mb-2"
+              htmlFor="additionalInfo"
+            >
+              ข้อมูลเพิ่มเติม:
+            </label>
+            <textarea
+              id="additionalInfo"
+              rows="4"
+              className="w-full px-3 py-4 border rounded-large shadow-sm focus:outline-none focus:ring-2 focus:ring-puple-box focus:border-transparent"
+              placeholder="ใส่ข้อมูลเพิ่มเติม..."
+            ></textarea>
+          </div>
+
+          {/* ปุ่มบันทึกข้อมูล */}
+          <div className="flex items-center justify-center">
+            <button
+              type="submit"
+              className="w-auto bg-puple-b text-white text-xl py-4 px-4 rounded-large hover:bg-puple-holdber transition"
+            >
+              บันทึกข้อมูล
             </button>
           </div>
-        </div>
-        <div>
-          <div className="p-8 flex flex-col text-puple-b text-3xl font-bold ">
-            ประวัติการตรวจสุขภาพ:
-          </div>
-          <div className="mx-8">
-            <div className="text-center w-full h-auto p-4 border-2 border-gray-300 bg-black bg-opacity-5 rounded-large text-puple-b text-2xl ">
-              {petHealthDate}
-            </div>
-          </div>
-        </div>
+        </form>
       </div>
-    </>
+
+      {/* แสดง NotificationPopup */}
+      {isPopupVisible && (
+        <NotificationPopup onClose={() => setIsPopupVisible(false)} />
+      )}
+    </div>
   );
 }
-
-export default healthpetPage;
