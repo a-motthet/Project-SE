@@ -2,7 +2,9 @@ import React from "react";
 import mypic from "../images/2.jpg";
 import { useNavigate } from "react-router-dom";
 
-function HealthPetPage() {
+import { Vaccine } from "../constants";
+
+function ViewHistorypage() {
   const navigate = useNavigate();
 
   const petName = "สมหมาย";
@@ -12,11 +14,9 @@ function HealthPetPage() {
   const petA = "XXXX";
   const petB = "XXXX";
   const petWeight = "20 Kg.";
-  const petVaccine = "วัคซีนป้องกันโรคพิษสุนัขบ้า";
-  const petHealthDate = "XX-XX-XXXX";
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center py-8">
       <div className="bg-white rounded-large shadow-inner">
         <p className="pl-8 pt-8 text-puple-b text-3xl font-bold">{petName}</p>
         <div className="grid grid-cols-4 items-center">
@@ -58,37 +58,35 @@ function HealthPetPage() {
           <div className="p-8 flex flex-col text-puple-b text-3xl font-bold">
             ประวัติการได้รับวัคซีน:
           </div>
-          <div className="mx-8">
-            <div className="w-full h-auto p-4 border-2 border-gray-300 bg-black bg-opacity-5 rounded-large text-puple-b text-2xl content-center">
-              {petVaccine}
+          <div className="">
+            <div className="px-4 grid mb-2 gap-2 mb-20 text-puple-b">
+              {Vaccine.map((item) => (
+                <pdf key={item.No}>
+                  <div className="grid grid-cols-5 ">
+                    <h1 className=" font-bold mt-8 justify-self-start ml-8">
+                      {item.No}
+                    </h1>
+                    <h1 className="font-bold col-span-2 mt-8 justify-self-center">
+                      {item.name}
+                    </h1>
+                    <h1 className=" font-bold mt-8 justify-self-center">
+                      {item.received}
+                    </h1>
+                    <h1 className=" font-bold mt-8 justify-self-center">
+                      {item.Expiration}
+                    </h1>
+                  </div>
+                </pdf>
+              ))}
+              <div className="flex items-center justify-center my-8">
+                <button
+                  className="w-auto bg-puple-b text-white text-xl py-4 px-4 rounded-large hover:bg-puple-holdber transition"
+                  onClick={() => navigate("/healthpetPage")}
+                >
+                  ย้อนกลับ
+                </button>
+              </div>
             </div>
-            <div
-              className="text-end underline text-puple-b hover:text-blue-600/100 cursor-pointer"
-              onClick={() => navigate("/viewHistorypage")}
-            >
-              ดูเพิ่มเติม
-            </div>
-            <p className="text-center text-red-500 text-xl">
-              หมายเหตุ : (ทุก 1-3 ปี ขึ้นอยู่กับชนิดวัคซีนและกฎหมาย)
-            </p>
-          </div>
-        </div>
-        <div>
-          <div className="p-8 flex flex-col text-puple-b text-3xl font-bold">
-            ประวัติการตรวจสุขภาพ:
-          </div>
-          <div className="mx-8 mb-4">
-            <div className="text-center w-full h-auto p-4 border-2 border-gray-300 bg-black bg-opacity-5 rounded-large text-puple-b text-2xl">
-              {petHealthDate}
-            </div>
-          </div>
-          <div className="flex items-center justify-center mb-4">
-            <button
-              className="w-auto bg-puple-b text-white text-xl py-4 px-4 rounded-large hover:bg-puple-holdber transition"
-              onClick={() => navigate("/HistorypetVaccine")}
-            >
-              เพิ่มข้อมูลสุขภาพ
-            </button>
           </div>
         </div>
       </div>
@@ -96,4 +94,4 @@ function HealthPetPage() {
   );
 }
 
-export default HealthPetPage;
+export default ViewHistorypage;
