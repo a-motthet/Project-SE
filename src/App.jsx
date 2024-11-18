@@ -15,8 +15,9 @@ import Detailpet from "./pages/Detailpet";
 import Addpet from "./pages/Addpet";
 import Pet_benefit from "./pages/Pet_benefit";
 import HealthpetPage from "./pages/HealthpetPage";
+import HistorypetVaccine from "./pages/HistorypetVaccine";
 
-import Footer from "./components/Footer"; // นำเข้า Footer
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -31,7 +32,7 @@ function MainContent() {
 
   const showNavbar =
     location.pathname !== "/" && location.pathname !== "/register";
-  const showFooter = showNavbar; // ให้ Footer แสดงเหมือน Navbar
+  const showFooter = showNavbar;
 
   return (
     <>
@@ -47,6 +48,7 @@ function MainContent() {
             <Route path="/Addpet/" element={<Addpet />} />
             <Route path="/Pet_benefit/" element={<Pet_benefit />} />
             <Route path="/HealthpetPage/" element={<HealthpetPage />} />
+            <Route path="/HistorypetVaccine/" element={<HistorypetVaccine />} />
           </Routes>
         </div>
         {showFooter && <Footer />}
