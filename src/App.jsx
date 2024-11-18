@@ -16,7 +16,8 @@ import Addpet from "./pages/Addpet";
 import Pet_benefit from "./pages/Pet_benefit";
 import HealthpetPage from "./pages/HealthpetPage";
 import HistorypetVaccine from "./pages/HistorypetVaccine";
-import ClinicNear from "./pages/ClinicNear"
+import ClinicNear from "./pages/ClinicNear";
+import ViewHistorypage from "./pages/ViewHistorypage";
 
 import Footer from "./components/Footer";
 
@@ -51,6 +52,7 @@ function MainContent() {
             <Route path="/HealthpetPage/" element={<HealthpetPage />} />
             <Route path="/HistorypetVaccine/" element={<HistorypetVaccine />} />
             <Route path="/ClinicNear/" element={<ClinicNear />} />
+            <Route path="/ViewHistorypage/" element={<ViewHistorypage />} />
           </Routes>
         </div>
         {showFooter && <Footer />}
