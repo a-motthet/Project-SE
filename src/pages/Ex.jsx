@@ -32,7 +32,7 @@ function Ex() {
                 className="w-16 h-16 rounded-full object-cover"
               />
               <div className="ml-4">
-                <h2 className="text-xl font-medium text-puple-b">NanS</h2>
+                <h2 className="text-xl font-medium text-puple-b"></h2>
                 <p className="text-gray-500">❤️❤️❤️❤️</p>
               </div>
             </div>
