@@ -9,17 +9,17 @@ function Home() {
   return (
     <div>
       <main className="flex-grow">
-        <div className="mb-8">
+        <div className="mb-8 hidden sm:block">
           <Welcome />
         </div>
         <div>
-          <h4 className="ml-[320px] text-[24px] font-bold font-sans">
+          <h4 className="ml-[200px] text-[24px] mb-8 font-bold font-sans">
             รายการทั้งหมด
           </h4>
           <Recomend />
         </div>
-        <div>
-          <h4 className="text-center text-[45px] font-bold font-sans my-8  font-chela ">
+        <div className="hidden sm:block">
+          <h4 className="text-center text-[45px] font-bold font-sans my-8 font-chela ">
             WHY ANIMALOVER ?
           </h4>
           <Why />
