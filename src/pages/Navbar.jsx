@@ -57,31 +57,31 @@ function Navbar() {
                 <div className="py-2">
                   <a
                     href="/Mypet"
-                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-center"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-center font-sans"
                   >
                     สัตว์เลี้ยงของฉัน
                   </a>
                   <a
                     href="/Addpet"
-                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-center"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-center font-sans"
                   >
                     เพิ่มสัตว์เลี้ยง
                   </a>
                   <a
                     href="/HealthpetPage"
-                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-center"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-center font-sans"
                   >
                     ข้อมูลสุขภาพ
                   </a>
                   <a
                     href="/ClinicNear"
-                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-center"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-center font-sans"
                   >
                     คลินิกใกล้เคียง
                   </a>
                   <a
                     href="/Pet_benefit"
-                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-center"
+                    className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-center font-sans"
                   >
                     แนะนำโภชนาการ
                   </a>

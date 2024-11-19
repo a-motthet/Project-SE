@@ -10,7 +10,7 @@ function App() {
   const [userLocation, setUserLocation] = useState(null); // สถานะตำแหน่งผู้ใช้
   const [clinics] = useState([
     {
-      name: "โรงพยาบาลสัตว์วิภา 24 ชั่วโมง",
+      name: "โรงพยาบาลสัตว์วิภา 24 ชั่วโมง ",
       phone: "082-127-3536",
       address: "ตำแหน่งที่ตั้ง",
       position: { lat: 13.755, lng: 100.501 },
@@ -86,7 +86,7 @@ function App() {
     <div className="flex justify-center items-center py-6">
       <div className="w-full max-w-4xl rounded-lg bg-white shadow-lg overflow-hidden">
         <div className="p-6">
-          <h1 className="text-2xl font-bold text-left text-[#6373B7] mb-4">
+          <h1 className="text-2xl font-bold text-left text-[#6373B7] mb-4 font-sans">
             ค้นหาคลินิกแนะนำ
           </h1>
           <div className="w-full h-64 rounded-lg shadow-md overflow-hidden">
@@ -107,8 +107,8 @@ function App() {
                     />
                     <InfoWindow position={userLocation}>
                       <div>
-                        <h2 className="font-bold">ตำแหน่งของคุณ</h2>
-                        <p>ตำแหน่งปัจจุบันของคุณ</p>
+                        <h2 className="font-bold font-sans">ตำแหน่งของคุณ</h2>
+                        <p className="font-sans">ตำแหน่งปัจจุบันของคุณ</p>
                       </div>
                     </InfoWindow>
                   </>
@@ -157,7 +157,7 @@ function App() {
                 <p className="text-gray-600">ที่อยู่: {clinic.address}</p>
               </div>
               <button
-                className="bg-[#6373B7] text-white py-2 px-4 rounded-lg hover:bg-purple-600"
+                className="bg-[#6373B7] text-white py-2 px-4 rounded-lg hover:bg-purple-600 font-sans"
                 onClick={() =>
                   window.open(
                     `https://www.google.com/maps/dir/?api=1&destination=${clinic.position.lat},${clinic.position.lng}`,

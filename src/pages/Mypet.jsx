@@ -11,7 +11,7 @@ function App() {
         <div className="p-6 bg-white rounded-lg shadow-lg flex flex-col items-center mb-8 w-full sm:w-80 md:w-96 lg:w-96 xl:w-1/3">
           <img src={mypic} alt="cat" className="w-40 h-40 rounded-full object-cover shadow-md border-4 border-white mb-4" />
           <div className="bg-gray-100 p-3 rounded-md w-full text-center">
-            <p className="text-gray-600 text-xl font-semibold">สัตว์เลี้ยงของฉัน</p>
+            <p className="text-gray-600 text-xl font-semibold font-sans">สัตว์เลี้ยงของฉัน</p>
           </div>
         </div>
         
@@ -26,7 +26,7 @@ function App() {
                   className="w-full h-full object-cover group-hover:opacity-80 transition-opacity duration-300"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-center items-center">
-                  <span className="text-white text-xl font-semibold">ดูรายละเอียด</span>
+                  <span className="text-white text-xl font-semibold font-sans">ดูรายละเอียด</span>
                 </div>
               </div>
             </Link>

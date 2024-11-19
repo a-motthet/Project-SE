@@ -24,7 +24,7 @@ function Recomend() {
         alt="Profile"
         className="w-32 h-32 rounded-full object-cover mb-2 my-[35px]"
       />
-      <h4 className="font-semibold mb-4">{title}</h4>
+      <h4 className="font-semibold mb-4 font-sans">{title}</h4>
     </div>
   );
 

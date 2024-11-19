@@ -16,7 +16,7 @@ function HealthPetPage() {
   const petHealthDate = "XX-XX-XXXX";
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center font-sans">
       <div className="bg-white rounded-large shadow-inner">
         <p className="pl-8 pt-8 text-puple-b text-3xl font-bold">{petName}</p>
         <div className="grid grid-cols-4 items-center">
