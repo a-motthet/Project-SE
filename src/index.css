@@ -1,25 +1,61 @@
 body {
-    font-family: 'Inter', sans-serif;
-  }
+  font-family: 'Inter', sans-serif;
+}
 
-  /* styles.css */
+/* styles.css */
 .flex.items-stretch {
-  display: flex;
-  align-items: stretch; /* ทำให้กล่องมีความสูงเท่ากัน */
-  gap: 8px; /* เพิ่มช่องว่างระหว่างกล่อง */
+display: flex;
+align-items: stretch; /* ทำให้กล่องมีความสูงเท่ากัน */
+gap: 8px; /* เพิ่มช่องว่างระหว่างกล่อง */
 }
 
 .flex-none {
-  flex: none; /* ป้องกันกล่องแรกยืดออก */
+flex: none; /* ป้องกันกล่องแรกยืดออก */
 }
 
 .pet-head {
-  flex: 1; /* ให้กล่อง PetHead ยืดตามพื้นที่ที่เหลือ */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+flex: 1; /* ให้กล่อง PetHead ยืดตามพื้นที่ที่เหลือ */
+display: flex;
+flex-direction: column;
+justify-content: center;
 }
 
+@keyframes slide-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 2s ease-out;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 5s linear infinite;
+}
 
 @tailwind base;
 @tailwind components;
