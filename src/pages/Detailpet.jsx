@@ -119,20 +119,20 @@ const PetProfile = () => {
   
 
   return (
-    <div className="bg-[#EBE4F2]  flex flex-col items-center">
+    <div className="bg-[#EBE4F2]  flex flex-col items-start">
       <div className="container mx-auto p-8 flex flex-col items-center">
-        <div className="p-6 bg-white rounded-lg shadow-xl flex flex-col lg:flex-row items-center w-full sm:w-3/5 lg:w-3/5">
+        <div className="p-9 bg-white rounded-lg shadow-xl flex flex-col lg:flex-row items-center w-full sm:w-3/5 lg:w-3/5">
           
           {/* Content Section */}
           <div className="lg:w-2/3 w-full lg:pr-8 flex flex-col items-start">
             {!isEditing ? (
               <>
-                <h2 className="text-[#6373B7] text-2xl font-bold mb-4">{petName} :</h2>
-                <p className="text-xl text-[#6373B7]"> สัตว์เลี้ยง: {petType} เพศ: {petSex}</p>
-                <p className="text-xl text-[#6373B7]"> วันเกิด: {birthdate}</p>
-                <p className="text-xl text-[#6373B7]">อายุของสัตว์เลี้ยง: {petAge}</p>
-                <p className="text-xl text-[#6373B7]"> น้ำหนัก: {petWeight}</p>
-                <p className="text-xl text-[#6373B7]"> Note: {note}</p>
+                <h2 className="text-[#6373B7] text-2xl font-sans font-bold mb-6">{petName} :</h2>
+                <p className="text-xl text-[#6373B7] font-sans"> สัตว์เลี้ยง: {petType} เพศ: {petSex}</p>
+                <p className="text-xl text-[#6373B7] font-sans"> วันเกิด: {birthdate}</p>
+                <p className="text-xl text-[#6373B7] font-sans">อายุของสัตว์เลี้ยง: {petAge}</p>
+                <p className="text-xl text-[#6373B7] font-sans"> น้ำหนัก: {petWeight}</p>
+                <p className="text-xl text-[#6373B7] font-sans"> Note: {note}</p>
                 <div className="flex space-x-2 w-full mt-20 items-end">
                   <button
                     onClick={toggleEditMode}
@@ -151,9 +151,9 @@ const PetProfile = () => {
             ) : (
               <>
                 {/* Editing Form */}
-                <h2 className="text-[#6373B7] text-lg font-bold mb-4">แก้ไขสัตว์เลี้ยงของท่าน</h2>
+                <h2 className="text-[#6373B7] text-lg font-sans font-bold mb-4">แก้ไขสัตว์เลี้ยงของท่าน</h2>
                 <div className="w-full mb-4">
-                  <label className="block text-[#6373B7] mb-1">ชื่อสัตว์เลี้ยง:</label>
+                  <label className="block text-[#6373B7] mb-1 font-sans ">ชื่อสัตว์เลี้ยง:</label>
                   <input 
                     type="text" 
                     value={petName} 
@@ -163,7 +163,7 @@ const PetProfile = () => {
                 </div>
 
                 <div className="w-full mb-4">
-                  <label className="block text-[#6373B7] mb-1">สัตว์เลี้ยง:</label>
+                  <label className="block text-[#6373B7] mb-1 font-sans">สัตว์เลี้ยง:</label>
                   <div className="flex space-x-6 ">
                     {["หมา", "แมว",].map((type) => (
                       <button
@@ -178,7 +178,7 @@ const PetProfile = () => {
                 </div>
 
                 <div className="w-full mb-4">
-                  <label className="block text-[#6373B7] mb-1">เพศ:</label>
+                  <label className="block text-[#6373B7] mb-1 font-sans">เพศ:</label>
                   <div className="flex space-x-6">
                     {["ชาย", "หญิง"].map((sex) => (
                       <button
@@ -193,7 +193,7 @@ const PetProfile = () => {
                 </div>
 
                 <div className="w-full mb-4">
-                  <label className="block text-[#6373B7] mb-1">น้ำหนักของสัตว์เลี้ยง:</label>
+                  <label className="block text-[#6373B7] mb-1 font-sans">น้ำหนักของสัตว์เลี้ยง:</label>
                   {showWeightInput ? (
                     <input 
                       type="text" 
@@ -212,25 +212,25 @@ const PetProfile = () => {
                 </div>
 
                 <div className="w-full mb-4">
-                  <p className="block text-[#6373B7] mb-1">อายุของสัตว์เลี้ยง:</p>
-                  <p className="block text-[#6373B7] mb-1">หากคุณไม่ทราบวันเดือนปีเกิด กรุณาเลือกอายุโดยประมาณ ในช่อง 'อายุโดยประมาณ'</p>
+                  <p className="block text-[#6373B7] mb-1 font-sans">อายุของสัตว์เลี้ยง:</p>
+                  <p className="block text-[#6373B7] mb-1 font-sans">หากคุณไม่ทราบวันเดือนปีเกิด กรุณาเลือกอายุโดยประมาณ ในช่อง 'อายุโดยประมาณ'</p>
                 </div>
 
-                <div className="w-full mb-4">
-      <label className="block text-[#6373B7] mb-1">วันเกิดของสัตว์เลี้ยง:</label>
+      <div className="w-full mb-4">
+      <label className="block text-[#6373B7] mb-1 font-sans">วันเกิดของสัตว์เลี้ยง:</label>
       <div className="mb-2">
-        <label className="mr-4 text-[#6373B7]">
+        <label className="mr-4 text-[#6373B7] font-sans">
           <input 
             type="radio" 
             name="birthdateOption" 
             value="approximate" 
             checked={birthdateOption === 'approximate'}
             onChange={() => setBirthdateOption('approximate')} 
-            className="mr-2"
+            className="mr-2 "
           />
           อายุโดยประมาณ
         </label>
-        <label className="text-[#6373B7]">
+        <label className="text-[#6373B7] font-sans">
           <input 
             type="radio" 
             name="birthdateOption" 
@@ -314,7 +314,7 @@ const PetProfile = () => {
                 )}
               </div>
               <div className="w-full mb-4">
-                  <label className="block text-[#6373B7] mb-1">หมายเหตุ:</label>
+                  <label className="block text-[#6373B7] mb-1 font-sans">หมายเหตุ:</label>
                   <textarea 
                     value={note} 
                     onChange={(e) => setNote(e.target.value)} 
@@ -323,7 +323,7 @@ const PetProfile = () => {
                 </div>
                 <button 
                   onClick={toggleEditMode} 
-                  className="w-full bg-[#6373B7] text-white p-3 rounded-md mt-4 px-12"
+                  className="font-sans w-full bg-[#6373B7] text-white p-3 rounded-md mt-4 px-12"
                 >
                   บันทึก
                 </button>
@@ -355,8 +355,8 @@ const PetProfile = () => {
       {showDeletePopup && (
         <div className="fixed inset-0 bg-gray-900 bg-opacity-50 flex items-center justify-center ">
           <div className="bg-white p-6 rounded-md w-1/3 text-center">
-            <p className="text-lg font-semibold text-[#6373B7] mb-4">คำเตือน</p>
-            <p className="text-sm text-[#6373B7] mb-4">หากลบสัตว์เลี้ยงของท่านแล้วจะไม่สามารถกู้ข้อมูลกลับมาคืนได้ โปรดทำการนี้ด้วยความระมัดระวัง โปรดระบุชื่อสัตว์เลี้ยงของท่านเพื่อทำการลบอย่างสมบูรณ์</p>
+            <p className="text-lg font-semibold text-[#6373B7] mb-4 font-sans">📢 คำเตือน</p>
+            <p className="text-sm text-[#6373B7] mb-4 font-sans">หากลบสัตว์เลี้ยงของท่านแล้วจะไม่สามารถกู้ข้อมูลกลับมาคืนได้ โปรดทำการนี้ด้วยความระมัดระวัง โปรดระบุชื่อสัตว์เลี้ยงของท่านเพื่อทำการลบอย่างสมบูรณ์</p>
             <input 
               type="text" 
               placeholder="กรุณาระบุชื่อสัตว์เลี้ยง"
@@ -367,13 +367,13 @@ const PetProfile = () => {
             <div className="flex justify-center space-x-10">
               <button 
                 onClick={handleDelete} 
-                className="bg-[#6373B7] text-white px-4 py-2 rounded-md"
+                className="bg-[#6373B7] text-white px-4 py-2 rounded-md font-sans"
               >
                 ยืนยัน
               </button>
               <button 
                 onClick={() => setShowDeletePopup(false)} 
-                className="bg-[#6373B7] text-white px-4 py-2 rounded-md"
+                className="bg-[#6373B7] text-white px-4 py-2 rounded-md font-sans"
               >
                 ยกเลิก
               </button>

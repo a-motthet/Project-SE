@@ -24,7 +24,7 @@ export default function VaccinationForm() {
   );
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="min-h-screen flex items-center justify-center font-sans">
       <div className="bg-white shadow-md rounded-large p-8 w-full max-w-screen-lg">
         <h2 className="text-puple-b text-3xl font-bold mb-4 ">
           ประวัติการฉีดวัคซีน :
