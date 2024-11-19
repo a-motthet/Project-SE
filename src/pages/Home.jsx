@@ -19,7 +19,7 @@ function Home() {
           <Recomend />
         </div>
         <div className="hidden sm:block">
-          <h4 className="text-center text-[45px] font-bold font-sans my-8 font-chela ">
+          <h4 className="text-center text-[45px] font-bold font-sans my-8 font-chela">
             WHY ANIMALOVER ?
           </h4>
           <Why />
