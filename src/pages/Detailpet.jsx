@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
+import { FaEdit, FaTrash, FaUpload } from 'react-icons/fa';
 import mypic from '../images/2.jpg';
 
 const NotificationPopup = ({  onClose }) => (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
     <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
-      <h2 className="text-[#6373B7] text-lg font-bold mb-2">แจ้งเตือน</h2>
+      <h2 className="text-[#6373B7] text-lg font-bold mb-2">📢 แจ้งเตือน</h2>
       <p className="text-[#6373B7] mb-4">เเก้ไขสัตว์เลี้ยงเสร็จสิ้น</p>
       <button
         onClick={() => onClose()}
@@ -19,7 +20,7 @@ const NotificationPopup = ({  onClose }) => (
 const NotificationMessagePopup = ({  onClose }) => (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
     <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
-      <h2 className="text-[#6373B7] text-lg font-bold mb-2">แจ้งเตือน</h2>
+      <h2 className="text-[#6373B7] text-lg font-bold mb-2">📢 แจ้งเตือน</h2>
       <p className="text-[#6373B7] mb-4">ลบสัตว์เลี้ยงเสร็จสิ้น</p>
       <button
         onClick={() => onClose()}
@@ -43,16 +44,35 @@ const PetProfile = () => {
   const [petSex, setPetSex] = useState('ชาย');
   const [petAge, setPetAge] = useState('2 ปี');
   const [petWeight, setPetWeight] = useState('200 กิโลกรัม');
-  const [birthdate, setBirthdate] = useState('xx-xx-20xx');
+  const [birthdate, setBirthdate] = useState('xx-xx-xxxx');
   const [note, setNote] = useState('น้องสมหมายชอบน่ารักของ มารี่');
   const [editPetType, setEditPetType] = useState(petType);
   const [showWeightInput, setShowWeightInput] = useState(false);
-  const [birthdateOption, setBirthdateOption] = useState('approximate');
+  const [birthdateOption, setBirthdateOption] = useState('exact');
+  const [selectedDay, setSelectedDay] = useState('');
+  const [selectedMonth, setSelectedMonth] = useState('');
+  const [selectedYear, setSelectedYear] = useState('');
   const [ageYears, setAgeYears] = useState('');
   const [ageMonths, setAgeMonths] = useState('');
   const [profilePic, setProfilePic] = useState(mypic);
   const [petNameToDelete, setPetNameToDelete] = useState('');
 
+  const calculateAge = (birthdate) => {
+    const birth = new Date(birthdate);
+    const today = new Date();
+  
+    let ageYears = today.getFullYear() - birth.getFullYear();
+    let ageMonths = today.getMonth() - birth.getMonth();
+  
+    if (ageMonths < 0) {
+      ageYears--;
+      ageMonths += 12;
+    }
+  
+    return { ageYears, ageMonths };
+  };
+  
+  
   const toggleEditMode = () => {
     if (isEditing) {
       setPetType(editPetType);
@@ -80,6 +100,24 @@ const PetProfile = () => {
     }
   };
 
+  useEffect(() => {
+    if (birthdateOption === 'exact' && selectedDay && selectedMonth && selectedYear) {
+      const formattedBirthdate = new Date(selectedYear, selectedMonth - 1, selectedDay);
+      setBirthdate(formattedBirthdate.toLocaleDateString('th-TH')); // เปลี่ยนให้แสดงวันที่ในรูปแบบไทย
+      const { ageYears, ageMonths } = calculateAge(formattedBirthdate);
+      setPetAge(`${ageYears} ปี ${ageMonths} เดือน`);
+    }
+  }, [selectedDay, selectedMonth, selectedYear, birthdateOption]);
+  
+  useEffect(() => {
+    if (birthdateOption === 'approximate' && ageYears && ageMonths) {
+      setPetAge(`${ageYears} ปี ${ageMonths} เดือน`);
+    }
+  }, [ageYears, ageMonths, birthdateOption]);
+  
+  
+  
+
   return (
     <div className="bg-[#EBE4F2]  flex flex-col items-center">
       <div className="container mx-auto p-8 flex flex-col items-center">
@@ -90,23 +128,23 @@ const PetProfile = () => {
             {!isEditing ? (
               <>
                 <h2 className="text-[#6373B7] text-2xl font-bold mb-4">{petName} :</h2>
-                <p className="text-xl text-[#6373B7]">สัตว์เลี้ยง: {petType} เพศ: {petSex}</p>
-                <p className="text-xl text-[#6373B7]">วันเกิด: {birthdate}</p>
+                <p className="text-xl text-[#6373B7]"> สัตว์เลี้ยง: {petType} เพศ: {petSex}</p>
+                <p className="text-xl text-[#6373B7]"> วันเกิด: {birthdate}</p>
                 <p className="text-xl text-[#6373B7]">อายุของสัตว์เลี้ยง: {petAge}</p>
-                <p className="text-xl text-[#6373B7]">น้ำหนัก: {petWeight}</p>
-                <p className="text-xl text-[#6373B7]">Note: {note}</p>
+                <p className="text-xl text-[#6373B7]"> น้ำหนัก: {petWeight}</p>
+                <p className="text-xl text-[#6373B7]"> Note: {note}</p>
                 <div className="flex space-x-2 w-full mt-20 items-end">
                   <button
                     onClick={toggleEditMode}
                     className="flex-1 bg-[#6373B7] text-white p-3 rounded-md"
                   >
-                    แก้ไข
+                    <FaEdit className="inline mr-2" /> แก้ไข
                   </button>
                   <button
                     onClick={() => setShowDeletePopup(true)}
                     className="flex-1 bg-[#6373B7] text-white p-3 rounded-md"
                   >
-                    ลบ
+                    <FaTrash className="inline mr-2" /> ลบ
                   </button>
                 </div>
               </>
@@ -127,13 +165,28 @@ const PetProfile = () => {
                 <div className="w-full mb-4">
                   <label className="block text-[#6373B7] mb-1">สัตว์เลี้ยง:</label>
                   <div className="flex space-x-6 ">
-                    {["หมา", "แมว", "อื่นๆ"].map((type) => (
+                    {["หมา", "แมว",].map((type) => (
                       <button
                         key={type}
                         onClick={() => setEditPetType(type)}
                         className={`px-4 py-2 rounded-md ${editPetType === type ? "bg-[#6373B7] text-white" : "bg-gray-200 text-gray-700"}`}
                       >
                         {type}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="w-full mb-4">
+                  <label className="block text-[#6373B7] mb-1">เพศ:</label>
+                  <div className="flex space-x-6">
+                    {["ชาย", "หญิง"].map((sex) => (
+                      <button
+                        key={sex}
+                        onClick={() => setPetSex(sex)}
+                        className={`px-4 py-2 rounded-md ${petSex === sex ? "bg-[#6373B7] text-white" : "bg-gray-200 text-gray-700"}`}
+                      >
+                        {sex}
                       </button>
                     ))}
                   </div>
@@ -164,57 +217,109 @@ const PetProfile = () => {
                 </div>
 
                 <div className="w-full mb-4">
-                  <label className="block text-[#6373B7] mb-1">วันเกิดของสัตว์เลี้ยง:</label>
-                  <div className="mb-2">
-                    <label className="mr-4 text-[#6373B7]">
-                      <input 
-                        type="radio" 
-                        name="birthdateOption" 
-                        value="approximate" 
-                        checked={birthdateOption === 'approximate'}
-                        onChange={() => setBirthdateOption('approximate')} 
-                        className="mr-2"
-                      />
-                      อายุโดยประมาณ
-                    </label>
-                    <label className="text-[#6373B7]">
-                      <input 
-                        type="radio" 
-                        name="birthdateOption" 
-                        value="exact" 
-                        checked={birthdateOption === 'exact'}
-                        onChange={() => setBirthdateOption('exact')} 
-                        className="mr-2"
-                      />
-                      อายุที่แน่ชัด
-                    </label>
-                  </div>
+      <label className="block text-[#6373B7] mb-1">วันเกิดของสัตว์เลี้ยง:</label>
+      <div className="mb-2">
+        <label className="mr-4 text-[#6373B7]">
+          <input 
+            type="radio" 
+            name="birthdateOption" 
+            value="approximate" 
+            checked={birthdateOption === 'approximate'}
+            onChange={() => setBirthdateOption('approximate')} 
+            className="mr-2"
+          />
+          อายุโดยประมาณ
+        </label>
+        <label className="text-[#6373B7]">
+          <input 
+            type="radio" 
+            name="birthdateOption" 
+            value="exact" 
+            checked={birthdateOption === 'exact'}
+            onChange={() => setBirthdateOption('exact')} 
+            className="mr-2"
+          />
+          อายุที่แน่ชัด
+        </label>
+      </div>
 
-                  {birthdateOption === 'approximate' ? (
-                    <div className="flex space-x-2">
-                      <input 
-                        type="text" 
-                        placeholder="ปี" 
-                        value={ageYears} 
-                        onChange={(e) => setAgeYears(e.target.value)} 
-                        className="w-1/3 p-3 border-2 border-gray-300 rounded-md"
-                      />
-                      <input 
-                        type="text" 
-                        placeholder="เดือน" 
-                        value={ageMonths} 
-                        onChange={(e) => setAgeMonths(e.target.value)} 
-                        className="w-1/3 p-3 border-2 border-gray-300 rounded-md"
-                      />
-                    </div>
-                  ) : (
+      {birthdateOption === 'exact' ? (
+        <div className="flex space-x-2">
+          {/* Dropdown สำหรับวัน */}
+          <select 
+            value={selectedDay} 
+            onChange={(e) => setSelectedDay(e.target.value)} 
+            className="w-1/3 p-3 border-2 border-gray-300 rounded-md"
+          >
+            <option value="">วัน</option>
+            {Array.from({ length: 31 }, (_, i) => (
+              <option key={i + 1} value={i + 1}>
+                {i + 1}
+              </option>
+            ))}
+          </select>
+
+          {/* Dropdown สำหรับเดือน */}
+          <select 
+            value={selectedMonth} 
+            onChange={(e) => setSelectedMonth(e.target.value)} 
+            className="w-1/3 p-3 border-2 border-gray-300 rounded-md"
+          >
+                <option value="">เดือน</option>
+                {[
+                  "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", 
+                  "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", 
+                  "พฤศจิกายน", "ธันวาคม"
+                ].map((month, index) => (
+                  <option key={index + 1} value={index + 1}>
+                    {month}
+                  </option>
+                ))}
+              </select>
+
+                {/* Dropdown สำหรับปี */}
+                <select 
+                  value={selectedYear} 
+                  onChange={(e) => setSelectedYear(e.target.value)} 
+                  className="w-1/3 p-3 border-2 border-gray-300 rounded-md"
+                >
+                  <option value="">ปี</option>
+                  {Array.from({ length: 50 }, (_, i) => (
+                    <option key={i} value={new Date().getFullYear() - i}>
+                      {new Date().getFullYear() - i}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            ) : (
+                  <div className="flex space-x-2">
                     <input 
-                      type="date" 
-                      value={birthdate} 
-                      onChange={(e) => setBirthdate(e.target.value)} 
-                      className="w-full p-3 border-2 border-gray-300 rounded-md"
+                      type="number" 
+                      placeholder="ปี" 
+                      value={ageYears} 
+                      onChange={(e) => setAgeYears(e.target.value)} 
+                      className="w-1/3 p-3 border-2 border-gray-300 rounded-md"
+                      min="0"
                     />
-                  )}
+                    <input 
+                      type="number" 
+                      placeholder="เดือน" 
+                      value={ageMonths} 
+                      onChange={(e) => setAgeMonths(e.target.value)} 
+                      className="w-1/3 p-3 border-2 border-gray-300 rounded-md"
+                      min="0" 
+                      max="11"
+                    />
+                  </div>
+                )}
+              </div>
+              <div className="w-full mb-4">
+                  <label className="block text-[#6373B7] mb-1">หมายเหตุ:</label>
+                  <textarea 
+                    value={note} 
+                    onChange={(e) => setNote(e.target.value)} 
+                    className="w-full p-3 border-2 border-gray-300 rounded-md"
+                  />
                 </div>
                 <button 
                   onClick={toggleEditMode} 
@@ -226,7 +331,6 @@ const PetProfile = () => {
             )}
           </div>
 
-          {/* Profile Picture Section */}
           <div className="lg:w-1/3 w-full lg:pr-8 flex flex-col items-center lg:order-last order-first">
             <div className="relative w-50 h-50 rounded-full flex items-center justify-center mb-10">
               <img 
@@ -235,7 +339,7 @@ const PetProfile = () => {
                 className="w-full h-full rounded-full object-cover"
               />
               <label className="absolute bottom-0 right-0 bg-white p-2 px-3 rounded-full shadow-md cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 flex items-center justify-center text-[#6373B7] font-semibold text-sm">
-                Upload
+              <FaUpload />
                 <input 
                   type="file" 
                   onChange={handleProfilePicChange} 
