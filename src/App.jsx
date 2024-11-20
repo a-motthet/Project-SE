@@ -1,13 +1,14 @@
 // App.js
 import "./index.css";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
 } from "react-router-dom";
+
+import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/RegisterPage";
 import Home from "./pages/Home";
 import Mypet from "./pages/Mypet";
 import Navbar from "./pages/Navbar";
@@ -18,7 +19,6 @@ import HealthpetPage from "./pages/HealthpetPage";
 import HistorypetVaccine from "./pages/HistorypetVaccine";
 import ClinicNear from "./pages/ClinicNear";
 import ViewHistorypage from "./pages/ViewHistorypage";
-
 import Footer from "./components/Footer";
 
 function App() {

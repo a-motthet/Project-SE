@@ -2,7 +2,6 @@ import React from "react";
 import Welcome from "./Welcome";
 import Recomend from "./Recomend";
 import Why from "./Why";
-import Ex from "./Ex";
 import ActiveSlider from "../components/ActiveSlider";
 
 function Home() {
