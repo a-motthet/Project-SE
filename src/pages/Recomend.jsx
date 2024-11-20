@@ -48,7 +48,7 @@ function Recomend() {
           />
           <RecommendedItem
             title="ข้อมูลสุขภาพ"
-            path="/healthpetPage"
+            path="/HomeHealth"
             imgSrc={mypic3}
           />
           <RecommendedItem

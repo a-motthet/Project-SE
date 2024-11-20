@@ -19,7 +19,9 @@ import HealthpetPage from "./pages/HealthpetPage";
 import HistorypetVaccine from "./pages/HistorypetVaccine";
 import ClinicNear from "./pages/ClinicNear";
 import ViewHistorypage from "./pages/ViewHistorypage";
+import HomeHealth from "./pages/HomeHealth"
 import Footer from "./components/Footer";
+
 
 function App() {
   return (
@@ -46,13 +48,14 @@ function MainContent() {
             <Route path="/Home" element={<Home />} />
             <Route path="/register" element={<RegisterPage />} />
             <Route path="/Mypet" element={<Mypet />} />
+            <Route path="/HomeHealth" element={<HomeHealth />} />
             <Route path="/Detailpet/:id" element={<Detailpet />} />
             <Route path="/Addpet/" element={<Addpet />} />
             <Route path="/Pet_benefit/" element={<Pet_benefit />} />
-            <Route path="/HealthpetPage/" element={<HealthpetPage />} />
+            <Route path="/HealthpetPage/:id" element={<HealthpetPage />} />
             <Route path="/HistorypetVaccine/" element={<HistorypetVaccine />} />
             <Route path="/ClinicNear/" element={<ClinicNear />} />
-            <Route path="/ViewHistorypage/" element={<ViewHistorypage />} />
+            <Route path="/ViewHistorypage/:id" element={<ViewHistorypage />} />
           </Routes>
         </div>
         {showFooter && <Footer />}

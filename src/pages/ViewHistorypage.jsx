@@ -1,19 +1,22 @@
 import React from "react";
 import mypic from "../images/2.jpg";
-import { useNavigate } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
 import { Vaccine } from "../constants";
 
 function ViewHistorypage() {
   const navigate = useNavigate();
+  const { id } = useParams(); // ดึง id จาก URL ของหน้าปัจจุบัน
+  console.log(id);
 
   const petName = "สมหมาย";
   const petType = "แมว";
   const petSex = "ผู้";
   const petAge = "19";
-  const petA = "XXXX";
-  const petB = "XXXX";
+  const petA = "xxxx";
+  const petB = "xxxx";
   const petWeight = "20 Kg.";
+
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center py-8 font-sans">
@@ -61,27 +64,27 @@ function ViewHistorypage() {
           <div className="">
             <div className="px-4 grid mb-2 gap-2 mb-20 text-puple-b">
               {Vaccine.map((item) => (
-                <pdf key={item.No}>
+                <div key={item.No}>
                   <div className="grid grid-cols-5 ">
-                    <h1 className=" font-bold mt-8 justify-self-start ml-8">
+                    <h1 className="font-bold mt-8 justify-self-start ml-8">
                       {item.No}
                     </h1>
                     <h1 className="font-bold col-span-2 mt-8 justify-self-center">
                       {item.name}
                     </h1>
-                    <h1 className=" font-bold mt-8 justify-self-center">
+                    <h1 className="font-bold mt-8 justify-self-center">
                       {item.received}
                     </h1>
-                    <h1 className=" font-bold mt-8 justify-self-center">
+                    <h1 className="font-bold mt-8 justify-self-center">
                       {item.Expiration}
                     </h1>
                   </div>
-                </pdf>
+                </div>
               ))}
               <div className="flex items-center justify-center my-8">
                 <button
                   className="w-auto bg-puple-b text-white text-xl py-4 px-4 rounded-large hover:bg-puple-holdber transition"
-                  onClick={() => navigate("/healthpetPage")}
+                  onClick={() => navigate(`/HealthpetPage/${id}`)} // ใช้ id ที่ดึงจาก URL
                 >
                   ย้อนกลับ
                 </button>
