@@ -21,7 +21,8 @@ import ClinicNear from "./pages/ClinicNear";
 import ViewHistorypage from "./pages/ViewHistorypage";
 import HomeHealth from "./pages/HomeHealth"
 import Footer from "./components/Footer";
-
+import Axios from 'axios'
+import { useState } from 'react'
 
 function App() {
   return (
