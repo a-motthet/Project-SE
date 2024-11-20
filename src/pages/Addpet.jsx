@@ -120,7 +120,7 @@ const Addpet = () => {
             <div className="w-full mb-4">
                   <label className="block text-[#6373B7] mb-1 font-sans">เพศ:</label>
                   <div className="flex space-x-6">
-                    {["ชาย", "หญิง"].map((sex) => (
+                    {["ผู้", "เมีย"].map((sex) => (
                       <button
                         key={sex}
                         onClick={() => setPetSex(sex)}

@@ -2,8 +2,6 @@ import React from "react";
 
 const PetFoodInfo = ({ ageGroup }) => {
   let foodInfo;
-
-  // เชื่อมโยงข้อมูลอาหารตามช่วงอายุ
   if (ageGroup === '7 ปีขึ้นไป') {
     foodInfo = (
       <>

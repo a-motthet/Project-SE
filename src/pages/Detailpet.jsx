@@ -41,7 +41,7 @@ const PetProfile = () => {
   const [ShowNotificationMessage, setShowNotificationMessage] = useState(false);
   const [petName, setPetName] = useState('สมหมาย');
   const [petType, setPetType] = useState('แมว');
-  const [petSex, setPetSex] = useState('ชาย');
+  const [petSex, setPetSex] = useState('ผู้');
   const [petAge, setPetAge] = useState('2 ปี');
   const [petWeight, setPetWeight] = useState('200 กิโลกรัม');
   const [birthdate, setBirthdate] = useState('xx-xx-xxxx');
@@ -180,7 +180,7 @@ const PetProfile = () => {
                 <div className="w-full mb-4">
                   <label className="block text-[#6373B7] mb-1 font-sans">เพศ:</label>
                   <div className="flex space-x-6">
-                    {["ชาย", "หญิง"].map((sex) => (
+                    {["ผู้", "เมีย"].map((sex) => (
                       <button
                         key={sex}
                         onClick={() => setPetSex(sex)}

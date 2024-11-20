@@ -2,15 +2,13 @@ import React from 'react';
 
 const PetCenter = ({ ageGroup, onAgeChange }) => {
   const handleAgeChange = (event) => {
-    onAgeChange(event.target.value); // ส่งค่าที่เลือกไปยัง PetProfile
+    onAgeChange(event.target.value);
   };
 
   return ( 
       <div className="bg-white p-4 rounded-lg shadow w-[95%] lg:w-[900px] mt-4 mx-auto">
           <div className="flex items-center justify-between">
-            {/* แสดงผลข้อความที่เลือก */}
             <h3 className="text-lg text-[#6373B7] font-bold">{ageGroup}</h3>
-
             {/* Dropdown สำหรับเลือกช่วงอายุ */}
             <select 
               value={ageGroup} 
