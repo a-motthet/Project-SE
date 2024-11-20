@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2024 at 04:12 PM
+-- Generation Time: Nov 20, 2024 at 11:04 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -32,9 +32,17 @@ CREATE TABLE `customers` (
   `user_firstname` varchar(100) NOT NULL,
   `user_lastname` varchar(100) NOT NULL,
   `user_email` varchar(255) NOT NULL,
+  `user_username` varchar(255) NOT NULL,
   `user_password` varchar(255) NOT NULL,
   `user_phone` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`user_id`, `user_firstname`, `user_lastname`, `user_email`, `user_username`, `user_password`, `user_phone`) VALUES
+(1, 'bill', 'olo', 'bill@gmail.com', 'test1', '1234', '0968989181');
 
 -- --------------------------------------------------------
 
@@ -93,7 +101,8 @@ CREATE TABLE `pet` (
 --
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`user_id`),
-  ADD UNIQUE KEY `user_email` (`user_email`);
+  ADD UNIQUE KEY `user_email` (`user_email`),
+  ADD UNIQUE KEY `user_username` (`user_username`);
 
 --
 -- Indexes for table `health_record`
@@ -123,7 +132,7 @@ ALTER TABLE `pet`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `health_record`
