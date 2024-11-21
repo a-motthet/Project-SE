@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2024 at 11:04 PM
+-- Generation Time: Nov 21, 2024 at 02:10 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `animalover`
+-- Database: `animalover1`
 --
 
 -- --------------------------------------------------------
@@ -29,8 +29,6 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `customers` (
   `user_id` int(11) NOT NULL,
-  `user_firstname` varchar(100) NOT NULL,
-  `user_lastname` varchar(100) NOT NULL,
   `user_email` varchar(255) NOT NULL,
   `user_username` varchar(255) NOT NULL,
   `user_password` varchar(255) NOT NULL,
@@ -41,8 +39,11 @@ CREATE TABLE `customers` (
 -- Dumping data for table `customers`
 --
 
-INSERT INTO `customers` (`user_id`, `user_firstname`, `user_lastname`, `user_email`, `user_username`, `user_password`, `user_phone`) VALUES
-(1, 'bill', 'olo', 'bill@gmail.com', 'test1', '1234', '0968989181');
+INSERT INTO `customers` (`user_id`, `user_email`, `user_username`, `user_password`, `user_phone`) VALUES
+(1, 'bill@gmail.com', 'test1', '1234', '0968989181'),
+(2, '123@gmail.com', 'massua', '123', '1234567891'),
+(3, 'zerohero307@gmail.com', 'zerohero37', '027556533za', '027556533'),
+(12, '789@gmail.com', '789', '789', '7894561234');
 
 -- --------------------------------------------------------
 
@@ -132,7 +133,7 @@ ALTER TABLE `pet`
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `health_record`
