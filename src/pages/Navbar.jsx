@@ -131,7 +131,7 @@ function Navbar() {
                 <div className="absolute top-[-8px] right-6 w-4 h-4 bg-white rotate-45 shadow-md"></div>
 
                 <a
-                  href="/AccountManagement"
+                  href="/Edit"
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:rounded-t-lg"
                 >
                   จัดการบัญชี

@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import Axios from 'axios';
-import { useState } from 'react';
+import Axios from "axios";
+import { useState } from "react";
 
 import {
   IoMailOutline,
@@ -13,7 +13,7 @@ import {
 import mypic from "../images/1.jpg";
 
 function RegisterPage() {
-  const navigate = useNavigate(); // Initialize the navigate function
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -22,11 +22,11 @@ function RegisterPage() {
   const [customers, setCustomers] = useState([]);
 
   const addCustomer = () => {
-    Axios.post('http://localhost:3001/register', {
+    Axios.post("http://localhost:3001/register", {
       username: username,
       phone: phone,
       email: email,
-      password: password
+      password: password,
     }).then(() => {
       setCustomers([
         ...customers,
@@ -34,11 +34,11 @@ function RegisterPage() {
           username: username,
           phone: phone,
           email: email,
-          password: password
-        }
-      ])
-    })
-  }
+          password: password,
+        },
+      ]);
+    });
+  };
 
   const handleLogin = () => {
     navigate("/"); // Navigate to the login page
@@ -60,7 +60,7 @@ function RegisterPage() {
                   type="text"
                   placeholder="Username"
                   onChange={(event) => {
-                    setUsername(event.target.value)
+                    setUsername(event.target.value);
                   }}
                 />
               </div>
@@ -75,7 +75,7 @@ function RegisterPage() {
                   type="tel"
                   placeholder="Phone"
                   onChange={(event) => {
-                    setPhone(event.target.value)
+                    setPhone(event.target.value);
                   }}
                 />
               </div>
@@ -90,7 +90,7 @@ function RegisterPage() {
                   type="email"
                   placeholder="Email"
                   onChange={(event) => {
-                    setEmail(event.target.value)
+                    setEmail(event.target.value);
                   }}
                 />
               </div>
@@ -105,7 +105,7 @@ function RegisterPage() {
                   type="password"
                   placeholder="Password"
                   onChange={(event) => {
-                    setPassword(event.target.value)
+                    setPassword(event.target.value);
                   }}
                 />
               </div>
@@ -125,7 +125,8 @@ function RegisterPage() {
             {/* ปุ่ม Login สีม่วง */}
             <div class="flex justify-end mt-3">
               <button
-                className="bg-puple-b hover:bg-puple-md text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" onClick={addCustomer}
+                className="bg-puple-b hover:bg-puple-md text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                onClick={addCustomer}
                 type="button"
               >
                 Register
