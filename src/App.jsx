@@ -20,6 +20,8 @@ import ClinicNear from "./pages/ClinicNear";
 import ViewHistorypage from "./pages/ViewHistorypage";
 import HomeHealth from "./pages/HomeHealth";
 import Footer from "./components/Footer";
+import Contact from "./pages/Contact";
+import Edit from "./pages/Edit";
 
 function App() {
   return (
@@ -54,6 +56,8 @@ function MainContent() {
             <Route path="/HistorypetVaccine/" element={<HistorypetVaccine />} />
             <Route path="/ClinicNear/" element={<ClinicNear />} />
             <Route path="/ViewHistorypage/:id" element={<ViewHistorypage />} />
+            <Route path="/Contact" element={<Contact />} />
+            <Route path="/Edit" element={<Edit />} />
           </Routes>
         </div>
         {showFooter && <Footer />}

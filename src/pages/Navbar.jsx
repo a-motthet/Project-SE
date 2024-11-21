@@ -199,12 +199,24 @@ function Navbar() {
           >
             Contact Us
           </button>
-          <button
-            onClick={() => handleNavigation("/Login")}
-            className="block text-lg font-medium"
-          >
-            Login
-          </button>
+          <div>
+            <button
+              onClick={() => setDropdownOpenUser(!dropdownOpenUser)}
+              className="flex items-center text-lg font-medium"
+            >
+              {user} <FaAngleDown className="ml-2" />
+            </button>
+            {dropdownOpenUser && (
+              <div className="ml-4 mt-2 space-y-2">
+                <a href="/Edit" className="block hover:text-puple-holdber">
+                  จัดการบัญชี
+                </a>
+                <a href="/" className="block hover:text-puple-holdber">
+                  ออกจากระบบ
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       )}
     </nav>
