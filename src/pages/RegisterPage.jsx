@@ -41,7 +41,7 @@ function RegisterPage() {
   }
 
   const handleLogin = () => {
-    navigate("/login"); // Navigate to the login page
+    navigate("/"); // Navigate to the login page
   };
   return (
     <div className="bg-pupul-bg flex h-screen justify-center items-center">
