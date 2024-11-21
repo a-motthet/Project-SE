@@ -1,4 +1,3 @@
-// App.js
 import "./index.css";
 import {
   BrowserRouter as Router,
@@ -19,10 +18,8 @@ import HealthpetPage from "./pages/HealthpetPage";
 import HistorypetVaccine from "./pages/HistorypetVaccine";
 import ClinicNear from "./pages/ClinicNear";
 import ViewHistorypage from "./pages/ViewHistorypage";
-import HomeHealth from "./pages/HomeHealth"
+import HomeHealth from "./pages/HomeHealth";
 import Footer from "./components/Footer";
-import Axios from 'axios'
-import { useState } from 'react'
 
 function App() {
   return (

@@ -5,8 +5,10 @@ import mypic from "../images/1.jpg";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownOpenPet, setDropdownOpenPet] = useState(false);
+  const [dropdownOpenUser, setDropdownOpenUser] = useState(false);
   const navigate = useNavigate();
+  const user = "Atsadawut";
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -42,21 +44,31 @@ function Navbar() {
         <div className="hidden md:flex space-x-8 items-center">
           <button
             onClick={() => handleNavigation("/Home")}
-            onMouseEnter={() => setDropdownOpen(false)}
+            onMouseEnter={() => {
+              setDropdownOpenPet(false);
+              setDropdownOpenUser(false);
+            }}
             className="text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-puple-holdber hover:shadow-md"
           >
             Home
           </button>
           <div
-            className="relative group "
-            onMouseEnter={() => setDropdownOpen(true)}
+            className="relative group"
+            onMouseEnter={() => {
+              setDropdownOpenPet(true);
+              setDropdownOpenUser(false);
+            }}
           >
             <button className="flex items-center text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-puple-holdber hover:shadow-md">
               Pet <FaAngleDown className="ml-2" />
             </button>
+
             {/* Dropdown */}
-            {dropdownOpen && (
+            {dropdownOpenPet && (
               <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg text-center">
+                {/* ลูกศรของ Dropdown */}
+                <div className="absolute top-[-8px] left-6 w-4 h-4 bg-white rotate-45 shadow-md"></div>
+
                 <a
                   href="/Mypet"
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:rounded-t-lg"
@@ -90,20 +102,49 @@ function Navbar() {
               </div>
             )}
           </div>
+
           <button
-            onMouseEnter={() => setDropdownOpen(false)}
+            onMouseEnter={() => {
+              setDropdownOpenPet(false);
+              setDropdownOpenUser(false);
+            }}
             onClick={() => handleNavigation("/Contact")}
             className="text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-puple-holdber hover:shadow-md"
           >
             Contact Us
           </button>
-          <button
-            onMouseEnter={() => setDropdownOpen(false)}
-            onClick={() => handleNavigation("/Login")}
-            className="text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-puple-holdber hover:shadow-md"
+          <div
+            className="relative group"
+            onMouseEnter={() => {
+              setDropdownOpenPet(false);
+              setDropdownOpenUser(true);
+            }}
           >
-            Login
-          </button>
+            <button className="flex items-center text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-puple-holdber hover:shadow-md">
+              {user} <FaAngleDown className="ml-2" />
+            </button>
+
+            {/* Dropdown */}
+            {dropdownOpenUser && (
+              <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg text-center">
+                {/* ลูกศรของ Dropdown */}
+                <div className="absolute top-[-8px] right-6 w-4 h-4 bg-white rotate-45 shadow-md"></div>
+
+                <a
+                  href="/AccountManagement"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:rounded-t-lg"
+                >
+                  จัดการบัญชี
+                </a>
+                <a
+                  href="/Logout"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:rounded-b-lg"
+                >
+                  ออกจากระบบ
+                </a>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
@@ -118,12 +159,12 @@ function Navbar() {
           </button>
           <div>
             <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
+              onClick={() => setDropdownOpenPet(!dropdownOpenPet)}
               className="flex items-center text-lg font-medium"
             >
               Pet <FaAngleDown className="ml-2" />
             </button>
-            {dropdownOpen && (
+            {dropdownOpenPet && (
               <div className="ml-4 mt-2 space-y-2">
                 <a href="/Mypet" className="block hover:text-puple-holdber">
                   สัตว์เลี้ยงของฉัน
