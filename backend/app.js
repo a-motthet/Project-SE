@@ -14,6 +14,47 @@ const db = mysql.createConnection({
   database: "animalover",
 });
 
+app.get("/", (req, res) => {
+  res.send("Welcome to the server!");
+});
+
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  db.query(
+    "SELECT * FROM customers WHERE user_username = ? AND user_password = ?",
+    [username, password],
+    (err, result) => {
+      if (err) {
+        res.status(500).send({ success: false, message: "Server error" });
+      } else if (result.length > 0) {
+        res.send({ success: true, message: "Login successful" });
+      } else {
+        res.status(401).send({ success: false, message: "Invalid credentials" });
+      }
+    }
+  );
+});
+
+
+app.get("/getUsername", (req, res) => {
+  const userId = req.query.userId; // รับ userId จาก query parameter
+
+  db.query(
+    "SELECT user_username FROM customers WHERE user_id = ?",
+    [userId],
+    (err, result) => {
+      if (err) {
+        res.status(500).send({ success: false, message: "Server error" });
+      } else if (result.length > 0) {
+        res.send({ success: true, username: result[0].user_username });
+      } else {
+        res.status(404).send({ success: false, message: "User not found" });
+      }
+    }
+  );
+});
+
 app.get("/customers", (req, res) => {
   db.query("SELECT * FROM customers", (err, result) => {
     if (err) {

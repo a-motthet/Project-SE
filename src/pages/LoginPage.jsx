@@ -1,17 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { IoPersonOutline, IoLockClosedOutline } from "react-icons/io5";
 import mypic from "../images/1.jpg";
 
 function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState(""); // สำหรับแสดงข้อความผิดพลาด
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    navigate("/Home"); 
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post("http://localhost:3001/login", {
+        username,
+        password,
+      });
+
+      if (response.data.success) {
+        alert("Login successful!"); // แจ้งเตือนเมื่อเข้าสู่ระบบสำเร็จ
+        navigate("/Home"); // ย้ายหน้าไปที่ "/Home"
+      } else {
+        setErrorMessage(response.data.message || "Invalid credentials");
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      setErrorMessage("An error occurred. Please try again.");
+    }
   };
 
   const handleRegister = () => {
-    navigate("/register"); 
+    navigate("/register");
   };
 
   return (
@@ -36,6 +55,8 @@ function LoginPage() {
                   id="username"
                   type="text"
                   placeholder="Username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)} // เก็บค่าที่ผู้ใช้กรอก
                 />
               </div>
             </div>
@@ -48,9 +69,14 @@ function LoginPage() {
                   id="password"
                   type="password"
                   placeholder="Password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)} // เก็บค่าที่ผู้ใช้กรอก
                 />
               </div>
             </div>
+            {errorMessage && (
+              <p className="text-red-500 text-sm mb-3">{errorMessage}</p>
+            )}
             <div className="flex justify-end">
               <a
                 className="font-bold text-sm text-blue-500 hover:text-blue-800"
