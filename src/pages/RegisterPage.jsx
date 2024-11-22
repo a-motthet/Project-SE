@@ -44,8 +44,8 @@ function RegisterPage() {
     navigate("/"); // Navigate to the login page
   };
   return (
-    <div className="bg-pupul-bg flex h-screen justify-center items-center">
-      <div className="w-1/3 bg-gradient-to-t from-puple-b to-puple-md h-4/6 rounded-l-lg"></div>
+    <div className="bg-color-bg flex h-screen justify-center items-center">
+      <div className="w-1/3 bg-gradient-to-t from-color-b to-color-md h-4/6 rounded-l-lg"></div>
 
       <div className="w-1/3 bg-white flex items-center justify-center h-4/6 rounded-r-lg">
         <div className="w-full max-w-md p-8">
@@ -125,7 +125,7 @@ function RegisterPage() {
             {/* ปุ่ม Login สีม่วง */}
             <div class="flex justify-end mt-3">
               <button
-                className="bg-puple-b hover:bg-puple-md text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-color-b hover:bg-color-md text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 onClick={addCustomer}
                 type="button"
               >
@@ -138,7 +138,7 @@ function RegisterPage() {
               {/* ปุ่ม login */}
               <div class="flex justify-center mt-3">
                 <button
-                  className="bg-puple-b hover:bg-puple-md text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-color-b hover:bg-color-md text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                   type="button"
                   onClick={handleLogin}
                 >

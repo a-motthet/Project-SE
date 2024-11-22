@@ -11,11 +11,11 @@ export default function VaccinationForm() {
   const NotificationPopup = ({ onClose }) => (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
       <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
-        <h2 className="text-puple-b text-lg font-bold mb-2">แจ้งเตือน</h2>
-        <p className="text-puple-b mb-4">เพิ่มข้อมูลสำเร็จ</p>
+        <h2 className="text-color-b text-lg font-bold mb-2">แจ้งเตือน</h2>
+        <p className="text-color-b mb-4">เพิ่มข้อมูลสำเร็จ</p>
         <button
           onClick={onClose}
-          className="bg-puple-b text-white px-4 py-2 rounded-md hover:bg-puple-holdber "
+          className="bg-color-b text-white px-4 py-2 rounded-md hover:bg-color-holdber "
         >
           ยืนยัน
         </button>
@@ -26,14 +26,14 @@ export default function VaccinationForm() {
   return (
     <div className="min-h-screen flex items-center justify-center font-sans">
       <div className="bg-white shadow-md rounded-large p-8 w-full max-w-screen-lg">
-        <h2 className="text-puple-b text-3xl font-bold mb-4 ">
+        <h2 className="text-color-b text-3xl font-bold mb-4 ">
           ประวัติการฉีดวัคซีน :
         </h2>
         <form onSubmit={handleFormSubmit}>
           {/* วัคซีน */}
           <div className="mb-4">
             <label
-              className="block text-puple-b text-2xl mb-2"
+              className="block text-color-b text-2xl mb-2"
               htmlFor="vaccine"
             >
               วัคซีน
@@ -41,7 +41,7 @@ export default function VaccinationForm() {
             <input
               type="text"
               id="vaccine"
-              className="w-full px-3 py-4 border rounded-large text-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-puple-b focus:border-transparent"
+              className="w-full px-3 py-4 border rounded-large text-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-color-b focus:border-transparent"
               placeholder="โปรดระบุชื่อวัคซีน"
             />
           </div>
@@ -49,7 +49,7 @@ export default function VaccinationForm() {
             {/* วันที่ฉีดวัคซีน */}
             <div className="mb-4">
               <label
-                className="block text-puple-b text-2xl mb-2"
+                className="block text-color-b text-2xl mb-2"
                 htmlFor="vaccineDate"
               >
                 วันที่ที่ฉีดวัคซีน
@@ -57,14 +57,14 @@ export default function VaccinationForm() {
               <input
                 type="date"
                 id="vaccineDate"
-                className="w-full px-3 py-4 border rounded-large text-xl text-puple-box shadow-sm focus:outline-none focus:ring-2 focus:ring-puple-b focus:border-transparent"
+                className="w-full px-3 py-4 border rounded-large text-xl text-color-box shadow-sm focus:outline-none focus:ring-2 focus:ring-color-b focus:border-transparent"
               />
             </div>
 
             {/* วันหมดอายุ */}
             <div className="mb-4">
               <label
-                className="block text-puple-b text-2xl mb-2"
+                className="block text-color-b text-2xl mb-2"
                 htmlFor="expiryDate"
               >
                 วันหมดอายุ
@@ -72,18 +72,18 @@ export default function VaccinationForm() {
               <input
                 type="date"
                 id="expiryDate"
-                className="w-full px-3 py-4 border rounded-large text-xl text-puple-box shadow-sm focus:outline-none focus:ring-2 focus:ring-puple-b focus:border-transparent"
+                className="w-full px-3 py-4 border rounded-large text-xl text-color-box shadow-sm focus:outline-none focus:ring-2 focus:ring-color-b focus:border-transparent"
               />
             </div>
           </div>
-          <h2 className="text-puple-b text-3xl font-bold mb-4 ">
+          <h2 className="text-color-b text-3xl font-bold mb-4 ">
             ประวัติการตรวจสุขภาพ :
           </h2>
 
           {/* วันที่ตรวจสุขภาพ */}
           <div className="mb-4">
             <label
-              className="block text-puple-b text-2xl mb-2"
+              className="block text-color-b text-2xl mb-2"
               htmlFor="checkupDate"
             >
               วันที่ตรวจสุขภาพ:
@@ -91,14 +91,14 @@ export default function VaccinationForm() {
             <input
               type="date"
               id="checkupDate"
-              className="w-auto px-3 py-4 border rounded-large text-xl text-puple-box shadow-sm focus:outline-none focus:ring-2 focus:ring-puple-box focus:border-transparent"
+              className="w-auto px-3 py-4 border rounded-large text-xl text-color-box shadow-sm focus:outline-none focus:ring-2 focus:ring-color-box focus:border-transparent"
             />
           </div>
 
           {/* ข้อมูลเพิ่มเติม */}
           <div className="mb-4">
             <label
-              className="block text-puple-b text-2xl mb-2"
+              className="block text-color-b text-2xl mb-2"
               htmlFor="additionalInfo"
             >
               ข้อมูลเพิ่มเติม:
@@ -106,7 +106,7 @@ export default function VaccinationForm() {
             <textarea
               id="additionalInfo"
               rows="4"
-              className="w-full px-3 py-4 border rounded-large shadow-sm focus:outline-none focus:ring-2 focus:ring-puple-box focus:border-transparent"
+              className="w-full px-3 py-4 border rounded-large shadow-sm focus:outline-none focus:ring-2 focus:ring-color-box focus:border-transparent"
               placeholder="ใส่ข้อมูลเพิ่มเติม..."
             ></textarea>
           </div>
@@ -115,7 +115,7 @@ export default function VaccinationForm() {
           <div className="flex items-center justify-center">
             <button
               type="submit"
-              className="w-auto bg-puple-b text-white text-xl py-4 px-4 rounded-large hover:bg-puple-holdber transition"
+              className="w-auto bg-color-b text-white text-xl py-4 px-4 rounded-large hover:bg-color-holdber transition"
             >
               บันทึกข้อมูล
             </button>

@@ -5,10 +5,42 @@ import { IoPersonOutline, IoLockClosedOutline } from "react-icons/io5";
 import mypic from "../images/1.jpg";
 
 function LoginPage() {
+  const [isErrorPopupVisible, setIsErrorPopupVisible] = useState(false);
+  const [isSuccessPopupVisible, setIsSuccessPopupVisible] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState(""); // สำหรับแสดงข้อความผิดพลาด
+  const [popupMessage, setPopupMessage] = useState("");
   const navigate = useNavigate();
+
+  const NotificationPopup = ({ type, message, onClose }) => {
+    const isError = type === "error";
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+        <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
+          <h2
+            className={`text-lg mb-2 ${
+              isError ? "text-red-400" : "text-green-400"
+            }`}
+          >
+            {isError ? "แจ้งเตือนข้อผิดพลาด" : "แจ้งเตือนความสำเร็จ"}
+          </h2>
+          <p className={`mb-4 ${isError ? "text-red-400" : "text-green-400"}`}>
+            {message}
+          </p>
+          <button
+            onClick={onClose}
+            className={`px-4 py-2 rounded-large text-white ${
+              isError
+                ? "bg-red-400 hover:bg-red-200"
+                : "bg-green-400 hover:bg-green-200"
+            }`}
+          >
+            ยืนยัน
+          </button>
+        </div>
+      </div>
+    );
+  };
 
   const handleLogin = async () => {
     try {
@@ -18,14 +50,18 @@ function LoginPage() {
       });
 
       if (response.data.success) {
-        alert("Login successful!"); // แจ้งเตือนเมื่อเข้าสู่ระบบสำเร็จ
-        navigate("/Home"); // ย้ายหน้าไปที่ "/Home"
+        setPopupMessage("เข้าสู่ระบบสำเร็จ!");
+        setIsSuccessPopupVisible(true); // แสดง Popup ความสำเร็จ
       } else {
-        setErrorMessage(response.data.message || "Invalid credentials");
+        setPopupMessage(
+          response.data.message || "รหัสผ่านหรือชื่อผู้ใช้ผิดพลาด"
+        );
+        setIsErrorPopupVisible(true); // แสดง Popup ข้อผิดพลาด
       }
     } catch (error) {
       console.error("Error during login:", error);
-      setErrorMessage("An error occurred. Please try again.");
+      setPopupMessage("เกิดข้อผิดพลาด โปรดลองอีกครั้ง");
+      setIsErrorPopupVisible(true); // แสดง Popup ข้อผิดพลาด
     }
   };
 
@@ -34,10 +70,27 @@ function LoginPage() {
   };
 
   return (
-    <div className="bg-pupul-bg flex h-screen justify-center items-center px-4">
-      <div className="w-1/3 bg-gradient-to-t from-puple-b to-puple-md h-4/6 rounded-l-lg"></div>
+    <div className="bg-color-bg flex h-screen justify-center items-center px-4">
+      {isErrorPopupVisible && (
+        <NotificationPopup
+          type="error"
+          message={popupMessage}
+          onClose={() => setIsErrorPopupVisible(false)}
+        />
+      )}
+      {isSuccessPopupVisible && (
+        <NotificationPopup
+          type="success"
+          message={popupMessage}
+          onClose={() => {
+            setIsSuccessPopupVisible(false);
+            navigate("/Home"); // ย้ายหน้าไปยัง "/Home" หลังปิด Popup
+          }}
+        />
+      )}
+      <div className="w-1/3 bg-gradient-to-t from-color-b to-color-md h-4/6 rounded-l-large"></div>
 
-      <div className="w-1/3 bg-white flex items-center justify-center h-4/6 rounded-r-lg">
+      <div className="w-1/3 bg-white flex items-center justify-center h-4/6 rounded-r-large">
         <div className="w-full p-6 sm:p-8">
           <div className="flex justify-center mb-7">
             <img
@@ -46,37 +99,35 @@ function LoginPage() {
               className="w-32 h-32 md:w-48 md:h-48 rounded-full object-cover"
             />
           </div>
-          <form>
+          <form onSubmit={(e) => e.preventDefault()}>
             <div className="mb-3">
-              <div className="flex items-center border rounded shadow-sm font-bold">
+              <div className="flex items-center border border-gray-300 rounded-large shadow-sm bg-white">
                 <IoPersonOutline className="text-gray-500 mx-4 text-xl sm:text-2xl" />
                 <input
-                  className="w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="w-full py-3 px-3 text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-color-md focus:border-color-md rounded-large"
                   id="username"
                   type="text"
                   placeholder="Username"
                   value={username}
-                  onChange={(e) => setUsername(e.target.value)} // เก็บค่าที่ผู้ใช้กรอก
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
             </div>
 
             <div className="mb-3">
-              <div className="flex items-center border rounded shadow-sm font-bold">
+              <div className="flex items-center border border-gray-300 rounded-large shadow-sm bg-white">
                 <IoLockClosedOutline className="text-gray-500 mx-4 text-xl sm:text-2xl" />
                 <input
-                  className="w-full py-3 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="w-full py-3 px-3 text-gray-700 bg-white focus:outline-none focus:ring-2 focus:ring-color-md focus:border-color-md rounded-large"
                   id="password"
                   type="password"
                   placeholder="Password"
                   value={password}
-                  onChange={(e) => setPassword(e.target.value)} // เก็บค่าที่ผู้ใช้กรอก
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
             </div>
-            {errorMessage && (
-              <p className="text-red-500 text-sm mb-3">{errorMessage}</p>
-            )}
+
             <div className="flex justify-end">
               <a
                 className="font-bold text-sm text-blue-500 hover:text-blue-800"
@@ -87,7 +138,7 @@ function LoginPage() {
             </div>
             <div className="flex justify-end mt-3">
               <button
-                className="bg-puple-b hover:bg-puple-md text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-color-b hover:bg-color-md text-white font-bold py-2 px-4 rounded-large focus:outline-none focus:shadow-outline"
                 type="button"
                 onClick={handleLogin}
               >
@@ -95,10 +146,12 @@ function LoginPage() {
               </button>
             </div>
             <div className="flex flex-col items-center mt-3">
-              <a>- - - - - - - - - - - - - หรือ - - - - - - - - - - - - - -</a>
+              <span>
+                - - - - - - - - - - - - - หรือ - - - - - - - - - - - - - -
+              </span>
               <div className="flex justify-center mt-3">
                 <button
-                  className="bg-puple-b hover:bg-puple-md text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  className="bg-color-b hover:bg-color-md text-white font-bold py-2 px-4 rounded-large focus:outline-none focus:shadow-outline"
                   type="button"
                   onClick={handleRegister}
                 >

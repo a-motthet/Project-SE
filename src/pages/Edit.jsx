@@ -6,11 +6,11 @@ function Edit() {
   const NotificationPopup = ({ onClose }) => (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
       <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
-        <h2 className="text-puple-b text-lg font-bold mb-2">แจ้งเตือน</h2>
-        <p className="text-puple-b mb-4">เพิ่มข้อมูลสำเร็จ</p>
+        <h2 className="text-color-b text-lg font-bold mb-2">แจ้งเตือน</h2>
+        <p className="text-color-b mb-4">เพิ่มข้อมูลสำเร็จ</p>
         <button
           onClick={onClose}
-          className="bg-puple-b text-white px-4 py-2 rounded-md hover:bg-puple-holdber"
+          className="bg-color-b text-white px-4 py-2 rounded-md hover:bg-color-holdber"
         >
           ยืนยัน
         </button>
@@ -22,7 +22,7 @@ function Edit() {
     <div className="min-h-screen flex items-center justify-center bg-purple-100">
       <div className="bg-white shadow-lg rounded-lg w-[90%] max-w-[600px] p-8">
         {/* Title */}
-        <h1 className="text-center text-xl font-bold text-puple-b mb-8">
+        <h1 className="text-center text-xl font-bold text-color-b mb-8">
           จัดการโปรไฟล์
         </h1>
 
@@ -38,7 +38,7 @@ function Edit() {
           <div>
             <label
               htmlFor="firstname"
-              className="block text-puple-b font-medium"
+              className="block text-color-b font-medium"
             >
               ชื่อ-นามสกุล
             </label>
@@ -46,14 +46,14 @@ function Edit() {
               id="Fullname"
               type="text"
               placeholder="Fullname"
-              className="w-full mt-2 px-4 py-2 border rounded-large bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-puple-b focus:border-transparent"
+              className="w-full mt-2 px-4 py-2 border rounded-large bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-color-b focus:border-transparent"
               required
             />
           </div>
 
           {/* เบอร์โทรศัพท์ */}
           <div>
-            <label htmlFor="phone" className="block text-puple-b font-medium">
+            <label htmlFor="phone" className="block text-color-b font-medium">
               เบอร์โทรศัพท์
             </label>
             <div className="relative">
@@ -61,7 +61,7 @@ function Edit() {
                 id="phone"
                 type="text"
                 placeholder="Phone"
-                className="w-full mt-2 px-4 py-2 border rounded-large bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-puple-b focus:border-transparent"
+                className="w-full mt-2 px-4 py-2 border rounded-large bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-color-b focus:border-transparent"
                 required
               />
             </div>
@@ -69,14 +69,14 @@ function Edit() {
 
           {/* อีเมล */}
           <div>
-            <label htmlFor="email" className="block text-puple-b font-medium">
+            <label htmlFor="email" className="block text-color-b font-medium">
               อีเมล
             </label>
             <input
               id="email"
               type="email"
               placeholder="Email"
-              className="w-full mt-2 px-4 py-2 border rounded-large bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-puple-b focus:border-transparent"
+              className="w-full mt-2 px-4 py-2 border rounded-large bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-color-b focus:border-transparent"
               required
             />
           </div>
@@ -85,7 +85,7 @@ function Edit() {
           <div>
             <label
               htmlFor="password"
-              className="block text-puple-b font-medium"
+              className="block text-color-b font-medium"
             >
               รหัสผ่าน
             </label>
@@ -93,14 +93,14 @@ function Edit() {
               id="password"
               type="password"
               placeholder="Password"
-              className="w-full mt-2 px-4 py-2 border rounded-large bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-puple-b focus:border-transparent"
+              className="w-full mt-2 px-4 py-2 border rounded-large bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-color-b focus:border-transparent"
               required
             />
             <input
               id="confirmPassword"
               type="password"
               placeholder="Confirm Password"
-              className="w-full mt-2 px-4 py-2 border rounded-large bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-puple-b focus:border-transparent"
+              className="w-full mt-2 px-4 py-2 border rounded-large bg-gray-100 text-gray-700 focus:outline-none focus:ring-2 focus:ring-color-b focus:border-transparent"
               required
             />
           </div>
@@ -109,7 +109,7 @@ function Edit() {
           <div className="text-center justify-self-center">
             <button
               type="submit"
-              className="bg-puple-b text-white font-medium px-6 py-2 rounded-large hover:bg-puple-holdber flex items-center justify-center space-x-2"
+              className="bg-color-b text-white font-medium px-6 py-2 rounded-large hover:bg-color-holdber flex items-center justify-center space-x-2"
             >
               <span>แก้ไข</span>
               <svg
