@@ -107,7 +107,7 @@ function Navbar() {
                   เพิ่มสัตว์เลี้ยง
                 </a>
                 <a
-                  href="/HealthpetPage"
+                  href="/HomeHealth"
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   ข้อมูลสุขภาพ
@@ -198,7 +198,7 @@ function Navbar() {
                   เพิ่มสัตว์เลี้ยง
                 </a>
                 <a
-                  href="/HealthpetPage"
+                  href="/HomeHealth"
                   className="block hover:text-color-holdber"
                 >
                   ข้อมูลสุขภาพ

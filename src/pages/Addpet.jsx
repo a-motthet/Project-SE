@@ -8,7 +8,7 @@ const NotificationPopup = ({ onClose }) => (
       <h2 className="text-color-b text-lg font-bold mb-2">📢 แจ้งเตือน</h2>
       <p className="text-color-b mb-4">เพิ่มสัตว์เลี้ยงของท่านเสร็จสิ้น</p>
       <button
-        onClick={onClose}
+        onClick={() => window.location.reload()}
         className="bg-color-b text-white px-4 py-2 rounded-md"
       >
         ยืนยัน
@@ -55,7 +55,7 @@ const Addpet = () => {
   const [petSex, setPetSex] = useState("");
   const [petAge, setPetAge] = useState("");
   const [petWeight, setPetWeight] = useState("");
-  const [birthdate, setBirthdate] = useState("xx-xx-xxxx");
+  const [birthdate, setBirthdate] = useState("xxxx-xx-xx");
   const [note, setNote] = useState("");
   const [editPetType, setEditPetType] = useState(petType);
   const [showWeightInput, setShowWeightInput] = useState(false);
@@ -87,15 +87,12 @@ const Addpet = () => {
       !petSex ||
       !petWeight ||
       !birthdate ||
-      !note ||
       !profilePic
     ) {
       setPopupMessage("กรุณากรอกข้อมูลให้ครบถ้วน");
       setIsErrorPopupVisible(true); // แสดง Popup ความผิดพลาด
       return;
     }
-
-    
 
     Axios.post("http://localhost:3001/addPet", formData, {
       headers: {
@@ -106,11 +103,12 @@ const Addpet = () => {
       .then(() => {
         console.log("เพิ่มสัตว์เลี้ยงสำเร็จ");
         setShowNotification(true); // แสดงการแจ้งเตือนเมื่อเพิ่มสำเร็จ
-
       })
       .catch((error) => {
         console.error("เกิดข้อผิดพลาด: ", error);
-        setPopupMessage("ไม่สามารถเพิ่มสัตว์เลี้ยงได้ กรุณาตรวจสอบข้อมูลอีกครั้ง");
+        setPopupMessage(
+          "ไม่สามารถเพิ่มสัตว์เลี้ยงได้ กรุณาตรวจสอบข้อมูลอีกครั้ง"
+        );
         setIsErrorPopupVisible(true); // แสดง Popup ความผิดพลาด
       });
   };
@@ -163,7 +161,7 @@ const Addpet = () => {
         selectedMonth - 1,
         selectedDay
       );
-      setBirthdate(formattedBirthdate.toLocaleDateString("th-TH")); // เปลี่ยนให้แสดงวันที่ในรูปแบบไทย
+      setBirthdate(formattedBirthdate.toLocaleDateString("ja-JP"));
       const { ageYears, ageMonths } = calculateAge(formattedBirthdate);
       setPetAge(`${ageYears} ปี ${ageMonths} เดือน`);
     }
@@ -241,11 +239,12 @@ const Addpet = () => {
             </div>
             <div className="w-full mb-4">
               <label className="block text-color-b mb-1 font-sans">
-                น้ำหนักของสัตว์เลี้ยง:
+                น้ำหนักของสัตว์เลี้ยง (กิโลกรัม):
               </label>
               {showWeightInput ? (
                 <input
-                  type="text"
+                  type="number"
+                  min="0"
                   value={petWeight}
                   onChange={(e) => setPetWeight(e.target.value)}
                   className="w-full p-3 border-2 border-gray-300 rounded-md"

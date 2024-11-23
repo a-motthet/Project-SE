@@ -57,7 +57,7 @@ function Edit() {
   };
 
   const NotificationPopup = ({ onClose }) => (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 font-sans">
       <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
         <h2 className="text-color-b text-lg font-bold mb-2">แจ้งเตือน</h2>
         <p className="text-color-b mb-4">แก้ไขข้อมูลสำเร็จ</p>
@@ -72,14 +72,17 @@ function Edit() {
   );
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-purple-100">
+    <div className="min-h-screen flex items-center justify-center bg-purple-100 font-sans">
       <div className="bg-white shadow-lg rounded-lg w-[90%] max-w-[600px] p-8">
         <h1 className="text-center text-xl font-bold text-color-b mb-8">
           จัดการโปรไฟล์
         </h1>
         <form className="space-y-6" onSubmit={handleEdit}>
           <div>
-            <label htmlFor="firstname" className="block text-color-b font-medium">
+            <label
+              htmlFor="firstname"
+              className="block text-color-b font-medium"
+            >
               ชื่อ
             </label>
             <input
@@ -93,7 +96,10 @@ function Edit() {
             />
           </div>
           <div>
-            <label htmlFor="lastname" className="block text-color-b font-medium">
+            <label
+              htmlFor="lastname"
+              className="block text-color-b font-medium"
+            >
               นามสกุล
             </label>
             <input
@@ -135,7 +141,10 @@ function Edit() {
             />
           </div>
           <div>
-            <label htmlFor="password" className="block text-color-b font-medium">
+            <label
+              htmlFor="password"
+              className="block text-color-b font-medium"
+            >
               รหัสผ่าน
             </label>
             <input
