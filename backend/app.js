@@ -109,6 +109,24 @@ app.get("/customers", (req, res) => {
   });
 });
 
+app.post("/edit", authenticateToken, (req, res) => {
+  const { firstname, lastname, phone, email } = req.body;
+  const userId = req.userId;
+
+  db.query(
+    "UPDATE customers SET user_firstname = ?, user_lastname = ?, user_phone = ?, user_email = ? WHERE user_id = ?",
+    [firstname, lastname, phone, email, userId],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send({ success: false, message: "Failed to update profile." });
+      } else {
+        res.status(200).send({ success: true, message: "Profile updated successfully!" });
+      }
+    }
+  );
+});
+
 app.post("/register", (req, res) => {
   const firstname = req.body.firstname;
   const lastname = req.body.lastname;
@@ -148,6 +166,8 @@ app.post("/addPet", authenticateToken, upload.single("imageFile"), (req, res) =>
     }
   );
 });
+
+
 
 app.listen('3001', () => {
   console.log('Sever is running on port 3001');
