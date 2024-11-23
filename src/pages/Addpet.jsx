@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import mypic from "../images/2.jpg";
+import Axios from "axios";
 
 const NotificationPopup = ({ onClose }) => (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
@@ -19,13 +20,13 @@ const NotificationPopup = ({ onClose }) => (
 const Addpet = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
-  const [petName, setPetName] = useState("สมหมาย");
-  const [petType, setPetType] = useState("แมว");
-  const [petSex, setPetSex] = useState("ชาย");
-  const [petAge, setPetAge] = useState("2 ปี");
-  const [petWeight, setPetWeight] = useState("200 กิโลกรัม");
+  const [petName, setPetName] = useState("");
+  const [petType, setPetType] = useState("");
+  const [petSex, setPetSex] = useState("");
+  const [petAge, setPetAge] = useState("");
+  const [petWeight, setPetWeight] = useState("");
   const [birthdate, setBirthdate] = useState("xx-xx-xxxx");
-  const [note, setNote] = useState("น้องสมหมายชอบน่ารักของ มารี่");
+  const [note, setNote] = useState("");
   const [editPetType, setEditPetType] = useState(petType);
   const [showWeightInput, setShowWeightInput] = useState(false);
   const [birthdateOption, setBirthdateOption] = useState("exact");
@@ -35,6 +36,34 @@ const Addpet = () => {
   const [ageYears, setAgeYears] = useState("");
   const [ageMonths, setAgeMonths] = useState("");
   const [profilePic, setProfilePic] = useState(mypic);
+
+  const addPet = () => {
+    const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
+  
+    const formData = new FormData(); // ใช้ FormData เพื่อจัดการข้อมูลที่มีไฟล์
+    formData.append("petName", petName);
+    formData.append("petType", editPetType);
+    formData.append("petSex", petSex);
+    formData.append("petWeight", petWeight);
+    formData.append("birthdate", birthdate);
+    formData.append("note", note);
+    formData.append("imageFile", profilePic);
+  
+    Axios.post("http://localhost:3001/addPet", formData, {
+      headers: {
+        Authorization: `Bearer ${token}`, // แนบ Token ใน Header
+        "Content-Type": "multipart/form-data", // กำหนดประเภทข้อมูล
+      },
+    })
+      .then(() => {
+        console.log("เพิ่มสัตว์เลี้ยงสำเร็จ");
+        setShowNotification(true); // แสดงการแจ้งเตือนเมื่อเพิ่มสำเร็จ
+      })
+      .catch((error) => {
+        console.error("เกิดข้อผิดพลาด: ", error);
+        alert("ไม่สามารถเพิ่มสัตว์เลี้ยงได้ กรุณาตรวจสอบข้อมูลอีกครั้ง");
+      });
+  };
 
   const calculateAge = (birthdate) => {
     const birth = new Date(birthdate);
@@ -63,11 +92,11 @@ const Addpet = () => {
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onload = () => setProfilePic(reader.result);
-      reader.readAsDataURL(file);
+        console.log("File received:", file);
+    } else {
+        console.log("File received: undefined");
     }
-  };
+};
 
   useEffect(() => {
     if (
@@ -299,7 +328,7 @@ const Addpet = () => {
               />
             </div>
             <button
-              onClick={toggleEditMode}
+              onClick={addPet}
               className="w-full bg-color-b text-white p-3 rounded-md mt-4 px-12 font-sans"
             >
               เพิ่มสัตว์เลี้ยงของท่าน
@@ -315,11 +344,7 @@ const Addpet = () => {
               />
               <label className="absolute bottom-0 right-0 bg-white p-2 px-3 rounded-full shadow-md cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 flex items-center justify-center text-color-b font-semibold text-sm">
                 Upload
-                <input
-                  type="file"
-                  onChange={handleProfilePicChange}
-                  className="hidden"
-                />
+              <input type="file" className="hidden" name="imageFile" onChange={handleProfilePicChange} />
               </label>
             </div>
           </div>

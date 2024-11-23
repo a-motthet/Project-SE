@@ -20,20 +20,26 @@ function Navbar() {
     setMenuOpen(false);
   };
 
-  useEffect(() => {
-    const userId = 1; // ตัวอย่าง userId (ควรดึงจาก session หรือ state)
-    axios
-      .get(`http://localhost:3001/getUsername?userId=${userId}`)
-      .then((response) => {
-        if (response.data.success) {
-          setUsername(response.data.username); // ตั้งค่าชื่อผู้ใช้ใน State
-        } else {
-          console.error("Failed to fetch username:", response.data.message);
-        }
-      })
-      .catch((error) => {
-        console.error("Error fetching username:", error);
-      });
+useEffect(() => {
+    const token = localStorage.getItem("token"); // ดึง JWT
+    if (token) {
+      axios
+        .get("http://localhost:3001/getUsername", {
+          headers: { Authorization: `Bearer ${token}` }, // ส่ง JWT ใน Header
+        })
+        .then((response) => {
+          if (response.data.success) {
+            setUsername(response.data.username); // ตั้งค่าชื่อผู้ใช้ใน State
+          } else {
+            console.error("Failed to fetch username:", response.data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching username:", error);
+        });
+    } else {
+      console.error("No token found, please log in");
+    }
   }, []);
 
   return (

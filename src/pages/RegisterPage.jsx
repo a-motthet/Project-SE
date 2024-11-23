@@ -12,6 +12,8 @@ import {
 
 function RegisterPage() {
   const navigate = useNavigate();
+  const [firstname, setFirstname] = useState("");
+  const [lastname, setLastname] = useState("");
   const [username, setUsername] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
@@ -19,6 +21,8 @@ function RegisterPage() {
 
   const addCustomer = () => {
     Axios.post("http://localhost:3001/register", {
+      firstname: firstname,
+      lastname: lastname,
       username: username,
       phone: phone,
       email: email,
@@ -49,6 +53,7 @@ function RegisterPage() {
                     id="Firstname"
                     type="text"
                     placeholder="Firstname"
+                    onChange={(event) => setFirstname(event.target.value)}
                   />
                 </div>
                 <div className="flex items-center border rounded-large w-1/2 overflow-hidden">
@@ -58,6 +63,7 @@ function RegisterPage() {
                     id="Lastname"
                     type="text"
                     placeholder="Lastname"
+                    onChange={(event) => setLastname(event.target.value)}
                   />
                 </div>
               </div>

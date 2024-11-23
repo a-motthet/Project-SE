@@ -50,6 +50,8 @@ function LoginPage() {
       });
 
       if (response.data.success) {
+        const token = response.data.token;
+        localStorage.setItem("token", token); // เก็บ JWT
         setPopupMessage("เข้าสู่ระบบสำเร็จ!");
         setIsSuccessPopupVisible(true); // แสดง Popup ความสำเร็จ
       } else {
