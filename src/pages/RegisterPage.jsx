@@ -19,6 +19,39 @@ function RegisterPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isErrorPopupVisible, setIsErrorPopupVisible] = useState(false);
+  const [isSuccessPopupVisible, setIsSuccessPopupVisible] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+
+  const NotificationPopup = ({ type, message, onClose }) => {
+    const isError = type === "error";
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+        <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
+          <h2
+            className={`text-lg mb-2 ${
+              isError ? "text-red-400" : "text-green-400"
+            }`}
+          >
+            {isError ? "แจ้งเตือนข้อผิดพลาด" : "แจ้งเตือนความสำเร็จ"}
+          </h2>
+          <p className={`mb-4 ${isError ? "text-red-400" : "text-green-400"}`}>
+            {message}
+          </p>
+          <button
+            onClick={onClose}
+            className={`px-4 py-2 rounded-large text-white ${
+              isError
+                ? "bg-red-400 hover:bg-red-200"
+                : "bg-green-400 hover:bg-green-200"
+            }`}
+          >
+            ยืนยัน
+          </button>
+        </div>
+      </div>
+    );
+  };
 
   const addCustomer = () => {
     if (
@@ -30,30 +63,38 @@ function RegisterPage() {
       !password ||
       !confirmPassword
     ) {
-      alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+      setPopupMessage("กรุณากรอกข้อมูลให้ครบถ้วน");
+      setIsErrorPopupVisible(true); // แสดง Popup ความผิดพลาด
       return;
     }
 
     if (password !== confirmPassword) {
-      alert("รหัสผ่านไม่ตรงกัน");
+      setPopupMessage("รหัสผ่านไม่ตรงกัน");
+      setIsErrorPopupVisible(true);
       return;
     }
     
     Axios.post("http://localhost:3001/register", {
-      firstname: firstname,
-      lastname: lastname,
-      username: username,
-      phone: phone,
-      email: email,
-      password: password,
+      firstname,
+      lastname,
+      username,
+      phone,
+      email,
+      password,
     })
       .then((response) => {
-        alert("สมัครสมาชิกสำเร็จ");
-        navigate("/"); // หลังจากสมัครสำเร็จ ให้ไปที่หน้า Login
+        if (response.status === 200) {
+          setPopupMessage(response.data); // ใช้ข้อความที่มาจาก Backend
+          setIsSuccessPopupVisible(true);
+        } else {
+          setPopupMessage("เกิดข้อผิดพลาดในการสมัครสมาชิก");
+          setIsErrorPopupVisible(true);
+        }
       })
       .catch((error) => {
-        console.error(error);
-        alert("เกิดข้อผิดพลาดในการสมัครสมาชิก");
+        console.error("Error:", error.response?.data || error.message);
+        setPopupMessage(error.response?.data || "เกิดข้อผิดพลาด");
+        setIsErrorPopupVisible(true);
       });
   };
 
@@ -63,6 +104,23 @@ function RegisterPage() {
 
   return (
     <div className="bg-color-bg flex h-screen justify-center items-center">
+      {isErrorPopupVisible && (
+        <NotificationPopup
+          type="error"
+          message={popupMessage}
+          onClose={() => setIsErrorPopupVisible(false)}
+        />
+      )}
+      {isSuccessPopupVisible && (
+        <NotificationPopup
+          type="success"
+          message={popupMessage}
+          onClose={() => {
+            setIsSuccessPopupVisible(false);
+            navigate("/"); // ย้ายหน้าไปยัง "/" หลังปิด Popup
+          }}
+        />
+      )}
       <div className="w-1/3 bg-gradient-to-t from-color-b to-color-md h-4/6 rounded-l-large"></div>
 
       <div className="w-1/3 bg-white flex items-center justify-center h-4/6 rounded-r-large">
