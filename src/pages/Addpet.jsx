@@ -68,6 +68,7 @@ const Addpet = () => {
   const [profilePic, setProfilePic] = useState(mypic);
   const [isErrorPopupVisible, setIsErrorPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
+  const [dbbirthdate, setDbbirthdate] = useState("");
 
   const addPet = () => {
     const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
@@ -77,7 +78,7 @@ const Addpet = () => {
     formData.append("petType", editPetType);
     formData.append("petSex", petSex);
     formData.append("petWeight", petWeight);
-    formData.append("birthdate", birthdate);
+    formData.append("birthdate", dbbirthdate);
     formData.append("note", note);
     formData.append("imageFile", profilePic);
 
@@ -128,13 +129,21 @@ const Addpet = () => {
     return { ageYears, ageMonths };
   };
 
-  const toggleEditMode = () => {
-    if (isEditing) {
-      setPetType(editPetType);
-      setPetWeight(petWeight);
+  const calculateApproximateBirthdate = (ageYears, ageMonths) => {
+    const today = new Date();
+    let birthdate = new Date(today);
+  
+    // ลบปีและเดือนจากวันที่ปัจจุบัน
+    birthdate.setFullYear(birthdate.getFullYear() - ageYears);
+    birthdate.setMonth(birthdate.getMonth() - ageMonths);
+  
+    // ตรวจสอบความถูกต้องของวันที่
+    if (birthdate.getDate() !== today.getDate()) {
+      birthdate.setDate(0); // ปรับวันที่เป็นวันสุดท้ายของเดือนก่อนหน้า
     }
-    setShowNotification(true); // แสดงการแจ้งเตือนทุกครั้ง
-    setIsEditing(!isEditing);
+  
+    // แปลงวันที่เป็นรูปแบบ YYYY-MM-DD
+    return birthdate.toISOString().split("T")[0];
   };
 
   const handleProfilePicChange = (e) => {
@@ -150,18 +159,22 @@ const Addpet = () => {
   };
 
   useEffect(() => {
-    if (
-      birthdateOption === "exact" &&
-      selectedDay &&
-      selectedMonth &&
-      selectedYear
-    ) {
-      const formattedBirthdate = new Date(
-        selectedYear,
-        selectedMonth - 1,
-        selectedDay
-      );
-      setBirthdate(formattedBirthdate.toLocaleDateString("ja-JP"));
+    if (birthdateOption === "exact" && selectedDay && selectedMonth && selectedYear) {
+      // สร้างวันที่จาก selectedYear, selectedMonth, selectedDay
+      // หักลบ 1 จาก selectedMonth เนื่องจาก JavaScript ใช้เดือนที่เริ่มต้นจาก 0
+      const formattedBirthdate = new Date(selectedYear, selectedMonth - 1, selectedDay);
+  
+      // ตั้งเวลาเป็น 00:00:00 ของวันใน UTC เพื่อหลีกเลี่ยงปัญหาจาก Timezone
+      formattedBirthdate.setHours(12, 0, 0, 0);
+      
+      // แปลงวันที่เพื่อแสดงในรูปแบบ th-TH
+      setBirthdate(formattedBirthdate.toLocaleDateString("th-TH"));
+  
+      // แปลงวันที่เพื่อเก็บในรูปแบบ YYYY-MM-DD (ในโซนเวลาของคุณ)
+      const dbDate = formattedBirthdate.toISOString().split('T')[0];
+      setDbbirthdate(dbDate);
+  
+      // คำนวณอายุ
       const { ageYears, ageMonths } = calculateAge(formattedBirthdate);
       setPetAge(`${ageYears} ปี ${ageMonths} เดือน`);
     }
@@ -169,7 +182,11 @@ const Addpet = () => {
 
   useEffect(() => {
     if (birthdateOption === "approximate" && ageYears && ageMonths) {
-      setPetAge(`${ageYears} ปี ${ageMonths} เดือน`);
+      const approximateDate = calculateApproximateBirthdate(
+        parseInt(ageYears, 10),
+        parseInt(ageMonths, 10)
+      );
+      setDbbirthdate(approximateDate); // เก็บวันเกิดในฟิลด์ dbbirthdate
     }
   }, [ageYears, ageMonths, birthdateOption]);
 
