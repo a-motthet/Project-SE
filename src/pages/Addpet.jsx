@@ -17,6 +17,36 @@ const NotificationPopup = ({ onClose }) => (
   </div>
 );
 
+const NotificationPopup_error = ({ type, message, onClose }) => {
+  const isError = type === "error";
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+      <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
+        <h2
+          className={`text-lg mb-2 ${
+            isError ? "text-red-400" : "text-green-400"
+          }`}
+        >
+          {isError ? "แจ้งเตือนข้อผิดพลาด" : "แจ้งเตือนความสำเร็จ"}
+        </h2>
+        <p className={`mb-4 ${isError ? "text-red-400" : "text-green-400"}`}>
+          {message}
+        </p>
+        <button
+          onClick={onClose}
+          className={`px-4 py-2 rounded-large text-white ${
+            isError
+              ? "bg-red-400 hover:bg-red-200"
+              : "bg-green-400 hover:bg-green-200"
+          }`}
+        >
+          ยืนยัน
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const Addpet = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
@@ -36,6 +66,8 @@ const Addpet = () => {
   const [ageYears, setAgeYears] = useState("");
   const [ageMonths, setAgeMonths] = useState("");
   const [profilePic, setProfilePic] = useState(mypic);
+  const [isErrorPopupVisible, setIsErrorPopupVisible] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
 
   const addPet = () => {
     const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
@@ -49,6 +81,22 @@ const Addpet = () => {
     formData.append("note", note);
     formData.append("imageFile", profilePic);
 
+    if (
+      !petName ||
+      !editPetType ||
+      !petSex ||
+      !petWeight ||
+      !birthdate ||
+      !note ||
+      !profilePic
+    ) {
+      setPopupMessage("กรุณากรอกข้อมูลให้ครบถ้วน");
+      setIsErrorPopupVisible(true); // แสดง Popup ความผิดพลาด
+      return;
+    }
+
+    
+
     Axios.post("http://localhost:3001/addPet", formData, {
       headers: {
         Authorization: `Bearer ${token}`, // แนบ Token ใน Header
@@ -58,11 +106,12 @@ const Addpet = () => {
       .then(() => {
         console.log("เพิ่มสัตว์เลี้ยงสำเร็จ");
         setShowNotification(true); // แสดงการแจ้งเตือนเมื่อเพิ่มสำเร็จ
-        
+
       })
       .catch((error) => {
         console.error("เกิดข้อผิดพลาด: ", error);
-        alert("ไม่สามารถเพิ่มสัตว์เลี้ยงได้ กรุณาตรวจสอบข้อมูลอีกครั้ง");
+        setPopupMessage("ไม่สามารถเพิ่มสัตว์เลี้ยงได้ กรุณาตรวจสอบข้อมูลอีกครั้ง");
+        setIsErrorPopupVisible(true); // แสดง Popup ความผิดพลาด
       });
   };
 
@@ -128,6 +177,13 @@ const Addpet = () => {
 
   return (
     <div className="bg-color-bg  flex flex-col items-center font-sans">
+      {isErrorPopupVisible && (
+        <NotificationPopup_error
+          type="error"
+          message={popupMessage}
+          onClose={() => setIsErrorPopupVisible(false)}
+        />
+      )}
       <div className="container mx-auto p-8 flex flex-col items-center">
         <div className="p-6 bg-white rounded-lg shadow-xl flex flex-col lg:flex-row items-center w-full sm:w-3/5 lg:w-3/5">
           <div className="lg:w-2/3 w-full lg:pr-8">
