@@ -48,8 +48,13 @@ function App() {
         },
         (error) => {
           console.error("Error getting location:", error);
+          // กรณีไม่สามารถดึงตำแหน่งได้ ให้ตั้งค่าเริ่มต้น
+          setUserLocation({ lat: 13.7563, lng: 100.5018 });
         }
       );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+      setUserLocation({ lat: 13.7563, lng: 100.5018 });
     }
   }, []);
 
@@ -102,7 +107,10 @@ function App() {
                       position={userLocation}
                       icon={{
                         url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png", // Marker สีฟ้า
-                        scaledSize: new window.google.maps.Size(40, 40),
+                        scaledSize:
+                          window.google && window.google.maps
+                            ? new window.google.maps.Size(40, 40)
+                            : null,
                       }}
                     />
                     <InfoWindow position={userLocation}>
@@ -121,7 +129,10 @@ function App() {
                       position={clinic.position}
                       icon={{
                         url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png", // Marker สีแดง
-                        scaledSize: new window.google.maps.Size(40, 40),
+                        scaledSize:
+                          window.google && window.google.maps
+                            ? new window.google.maps.Size(40, 40)
+                            : null,
                       }}
                       onClick={() => setSelectedClinic(clinic)}
                     />
