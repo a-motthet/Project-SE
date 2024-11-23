@@ -130,22 +130,23 @@ app.post("/edit", authenticateToken, (req, res) => {
 app.post("/register", (req, res) => {
   const { firstname, lastname, username, phone, email, password } = req.body;
 
+  // ตรวจสอบว่าข้อมูลครบถ้วน
   if (!firstname || !lastname || !username || !phone || !email || !password) {
     return res.status(400).send("กรุณากรอกข้อมูลให้ครบถ้วน");
   }
 
-  db.query(
-    "INSERT INTO customers (user_firstname, user_lastname, user_email, user_username, user_password, user_phone) VALUES(?,?,?,?,?,?)",
-    [firstname, lastname, email, username, password, phone],
-    (err, result) => {
-      if (err) {
-        console.log(err);
-        return res.status(500).send("เกิดข้อผิดพลาด");
-      } else {
-        res.status(200).send("สมัครสมาชิกสำเร็จ");
-      }
+  // ตรวจสอบว่าฐานข้อมูลมี schema ตรงกับโค้ด SQL
+  const query =
+    "INSERT INTO customers (user_firstname, user_lastname, user_email, user_username, user_password, user_phone) VALUES (?, ?, ?, ?, ?, ?)";
+  const values = [firstname, lastname, email, username, password, phone];
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.error("Database Error:", err);
+      return res.status(500).send("เกิดข้อผิดพลาด");
     }
-  );
+    res.status(200).send("สมัครสมาชิกสำเร็จ");
+  });
 });
 
 app.post("/addPet", authenticateToken, upload.single("imageFile"), (req, res) => {
