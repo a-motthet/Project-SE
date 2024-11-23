@@ -3,7 +3,7 @@ import mypic from "../images/2.jpg";
 import Axios from "axios";
 
 const NotificationPopup = ({ onClose }) => (
-  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 font-sans">
     <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
       <h2 className="text-color-b text-lg font-bold mb-2">📢 แจ้งเตือน</h2>
       <p className="text-color-b mb-4">เพิ่มสัตว์เลี้ยงของท่านเสร็จสิ้น</p>
@@ -39,7 +39,7 @@ const Addpet = () => {
 
   const addPet = () => {
     const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
-  
+
     const formData = new FormData(); // ใช้ FormData เพื่อจัดการข้อมูลที่มีไฟล์
     formData.append("petName", petName);
     formData.append("petType", editPetType);
@@ -48,7 +48,7 @@ const Addpet = () => {
     formData.append("birthdate", birthdate);
     formData.append("note", note);
     formData.append("imageFile", profilePic);
-  
+
     Axios.post("http://localhost:3001/addPet", formData, {
       headers: {
         Authorization: `Bearer ${token}`, // แนบ Token ใน Header
@@ -92,11 +92,11 @@ const Addpet = () => {
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-        console.log("File received:", file);
+      console.log("File received:", file);
     } else {
-        console.log("File received: undefined");
+      console.log("File received: undefined");
     }
-};
+  };
 
   useEffect(() => {
     if (
@@ -123,7 +123,7 @@ const Addpet = () => {
   }, [ageYears, ageMonths, birthdateOption]);
 
   return (
-    <div className="bg-color-bg  flex flex-col items-center">
+    <div className="bg-color-bg  flex flex-col items-center font-sans">
       <div className="container mx-auto p-8 flex flex-col items-center">
         <div className="p-6 bg-white rounded-lg shadow-xl flex flex-col lg:flex-row items-center w-full sm:w-3/5 lg:w-3/5">
           <div className="lg:w-2/3 w-full lg:pr-8">
@@ -344,7 +344,12 @@ const Addpet = () => {
               />
               <label className="absolute bottom-0 right-0 bg-white p-2 px-3 rounded-full shadow-md cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 flex items-center justify-center text-color-b font-semibold text-sm">
                 Upload
-              <input type="file" className="hidden" name="imageFile" onChange={handleProfilePicChange} />
+                <input
+                  type="file"
+                  className="hidden"
+                  name="imageFile"
+                  onChange={handleProfilePicChange}
+                />
               </label>
             </div>
           </div>

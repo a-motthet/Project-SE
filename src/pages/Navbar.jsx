@@ -20,7 +20,7 @@ function Navbar() {
     setMenuOpen(false);
   };
 
-useEffect(() => {
+  useEffect(() => {
     const token = localStorage.getItem("token"); // ดึง JWT
     if (token) {
       axios
@@ -43,7 +43,7 @@ useEffect(() => {
   }, []);
 
   return (
-    <nav className="bg-color-b shadow-md p-4">
+    <nav className="bg-color-b shadow-md p-4 font-sans">
       {/* Navbar container */}
       <div className="flex items-center justify-between px-5 py-4">
         {/* Logo */}

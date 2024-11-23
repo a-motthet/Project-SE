@@ -53,8 +53,13 @@ function App() {
         },
         (error) => {
           console.error("Error getting location:", error);
+          // กรณีไม่สามารถดึงตำแหน่งได้ ให้ตั้งค่าเริ่มต้น
+          setUserLocation({ lat: 13.7563, lng: 100.5018 });
         }
       );
+    } else {
+      console.error("Geolocation is not supported by this browser.");
+      setUserLocation({ lat: 13.7563, lng: 100.5018 });
     }
   }, []);
 
@@ -89,10 +94,10 @@ function App() {
     : clinics;
 
   return (
-    <div className="flex justify-center items-center py-6">
+    <div className="flex justify-center items-center py-6 font-sans">
       <div className="w-full max-w-4xl rounded-lg bg-white shadow-lg overflow-hidden">
         <div className="p-6">
-          <h1 className="text-2xl font-bold text-left text-color-b mb-4 font-sans">
+          <h1 className="text-2xl font-bold text-left text-[#6373B7] mb-4 font-sans">
             ค้นหาคลินิกแนะนำ
           </h1>
           <div className="w-full h-64 rounded-lg shadow-md overflow-hidden">
@@ -108,7 +113,10 @@ function App() {
                       position={userLocation}
                       icon={{
                         url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png", // Marker สีฟ้า
-                        scaledSize: new window.google.maps.Size(40, 40),
+                        scaledSize:
+                          window.google && window.google.maps
+                            ? new window.google.maps.Size(40, 40)
+                            : null,
                       }}
                     />
                     <InfoWindow position={userLocation}>
@@ -127,7 +135,10 @@ function App() {
                       position={clinic.position}
                       icon={{
                         url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png", // Marker สีแดง
-                        scaledSize: new window.google.maps.Size(40, 40),
+                        scaledSize:
+                          window.google && window.google.maps
+                            ? new window.google.maps.Size(40, 40)
+                            : null,
                       }}
                       onClick={() => setSelectedClinic(clinic)}
                     />
@@ -163,7 +174,7 @@ function App() {
                 <p className="text-gray-600">ที่อยู่: {clinic.address}</p>
               </div>
               <button
-                className="bg-color-b text-white py-2 px-4 rounded-lg hover:bg-purple-600 font-sans"
+                className="bg-[#6373B7] text-white py-2 px-4 rounded-lg hover:bg-purple-600 font-sans"
                 onClick={() =>
                   window.open(
                     `https://www.google.com/maps/dir/?api=1&destination=${clinic.position.lat},${clinic.position.lng}`,
