@@ -3,7 +3,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-puple-b text-gray-300 py-8">
+    <footer className="bg-color-b text-gray-300 py-8">
       {/* <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
         <div>
           <h3 className="text-lg font-semibold text-white">Contact Us</h3>
@@ -48,7 +48,7 @@ const Footer = () => {
       </div>
 
 */}
-      <div className="border-t border-puple-holdber mt-8 pt-4 text-center">
+      <div className="border-t border-color-holdber mt-8 pt-4 text-center">
         <p>
           &copy; {new Date().getFullYear()} KMUTT COMPUTER ENGINEERING CPE#36
         </p>

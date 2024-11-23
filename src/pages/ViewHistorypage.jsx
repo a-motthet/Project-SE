@@ -16,35 +16,33 @@ function ViewHistorypage() {
   const petB = "xxxx";
   const petWeight = "20 Kg.";
 
-  
-
   return (
     <div className="min-h-screen flex items-center justify-center py-8 font-sans">
       <div className="bg-white rounded-large shadow-inner">
-        <p className="pl-8 pt-8 text-puple-b text-3xl font-bold">{petName}</p>
+        <p className="pl-8 pt-8 text-color-b text-3xl font-bold">{petName}</p>
         <div className="grid grid-cols-4 items-center">
           <div className="col-span-3">
             <div className="grid grid-cols-2 mb-2">
-              <div className="ml-8 text-puple-b text-xl">
+              <div className="ml-8 text-color-b text-xl">
                 ชนิดสัตว์เลี้ยง: {petType}
               </div>
-              <div className="text-puple-b text-xl">เพศของสัตว์: {petSex}</div>
+              <div className="text-color-b text-xl">เพศของสัตว์: {petSex}</div>
             </div>
             <div className="grid grid-cols-2 mb-2">
-              <div className="ml-8 text-puple-b text-xl">
+              <div className="ml-8 text-color-b text-xl">
                 อายุของสัตว์เลี้ยง: {petAge}
               </div>
-              <div className="text-puple-b text-xl">
+              <div className="text-color-b text-xl">
                 น้ำหนักของสัตว์เลี้ยง: {petWeight}
               </div>
             </div>
             <div className="grid grid-cols-1 mb-2">
-              <div className="ml-8 text-puple-b text-xl">
+              <div className="ml-8 text-color-b text-xl">
                 สายพันธ์สัตว์เลี้ยง: {petA}
               </div>
             </div>
             <div className="grid grid-cols-1 mb-2">
-              <div className="ml-8 text-puple-b text-xl">
+              <div className="ml-8 text-color-b text-xl">
                 โรคประจำตัว : {petB}
               </div>
             </div>
@@ -58,11 +56,11 @@ function ViewHistorypage() {
           </div>
         </div>
         <div>
-          <div className="p-8 flex flex-col text-puple-b text-3xl font-bold">
+          <div className="p-8 flex flex-col text-color-b text-3xl font-bold">
             ประวัติการได้รับวัคซีน:
           </div>
           <div className="">
-            <div className="px-4 grid mb-2 gap-2 mb-20 text-puple-b">
+            <div className="px-4 grid mb-2 gap-2 mb-20 text-color-b">
               {Vaccine.map((item) => (
                 <div key={item.No}>
                   <div className="grid grid-cols-5 ">
@@ -83,7 +81,7 @@ function ViewHistorypage() {
               ))}
               <div className="flex items-center justify-center my-8">
                 <button
-                  className="w-auto bg-puple-b text-white text-xl py-4 px-4 rounded-large hover:bg-puple-holdber transition"
+                  className="w-auto bg-color-b text-white text-xl py-4 px-4 rounded-large hover:bg-color-holdber transition"
                   onClick={() => navigate(`/HealthpetPage/${id}`)} // ใช้ id ที่ดึงจาก URL
                 >
                   ย้อนกลับ

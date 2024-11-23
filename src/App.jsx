@@ -40,7 +40,7 @@ function MainContent() {
 
   return (
     <>
-      <div className="bg-pupul-bg min-h-screen flex flex-col justify-between">
+      <div className="bg-color-bg min-h-screen flex flex-col justify-between">
         {showNavbar && <Navbar />}
         <div className="flex-grow">
           <Routes>
