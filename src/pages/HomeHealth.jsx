@@ -4,7 +4,7 @@ import mypic from "../images/2.jpg";
 
 function App() {
   return (
-    <div className="bg-color-bg min-h-screen flex flex-col">
+    <div className="bg-color-bg min-h-screen flex flex-col font-sans">
       <div className="container mx-auto p-6 flex flex-col items-center">
         <div className="p-6 bg-white rounded-lg shadow-lg flex flex-col items-center mb-8 w-full sm:w-80 md:w-96 lg:w-96 xl:w-1/3">
           <img

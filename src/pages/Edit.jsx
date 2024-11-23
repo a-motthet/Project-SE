@@ -19,7 +19,7 @@ function Edit() {
   );
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-purple-100">
+    <div className="min-h-screen flex items-center justify-center bg-purple-100 font-sans">
       <div className="bg-white shadow-lg rounded-lg w-[90%] max-w-[600px] p-8">
         {/* Title */}
         <h1 className="text-center text-xl font-bold text-color-b mb-8">
@@ -38,7 +38,7 @@ function Edit() {
           <div>
             <label
               htmlFor="firstname"
-              className="block text-color-b font-medium"
+              className="block text-color-b font-medium font-sans"
             >
               ชื่อ-นามสกุล
             </label>
@@ -53,7 +53,10 @@ function Edit() {
 
           {/* เบอร์โทรศัพท์ */}
           <div>
-            <label htmlFor="phone" className="block text-color-b font-medium">
+            <label
+              htmlFor="phone"
+              className="block text-color-b font-medium font-sans"
+            >
               เบอร์โทรศัพท์
             </label>
             <div className="relative">
