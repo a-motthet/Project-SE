@@ -128,12 +128,11 @@ app.post("/edit", authenticateToken, (req, res) => {
 });
 
 app.post("/register", (req, res) => {
-  const firstname = req.body.firstname;
-  const lastname = req.body.lastname;
-  const username = req.body.username;
-  const phone = req.body.phone;
-  const email = req.body.email;
-  const password = req.body.password;
+  const { firstname, lastname, username, phone, email, password } = req.body;
+
+  if (!firstname || !lastname || !username || !phone || !email || !password) {
+    return res.status(400).send("กรุณากรอกข้อมูลให้ครบถ้วน");
+  }
 
   db.query(
     "INSERT INTO customers (user_firstname, user_lastname, user_email, user_username, user_password, user_phone) VALUES(?,?,?,?,?,?)",
@@ -141,8 +140,9 @@ app.post("/register", (req, res) => {
     (err, result) => {
       if (err) {
         console.log(err);
+        return res.status(500).send("เกิดข้อผิดพลาด");
       } else {
-        res.send("Values inserted");
+        res.status(200).send("สมัครสมาชิกสำเร็จ");
       }
     }
   );

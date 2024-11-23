@@ -18,8 +18,27 @@ function RegisterPage() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
 
   const addCustomer = () => {
+    if (
+      !firstname ||
+      !lastname ||
+      !username ||
+      !phone ||
+      !email ||
+      !password ||
+      !confirmPassword
+    ) {
+      alert("กรุณากรอกข้อมูลให้ครบถ้วน");
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      alert("รหัสผ่านไม่ตรงกัน");
+      return;
+    }
+    
     Axios.post("http://localhost:3001/register", {
       firstname: firstname,
       lastname: lastname,
@@ -27,9 +46,15 @@ function RegisterPage() {
       phone: phone,
       email: email,
       password: password,
-    }).then(() => {
-      console.log("Customer registered successfully");
-    });
+    })
+      .then((response) => {
+        alert("สมัครสมาชิกสำเร็จ");
+        navigate("/"); // หลังจากสมัครสำเร็จ ให้ไปที่หน้า Login
+      })
+      .catch((error) => {
+        console.error(error);
+        alert("เกิดข้อผิดพลาดในการสมัครสมาชิก");
+      });
   };
 
   const handleLogin = () => {
@@ -134,6 +159,7 @@ function RegisterPage() {
                   id="confirm-password"
                   type="password"
                   placeholder="Confirm Password"
+                  onChange={(event) => setConfirmPassword(event.target.value)}
                 />
               </div>
             </div>

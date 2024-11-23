@@ -58,6 +58,7 @@ const Addpet = () => {
       .then(() => {
         console.log("เพิ่มสัตว์เลี้ยงสำเร็จ");
         setShowNotification(true); // แสดงการแจ้งเตือนเมื่อเพิ่มสำเร็จ
+        
       })
       .catch((error) => {
         console.error("เกิดข้อผิดพลาด: ", error);
@@ -93,6 +94,9 @@ const Addpet = () => {
     const file = e.target.files[0];
     if (file) {
       console.log("File received:", file);
+      const reader = new FileReader();
+      reader.onload = () => setProfilePic(reader.result);
+      reader.readAsDataURL(file);
     } else {
       console.log("File received: undefined");
     }
