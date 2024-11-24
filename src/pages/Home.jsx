@@ -17,15 +17,15 @@ function Home() {
           </h4>
           <Recomend />
         </div>
-        <div className="hidden sm:block">
+        <div className="hidden sm:block mb-8">
           <h4 className="text-center text-[45px] font-bold font-sans my-8 font-chela">
             WHY ANIMALOVER ?
           </h4>
           <Why />
         </div>
-        <div className="mt-8">
+        {/* <div className="mt-8">
           <ActiveSlider />
-        </div>
+        </div> */}
       </main>
     </div>
   );

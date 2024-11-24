@@ -132,16 +132,16 @@ const Addpet = () => {
   const calculateApproximateBirthdate = (ageYears, ageMonths) => {
     const today = new Date();
     let birthdate = new Date(today);
-  
+
     // ลบปีและเดือนจากวันที่ปัจจุบัน
     birthdate.setFullYear(birthdate.getFullYear() - ageYears);
     birthdate.setMonth(birthdate.getMonth() - ageMonths);
-  
+
     // ตรวจสอบความถูกต้องของวันที่
     if (birthdate.getDate() !== today.getDate()) {
       birthdate.setDate(0); // ปรับวันที่เป็นวันสุดท้ายของเดือนก่อนหน้า
     }
-  
+
     // แปลงวันที่เป็นรูปแบบ YYYY-MM-DD
     return birthdate.toISOString().split("T")[0];
   };
@@ -159,21 +159,30 @@ const Addpet = () => {
   };
 
   useEffect(() => {
-    if (birthdateOption === "exact" && selectedDay && selectedMonth && selectedYear) {
+    if (
+      birthdateOption === "exact" &&
+      selectedDay &&
+      selectedMonth &&
+      selectedYear
+    ) {
       // สร้างวันที่จาก selectedYear, selectedMonth, selectedDay
       // หักลบ 1 จาก selectedMonth เนื่องจาก JavaScript ใช้เดือนที่เริ่มต้นจาก 0
-      const formattedBirthdate = new Date(selectedYear, selectedMonth - 1, selectedDay);
-  
+      const formattedBirthdate = new Date(
+        selectedYear,
+        selectedMonth - 1,
+        selectedDay
+      );
+
       // ตั้งเวลาเป็น 00:00:00 ของวันใน UTC เพื่อหลีกเลี่ยงปัญหาจาก Timezone
       formattedBirthdate.setHours(12, 0, 0, 0);
-      
+
       // แปลงวันที่เพื่อแสดงในรูปแบบ th-TH
       setBirthdate(formattedBirthdate.toLocaleDateString("th-TH"));
-  
+
       // แปลงวันที่เพื่อเก็บในรูปแบบ YYYY-MM-DD (ในโซนเวลาของคุณ)
-      const dbDate = formattedBirthdate.toISOString().split('T')[0];
+      const dbDate = formattedBirthdate.toISOString().split("T")[0];
       setDbbirthdate(dbDate);
-  
+
       // คำนวณอายุ
       const { ageYears, ageMonths } = calculateAge(formattedBirthdate);
       setPetAge(`${ageYears} ปี ${ageMonths} เดือน`);
@@ -261,6 +270,7 @@ const Addpet = () => {
               {showWeightInput ? (
                 <input
                   type="number"
+                  placeholder="กรอกน้ำหนัก"
                   min="0"
                   value={petWeight}
                   onChange={(e) => setPetWeight(e.target.value)}
@@ -270,9 +280,7 @@ const Addpet = () => {
                 <button
                   onClick={() => setShowWeightInput(true)}
                   className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-md"
-                >
-                  กรอกน้ำหนัก
-                </button>
+                ></button>
               )}
             </div>
             <div className="w-full mb-4">

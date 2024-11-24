@@ -92,7 +92,7 @@ function Navbar() {
             {dropdownOpenPet && (
               <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg text-center">
                 {/* ลูกศรของ Dropdown */}
-                <div className="absolute top-[-8px] left-6 w-4 h-4 bg-white rotate-45 shadow-md"></div>
+                <div className="absolute top-[-8px] left-6 w-4 h-4 bg-white rotate-45 "></div>
 
                 <a
                   href="/Mypet"
