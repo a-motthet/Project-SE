@@ -120,6 +120,7 @@ const PetProfile = () => {
       setPetAge(`${ageYears} ปี ${ageMonths} เดือน`);
     }
   }, [ageYears, ageMonths, birthdateOption]);
+  
 
   return (
     <div className="bg-[#EBE4F2]  flex flex-col items-start">

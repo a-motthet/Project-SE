@@ -44,7 +44,7 @@ function App() {
         {/* Grid สำหรับแสดงรายการสัตว์เลี้ยง */}
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4 bg-white rounded-lg shadow-lg">
           {pets.map((pet) => (
-            <Link to={`/Detailpet/${pet.id}`} key={pet.id}>
+            <Link to={`/Detailpet/${pet.pet_id}`} key={pet.pet_id}>
               <div className="group relative w-full h-48 max-w-xs mx-auto rounded-lg overflow-hidden shadow-md transition-all duration-500 ease-in-out transform hover:scale-105">
                 <img
                   src={pet.pet_photo|| mypic} // ใช้รูปภาพจาก database หรือรูป default
@@ -58,7 +58,7 @@ function App() {
                 </div>
               </div>
             </Link>
-          ))}
+          ))} 
         </div>
       </div>
     </div>

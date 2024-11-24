@@ -161,6 +161,28 @@ app.get("/pets", authenticateToken, (req, res) => {
   });
 });
 
+app.get("/pets/:pet_id", (req, res) => {
+  console.log(req.params); // ตรวจสอบค่าที่อยู่ใน req.params
+  const { pet_id } = req.params;
+  console.log("Pet ID:", pet_id); // ตรวจสอบค่า pet_id
+  
+  const query = "SELECT * FROM pet WHERE pet_id = ?";
+  db.query(query, [pet_id], (err, result) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ error: "Server error" });
+    } else if (result.length === 0) {
+      res.status(404).json({ error: "Pet not found" });
+    } else {
+      res.json(result[0]);
+    }
+  });
+});
+
+
+
+
+
 
 
 app.listen('3001', () => {

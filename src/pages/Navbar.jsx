@@ -8,8 +8,8 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpenPet, setDropdownOpenPet] = useState(false);
   const [dropdownOpenUser, setDropdownOpenUser] = useState(false);
-
   const [username, setUsername] = useState("");
+  
   const navigate = useNavigate();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
