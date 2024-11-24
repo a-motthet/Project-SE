@@ -21,26 +21,31 @@ function Navbar() {
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("token"); // ดึง JWT
+    const token = localStorage.getItem("token");
     if (token) {
       axios
         .get("http://localhost:3001/getUsername", {
-          headers: { Authorization: `Bearer ${token}` }, // ส่ง JWT ใน Header
+          headers: { Authorization: `Bearer ${token}` },
         })
         .then((response) => {
           if (response.data.success) {
-            setUsername(response.data.username); // ตั้งค่าชื่อผู้ใช้ใน State
+            setUsername(response.data.username);
           } else {
-            console.error("Failed to fetch username:", response.data.message);
+            console.error("Invalid token:", response.data.message);
+            localStorage.removeItem("token");
+            navigate("/login");
           }
         })
         .catch((error) => {
           console.error("Error fetching username:", error);
+          localStorage.removeItem("token");
+          navigate("/login");
         });
     } else {
-      console.error("No token found, please log in");
+      navigate("/login");
     }
-  }, []);
+  }, [navigate]);
+  
 
   return (
     <nav className="bg-color-b shadow-md p-4 font-sans">
@@ -162,11 +167,16 @@ function Navbar() {
                   จัดการบัญชี
                 </a>
                 <a
-                  href="/Logout"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:rounded-b-lg"
+                  href="#"
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    navigate("/login"); // Redirect to login page
+                  }}
+                  className="block hover:text-color-holdber"
                 >
                   ออกจากระบบ
                 </a>
+
               </div>
             )}
           </div>
@@ -184,6 +194,7 @@ function Navbar() {
           </button>
           <div>
             <button
+              aria-expanded={dropdownOpenPet}
               onClick={() => setDropdownOpenPet(!dropdownOpenPet)}
               className="flex items-center text-lg font-medium"
             >
