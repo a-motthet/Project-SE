@@ -9,9 +9,8 @@ function Navbar() {
   const [dropdownOpenPet, setDropdownOpenPet] = useState(false);
   const [dropdownOpenUser, setDropdownOpenUser] = useState(false);
 
-  const [username, setUsername] = useState(""); 
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
- 
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -45,19 +44,21 @@ function Navbar() {
       navigate("/login");
     }
   }, [navigate]);
-  
 
   return (
     <nav className="bg-color-b shadow-md p-4 font-sans">
       {/* Navbar container */}
       <div className="flex items-center justify-between px-5 py-4">
         {/* Logo */}
-        <div>
+        <div
+          className="cursor-pointer"
+          onClick={() => handleNavigation("/Home")}
+        >
           <div className="flex items-center">
             <img
               src={mypic}
               alt="Profile"
-              className="md:ml-20 w-20 h-20 rounded-full mr-5 shadow-xl"
+              className="md:ml-20 w-20 h-20 mr-5 "
             />
             <a className="text-white text-[30px] font-extrabold md:block hidden ">
               Animalover
@@ -176,7 +177,6 @@ function Navbar() {
                 >
                   ออกจากระบบ
                 </a>
-
               </div>
             )}
           </div>

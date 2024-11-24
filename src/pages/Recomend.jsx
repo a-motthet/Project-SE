@@ -22,7 +22,7 @@ function Recomend() {
         <img
           src={imgSrc}
           alt="Profile"
-          className="w-32 h-32 flex rounded-full object-cover items-center justify-self-center content-center"
+          className="w-32 h-32 flex object-cover items-center justify-self-center content-center"
         />
         <h4 className="font-semibold mb-4 mt-4 justify-self-center font-sans">
           {title}

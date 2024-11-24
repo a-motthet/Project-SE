@@ -20,26 +20,26 @@ const Footer = () => {
           </ol>
         </div>
 
-        {/* <div>
+        <div>
           <h3 className="text-lg font-semibold text-white">Quick Links</h3>
           <ul className="mt-2 space-y-2">
             <li>
-              <a href="/about" className="hover:underline">
+              <a href="/Contact" className="hover:underline">
                 About Us
               </a>
             </li>
             <li>
-              <a href="/privacy" className="hover:underline">
-                Privacy Policy
+              <a href="/Home" className="hover:underline">
+                Home
               </a>
             </li>
-            <li>
+            {/* <li>
               <a href="/terms" className="hover:underline">
                 Terms of Service
               </a>
-            </li>
+            </li> */}
           </ul>
-        </div> */}
+        </div>
 
         <div>
           <h3 className="text-lg font-semibold text-white">Follow Us</h3>
