@@ -9,9 +9,9 @@ function Navbar() {
   const [dropdownOpenPet, setDropdownOpenPet] = useState(false);
   const [dropdownOpenUser, setDropdownOpenUser] = useState(false);
 
-  const [username, setUsername] = useState(""); // State สำหรับชื่อผู้ใช้
+  const [username, setUsername] = useState(""); 
   const navigate = useNavigate();
-  // const user = "Atsadawut";/////////////////////////////
+ 
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -167,10 +167,10 @@ function Navbar() {
                   จัดการบัญชี
                 </a>
                 <a
-                  href="#"
+                  href="/"
                   onClick={() => {
                     localStorage.removeItem("token");
-                    navigate("/login"); // Redirect to login page
+                    // navigate("/login"); // Redirect to login page
                   }}
                   className="block hover:text-color-holdber"
                 >
