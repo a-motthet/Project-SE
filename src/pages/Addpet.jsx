@@ -80,7 +80,7 @@ const Addpet = () => {
     formData.append("petWeight", petWeight);
     formData.append("birthdate", dbbirthdate);
     formData.append("note", note);
-    formData.append("imageFile", profilePic);
+    formData.append("imageFile", profilePic); // profilePic ตอนนี้คือ Base64
 
     if (
       !petName ||
@@ -149,12 +149,9 @@ const Addpet = () => {
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      console.log("File received:", file);
       const reader = new FileReader();
-      reader.onload = () => setProfilePic(reader.result);
-      reader.readAsDataURL(file);
-    } else {
-      console.log("File received: undefined");
+      reader.onload = () => setProfilePic(reader.result); // `reader.result` คือ Base64
+      reader.readAsDataURL(file); // อ่านไฟล์และแปลงเป็น Base64
     }
   };
 
