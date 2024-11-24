@@ -10,6 +10,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+const upload = multer({ storage: multer.memoryStorage() });
 
 const db = mysql.createConnection({
   user: "root",
@@ -17,30 +18,6 @@ const db = mysql.createConnection({
   password: "",
   database: "animalover",
 });
-
-// กำหนดที่เก็บไฟล์
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "./uploads"); // เก็บไฟล์ในโฟลเดอร์ 'uploads'
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname)); // ตั้งชื่อไฟล์โดยเพิ่ม timestamp
-  },
-});
-
-// การกำหนดตัวกรองไฟล์
-const upload = multer({
-  storage: storage,
-  fileFilter: (req, file, cb) => {
-    if (file.mimetype.startsWith("image/")) {
-      cb(null, true); // อนุญาตเฉพาะไฟล์รูปภาพ
-    } else {
-      cb(new Error("Only image files are allowed!"), false);
-    }
-  },
-});
-
-
 
 app.get("/", (req, res) => {
   res.send("Welcome to the server!");
@@ -149,11 +126,14 @@ app.post("/register", (req, res) => {
   });
 });
 
-app.post("/addPet", authenticateToken, upload.single("imageFile"), (req, res) => {
-  console.log("Request body:", req.body); // Debug ข้อมูลอื่นๆ
-
+app.post('/addPet', authenticateToken, upload.single('imageFile'), (req, res) => {
+  console.log("Request body:", req.body);
   const userId = req.userId;
   const { petName, petType, petSex, petWeight, birthdate, note, imageFile } = req.body;
+
+  if (!petName || !petType || !petSex || !petWeight || !birthdate || !imageFile) {
+    return res.status(400).send("กรุณากรอกข้อมูลให้ครบถ้วน");
+  }
 
   db.query(
     "INSERT INTO pet (user_id, pet_name, pet_breed, pet_gender, pet_weight, pet_birthdate, pet_description, pet_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
@@ -166,6 +146,19 @@ app.post("/addPet", authenticateToken, upload.single("imageFile"), (req, res) =>
       res.status(200).send("Pet added successfully");
     }
   );
+});
+
+app.get("/pets", authenticateToken, (req, res) => {
+  const userId = req.userId;
+
+  db.query("SELECT * FROM pet WHERE user_id = ?", userId, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error fetching pets.");
+    } else {
+      res.send(result);
+    }
+  });
 });
 
 
