@@ -33,9 +33,7 @@ function App() {
     getPet();
   }, []);
 
-  useEffect(() => {
-    console.log(petlist); // ตรวจสอบโครงสร้าง petlist
-  }, [petlist]);
+
 
   return (
     <div className="bg-color-bg min-h-screen flex flex-col font-sans">
