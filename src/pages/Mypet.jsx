@@ -1,8 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import mypic from "../images/2.jpg";
+import axios from "axios"; // ไลบรารีสำหรับทำ HTTP Request
+import mypic from "../images/2.jpg"; // รูปภาพ default
 
 function App() {
+  const [pets, setPets] = useState([]); // สร้าง state สำหรับเก็บข้อมูลสัตว์เลี้ยง
+
+  // ดึงข้อมูลสัตว์เลี้ยงจาก backend
+  useEffect(() => {
+    const fetchPets = async () => {
+      try {
+        const token = localStorage.getItem("token"); // ดึง token จาก localStorage (กรณีมีการ auth)
+        const response = await axios.get("http://localhost:3001/pets", {
+          headers: {  
+            Authorization: `Bearer ${token}`, // เพิ่ม token ใน request header
+          },
+        });
+        setPets(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน state
+      } catch (error) {
+        console.error("Error fetching pets:", error);
+      }
+    };
+
+    fetchPets();
+  }, []);
+
   return (
     <div className="bg-color-bg min-h-screen flex flex-col">
       <div className="container mx-auto p-6 flex flex-col items-center">
@@ -19,18 +41,19 @@ function App() {
           </div>
         </div>
 
-        <div className="w-full grid grid-cols-3 gap-3 p-4 bg-white rounded-lg shadow-lg">
-          {[1, 2, 3, 4, 5].map((item) => (
-            <Link to={`/Detailpet/${item}`} key={item}>
+        {/* Grid สำหรับแสดงรายการสัตว์เลี้ยง */}
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4 bg-white rounded-lg shadow-lg">
+          {pets.map((pet) => (
+            <Link to={`/Detailpet/${pet.id}`} key={pet.id}>
               <div className="group relative w-full h-48 max-w-xs mx-auto rounded-lg overflow-hidden shadow-md transition-all duration-500 ease-in-out transform hover:scale-105">
                 <img
-                  src={mypic}
-                  alt={`pet ${item}`}
+                  src={pet.pet_photo|| mypic} // ใช้รูปภาพจาก database หรือรูป default
+                  alt={pet.pet_photo}
                   className="w-full h-full object-cover group-hover:opacity-80 transition-opacity duration-300"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-center items-center">
                   <span className="text-white text-xl font-semibold font-sans">
-                    ดูรายละเอียด
+                    {pet.pet_name}
                   </span>
                 </div>
               </div>
