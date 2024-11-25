@@ -65,16 +65,17 @@ const PetProfile = () => {
   const { id } = useParams(); // ดึงค่า id จาก URL
   const [pet, setPet] = useState(null); // เก็บข้อมูลสัตว์เลี้ยง
   const [error, setError] = useState(null); // เก็บ Error (ถ้ามี)
+  const [dbbirthdate, setDbbirthdate] = useState("");
   
   const addPet = () => {
     const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
-    
+
     const formData = new FormData(); // ใช้ FormData เพื่อจัดการข้อมูลที่มีไฟล์
     formData.append("petName", petName);
     formData.append("petType", editPetType);
     formData.append("petSex", petSex);
     formData.append("petWeight", petWeight);
-    formData.append("birthdate", birthdate);
+    formData.append("birthdate", dbbirthdate);
     formData.append("note", note);
     // formData.append("imageFile", profilePic); // profilePic ตอนนี้คือ Base64
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import mypic from "../images/2.jpg";
 import Axios from "axios";
+import { useParams } from "react-router-dom";
 
 const NotificationPopup = ({ onClose }) => (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 font-sans">
@@ -69,6 +70,7 @@ const Addpet = () => {
   const [isErrorPopupVisible, setIsErrorPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [dbbirthdate, setDbbirthdate] = useState("");
+  const { id } = useParams(); 
 
   const addPet = () => {
     const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
@@ -95,7 +97,7 @@ const Addpet = () => {
       return;
     }
 
-    Axios.post("http://localhost:3001/addPet", formData, {
+    Axios.post(`http://localhost:3001/pets/${id}`, formData, {
       headers: {
         Authorization: `Bearer ${token}`, // แนบ Token ใน Header
         "Content-Type": "multipart/form-data", // กำหนดประเภทข้อมูล
