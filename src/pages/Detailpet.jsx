@@ -3,6 +3,7 @@ import { FaEdit, FaTrash, FaUpload } from "react-icons/fa";
 import mypic from "../images/2.jpg";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Axios from "axios";
 
 const NotificationPopup = ({ onClose }) => (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
@@ -34,6 +35,11 @@ const NotificationMessagePopup = ({ onClose }) => (
   </div>
 );
 
+
+
+
+
+
 const PetProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
@@ -44,7 +50,7 @@ const PetProfile = () => {
   const [petSex, setPetSex] = useState("ผู้");
   const [petAge, setPetAge] = useState("2 ปี");
   const [petWeight, setPetWeight] = useState("200 กิโลกรัม");
-  const [birthdate, setBirthdate] = useState("xx-xx-xxxx");
+  const [birthdate, setBirthdate] = useState("");
   const [note, setNote] = useState("น้องสมหมายชอบน่ารักของ มารี่");
   const [editPetType, setEditPetType] = useState(petType);
   const [showWeightInput, setShowWeightInput] = useState(false);
@@ -59,6 +65,39 @@ const PetProfile = () => {
   const { id } = useParams(); // ดึงค่า id จาก URL
   const [pet, setPet] = useState(null); // เก็บข้อมูลสัตว์เลี้ยง
   const [error, setError] = useState(null); // เก็บ Error (ถ้ามี)
+  
+  const addPet = () => {
+    const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
+    
+    const formData = new FormData(); // ใช้ FormData เพื่อจัดการข้อมูลที่มีไฟล์
+    formData.append("petName", petName);
+    formData.append("petType", editPetType);
+    formData.append("petSex", petSex);
+    formData.append("petWeight", petWeight);
+    formData.append("birthdate", birthdate);
+    formData.append("note", note);
+    // formData.append("imageFile", profilePic); // profilePic ตอนนี้คือ Base64
+
+
+    Axios.post(`http://localhost:3001/pets/${id}`, formData, {
+      
+      headers: {
+        Authorization: `Bearer ${token}`, // แนบ Token ใน Header
+         // กำหนดประเภทข้อมูล
+      },
+    })
+      .then(() => {
+        console.log("เพิ่มสัตว์เลี้ยงสำเร็จ");
+        NotificationPopup(true); // แสดงการแจ้งเตือนเมื่อเพิ่มสำเร็จ
+      })
+      .catch((error) => {
+        console.error("เกิดข้อผิดพลาด: ", error);
+        NotificationMessagePopup(
+          "ไม่สามารถเพิ่มสัตว์เลี้ยงได้ กรุณาตรวจสอบข้อมูลอีกครั้ง"
+        );
+        NotificationMessagePopup(true); // แสดง Popup ความผิดพลาด
+      });
+  };
 
   const calculateAge = (birthdate) => {
     const birth = new Date(birthdate);
@@ -157,6 +196,11 @@ const PetProfile = () => {
     year: "numeric",
   });
 
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' }; // เช่น 26 November 2024
+    return new Date(dateString).toLocaleDateString('th-TH', options);
+};
+
   function calculatePetAge(birthDateString) {
     // แปลงวันเกิดจากสตริงเป็น Date object
     const birthDate = new Date(birthDateString);
@@ -200,7 +244,7 @@ const PetProfile = () => {
                 </p>
                 <p className="text-xl text-color-b font-sans">
                   {" "}
-                  วันเกิด: {petInfo.formattedBirthDate}
+                  วันเกิด: {formatDate(pet[0].pet_birthdate)}
                 </p>
                 <p className="text-xl text-color-b font-sans">
                   อายุของสัตว์เลี้ยง: {petInfo.age} ปี
@@ -209,7 +253,7 @@ const PetProfile = () => {
                   {" "}
                   น้ำหนัก: {pet[0].pet_weight} กิโลกรัม
                 </p>
-                <p className="text-xl text-color-b font-sans"> Note: {pet[0].pet_note}</p>
+                <p className="text-xl text-color-b font-sans"> Note: {pet[0].pet_note || "-"}</p>
                 <div className="flex space-x-2 w-full mt-20 items-end">
                   <button
                     onClick={toggleEditMode}
@@ -434,7 +478,7 @@ const PetProfile = () => {
                   />
                 </div>
                 <button
-                  onClick={toggleEditMode}
+                  onClick={addPet}
                   className="font-sans w-full bg-color-b text-white p-3 rounded-md mt-4 px-12"
                 >
                   บันทึก
