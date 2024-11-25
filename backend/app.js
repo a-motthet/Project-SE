@@ -161,6 +161,18 @@ app.get("/pets", authenticateToken, (req, res) => {
   });
 });
 
+app.get("/pets/:id", authenticateToken, (req, res) => {
+  const petId = req.params.id;
+
+  db.query("SELECT * FROM pet WHERE pet_id = ?", petId, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error fetching pets.");
+    } else {
+      res.send(result);
+    }
+  });
+});
 
 
 app.listen('3001', () => {

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2024 at 07:48 PM
+-- Generation Time: Nov 25, 2024 at 03:54 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -57,13 +57,10 @@ INSERT INTO `customers` (`user_id`, `user_firstname`, `user_lastname`, `user_ema
 --
 
 CREATE TABLE `health_record` (
-  `record_id` int(11) NOT NULL,
+  `health_id` int(11) NOT NULL,
   `pet_id` int(11) NOT NULL,
-  `record_vaccine_name` varchar(100) DEFAULT NULL,
-  `record_date_vaccine` date DEFAULT NULL,
-  `record_exp_vaccine` date DEFAULT NULL,
-  `record_healthdate` date DEFAULT NULL,
-  `record_description` text DEFAULT NULL
+  `health_date` date DEFAULT NULL,
+  `health_description` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 -- --------------------------------------------------------
@@ -110,6 +107,20 @@ INSERT INTO `pet` (`pet_id`, `user_id`, `pet_name`, `pet_breed`, `pet_gender`, `
 INSERT INTO `pet` (`pet_id`, `user_id`, `pet_name`, `pet_breed`, `pet_gender`, `pet_weight`, `pet_birthdate`, `pet_description`, `pet_photo`) VALUES
 (5, 2, 'hnjrth', 'หมา', 'ผู้', 0.00, '2019-11-24', '', '/static/media/2.735dac80be1b85eec3aa.jpg');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vaccine_record`
+--
+
+CREATE TABLE `vaccine_record` (
+  `vaccine_id` int(11) NOT NULL,
+  `pet_id` int(11) NOT NULL,
+  `vaccine_name` varchar(100) NOT NULL,
+  `vaccine_date` date NOT NULL,
+  `vaccine_exp` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
 --
 -- Indexes for dumped tables
 --
@@ -127,7 +138,7 @@ ALTER TABLE `customers`
 -- Indexes for table `health_record`
 --
 ALTER TABLE `health_record`
-  ADD PRIMARY KEY (`record_id`),
+  ADD PRIMARY KEY (`health_id`),
   ADD KEY `pet_id` (`pet_id`);
 
 --
@@ -144,6 +155,13 @@ ALTER TABLE `pet`
   ADD KEY `user_id` (`user_id`);
 
 --
+-- Indexes for table `vaccine_record`
+--
+ALTER TABLE `vaccine_record`
+  ADD PRIMARY KEY (`vaccine_id`),
+  ADD KEY `pet_id` (`pet_id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -157,7 +175,7 @@ ALTER TABLE `customers`
 -- AUTO_INCREMENT for table `health_record`
 --
 ALTER TABLE `health_record`
-  MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `health_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `nutrition_guide`
@@ -170,6 +188,12 @@ ALTER TABLE `nutrition_guide`
 --
 ALTER TABLE `pet`
   MODIFY `pet_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `vaccine_record`
+--
+ALTER TABLE `vaccine_record`
+  MODIFY `vaccine_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
@@ -186,6 +210,12 @@ ALTER TABLE `health_record`
 --
 ALTER TABLE `pet`
   ADD CONSTRAINT `pet_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `customers` (`user_id`);
+
+--
+-- Constraints for table `vaccine_record`
+--
+ALTER TABLE `vaccine_record`
+  ADD CONSTRAINT `vaccine_record_ibfk_1` FOREIGN KEY (`pet_id`) REFERENCES `pet` (`pet_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
