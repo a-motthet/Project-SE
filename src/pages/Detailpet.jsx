@@ -69,7 +69,7 @@ const PetProfile = () => {
 
     if (ageMonths < 0) {
       ageYears--;
-      ageMonths += 12;
+      ageMonths += 13;
     }
 
     return { ageYears, ageMonths };

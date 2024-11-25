@@ -6,7 +6,7 @@ import mypic from "../images/2.jpg"; // รูปภาพ default
 function App() {
   const [pets, setPets] = useState([]); // สร้าง state สำหรับเก็บข้อมูลสัตว์เลี้ยง
 
-  // ดึงข้อมูลสัตว์เลี้ยงจาก backend
+  
   useEffect(() => {
     const fetchPets = async () => {
       try {

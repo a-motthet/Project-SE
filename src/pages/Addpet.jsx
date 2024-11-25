@@ -123,7 +123,7 @@ const Addpet = () => {
 
     if (ageMonths < 0) {
       ageYears--;
-      ageMonths += 12;
+      ageMonths += 1;
     }
 
     return { ageYears, ageMonths };
