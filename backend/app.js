@@ -169,7 +169,7 @@ app.get("/pets/:id", authenticateToken, (req, res) => {
       console.log(err);
       res.status(500).send("Error fetching pets.");
     } else {
-      res.send(result);
+      res.send(result); //
     }
   });
 });
