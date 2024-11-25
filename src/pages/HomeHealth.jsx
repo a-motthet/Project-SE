@@ -4,36 +4,32 @@ import mypic from "../images/2.jpg";
 import axios from "axios";
 
 function App() {
-
   const [petlist, setPetlist] = useState([]);
   const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
-
 
   const getPet = () => {
     if (!token) {
       console.error("Token is missing. Please log in.");
       return;
     }
-  
-    axios.get('http://localhost:3001/pets', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((response) => {
-      setPetlist(response.data);
-    })
-    .catch((error) => {
-      console.error("Failed to fetch pets:", error);
-    });
+
+    axios
+      .get("http://localhost:3001/pets", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setPetlist(response.data);
+      })
+      .catch((error) => {
+        console.error("Failed to fetch pets:", error);
+      });
   };
-  
 
   useEffect(() => {
     getPet();
   }, []);
-
-
 
   return (
     <div className="bg-color-bg min-h-screen flex flex-col font-sans">
@@ -51,10 +47,10 @@ function App() {
           </div>
         </div>
 
-        <div className="w-full grid grid-cols-3 gap-3 p-4 bg-white rounded-lg shadow-lg">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4 bg-white rounded-lg shadow-lg">
           {petlist.map((val, key) => (
             <Link to={`/HealthpetPage/${val.pet_id}`} key={val.pet_id}>
-              <div className="group relative w-full h-48 max-w-xs mx-auto rounded-lg overflow-hidden shadow-md transition-all duration-500 ease-in-out transform hover:scale-105">
+              <div className="group flex relative content-center items-center max-w-xs w-[300px] h-[300px] mx-auto rounded-full overflow-hidden shadow-md transition-all duration-500 ease-in-out transform hover:scale-105">
                 <img
                   src={val.pet_photo}
                   alt={`${val.pet_name}`}

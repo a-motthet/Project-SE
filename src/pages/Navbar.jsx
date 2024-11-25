@@ -9,7 +9,7 @@ function Navbar() {
   const [dropdownOpenPet, setDropdownOpenPet] = useState(false);
   const [dropdownOpenUser, setDropdownOpenUser] = useState(false);
   const [username, setUsername] = useState("");
-  
+
   const navigate = useNavigate();
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
@@ -125,7 +125,7 @@ function Navbar() {
                   คลินิกใกล้เคียง
                 </a>
                 <a
-                  href="/Pet_benefit"
+                  href="/Head_bene"
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:rounded-b-lg"
                 >
                   แนะนำโภชนาการ
@@ -173,7 +173,7 @@ function Navbar() {
                     localStorage.removeItem("token");
                     // navigate("/login"); // Redirect to login page
                   }}
-                  className="block hover:text-color-holdber"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:rounded-b-lg"
                 >
                   ออกจากระบบ
                 </a>

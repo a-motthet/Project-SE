@@ -10,7 +10,7 @@ function App() {
     const fetchPets = async () => {
       try {
         const token = localStorage.getItem("token"); // ดึง token จาก localStorage (กรณีมีการ auth)
-        const response = await axios.get("http://localhost:3001/pets", {
+        const response = await axios.get("http://localhost:3000/Pet_benefit", {
           headers: {
             Authorization: `Bearer ${token}`, // เพิ่ม token ใน request header
           },
