@@ -3,7 +3,7 @@ import mypic from "../images/2.jpg";
 import Axios from "axios";
 
 const NotificationPopup = ({ onClose }) => (
-  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+  <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 font-sans">
     <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
       <h2 className="text-color-b text-lg font-bold mb-2">📢 แจ้งเตือน</h2>
       <p className="text-color-b mb-4">เพิ่มสัตว์เลี้ยงของท่านเสร็จสิ้น</p>
@@ -16,6 +16,36 @@ const NotificationPopup = ({ onClose }) => (
     </div>
   </div>
 );
+
+const NotificationPopup_error = ({ type, message, onClose }) => {
+  const isError = type === "error";
+  return (
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+      <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
+        <h2
+          className={`text-lg mb-2 ${
+            isError ? "text-red-400" : "text-green-400"
+          }`}
+        >
+          {isError ? "แจ้งเตือนข้อผิดพลาด" : "แจ้งเตือนความสำเร็จ"}
+        </h2>
+        <p className={`mb-4 ${isError ? "text-red-400" : "text-green-400"}`}>
+          {message}
+        </p>
+        <button
+          onClick={onClose}
+          className={`px-4 py-2 rounded-large text-white ${
+            isError
+              ? "bg-red-400 hover:bg-red-200"
+              : "bg-green-400 hover:bg-green-200"
+          }`}
+        >
+          ยืนยัน
+        </button>
+      </div>
+    </div>
+  );
+};
 
 const Addpet = () => {
   const [isEditing, setIsEditing] = useState(false);
@@ -74,19 +104,27 @@ const Addpet = () => {
 
     if (ageMonths < 0) {
       ageYears--;
-      ageMonths += 12;
+      ageMonths += 1;
     }
 
     return { ageYears, ageMonths };
   };
 
-  const toggleEditMode = () => {
-    if (isEditing) {
-      setPetType(editPetType);
-      setPetWeight(petWeight);
+  const calculateApproximateBirthdate = (ageYears, ageMonths) => {
+    const today = new Date();
+    let birthdate = new Date(today);
+
+    // ลบปีและเดือนจากวันที่ปัจจุบัน
+    birthdate.setFullYear(birthdate.getFullYear() - ageYears);
+    birthdate.setMonth(birthdate.getMonth() - ageMonths);
+
+    // ตรวจสอบความถูกต้องของวันที่
+    if (birthdate.getDate() !== today.getDate()) {
+      birthdate.setDate(0); // ปรับวันที่เป็นวันสุดท้ายของเดือนก่อนหน้า
     }
-    setShowNotification(true); // แสดงการแจ้งเตือนทุกครั้ง
-    setIsEditing(!isEditing);
+
+    // แปลงวันที่เป็นรูปแบบ YYYY-MM-DD
+    return birthdate.toISOString().split("T")[0];
   };
 
   const handleProfilePicChange = (e) => {
@@ -185,18 +223,18 @@ const Addpet = () => {
               </label>
               {showWeightInput ? (
                 <input
-                  type="text"
+                  type="number"
+                  placeholder="กรอกน้ำหนัก"
+                  min="0"
                   value={petWeight}
                   onChange={(e) => setPetWeight(e.target.value)}
                   className="w-full p-3 border-2 border-gray-300 rounded-md"
                 />
               ) : (
-                <button
+                <button 
                   onClick={() => setShowWeightInput(true)}
                   className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-md"
-                >
-                  กรอกน้ำหนัก
-                </button>
+                ></button>
               )}
             </div>
             <div className="w-full mb-4">

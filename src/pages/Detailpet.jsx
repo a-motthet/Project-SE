@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { FaEdit, FaTrash, FaUpload } from "react-icons/fa";
 import mypic from "../images/2.jpg";
+<<<<<<< HEAD
+=======
+import { useParams } from "react-router-dom";
+import axios from "axios";
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
 
 const NotificationPopup = ({ onClose }) => (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
@@ -54,6 +59,12 @@ const PetProfile = () => {
   const [ageMonths, setAgeMonths] = useState("");
   const [profilePic, setProfilePic] = useState(mypic);
   const [petNameToDelete, setPetNameToDelete] = useState("");
+<<<<<<< HEAD
+=======
+  const { id } = useParams(); // ดึงค่า id จาก URL
+  const [pet, setPet] = useState(null); // เก็บข้อมูลสัตว์เลี้ยง
+  const [error, setError] = useState(null); // เก็บ Error (ถ้ามี)
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
 
   const calculateAge = (birthdate) => {
     const birth = new Date(birthdate);
@@ -64,7 +75,7 @@ const PetProfile = () => {
 
     if (ageMonths < 0) {
       ageYears--;
-      ageMonths += 12;
+      ageMonths += 13;
     }
 
     return { ageYears, ageMonths };
@@ -120,6 +131,66 @@ const PetProfile = () => {
       setPetAge(`${ageYears} ปี ${ageMonths} เดือน`);
     }
   }, [ageYears, ageMonths, birthdateOption]);
+<<<<<<< HEAD
+=======
+  
+
+  useEffect(() => {
+    const fetchPet = async () => {
+      try {
+        const token = localStorage.getItem("token"); // ดึง Token
+        const response = await axios.get(`http://localhost:3001/pets/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setPet(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน State
+      } catch (err) {
+        setError("ไม่สามารถโหลดข้อมูลสัตว์เลี้ยงได้");
+      }
+    };
+
+    fetchPet();
+  }, [id]);
+
+  if (error) {
+    return <p className="text-red-500">{error}</p>;
+  }
+
+  if (!pet) {
+    return <p>กำลังโหลดข้อมูล...</p>; // แสดงข้อความขณะกำลังโหลด
+  }
+  
+  const formatter = new Intl.DateTimeFormat("th-TH", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+
+  function calculatePetAge(birthDateString) {
+    // แปลงวันเกิดจากสตริงเป็น Date object
+    const birthDate = new Date(birthDateString);
+    const currentDate = new Date(); // วันที่ปัจจุบัน
+  
+    // คำนวณอายุ
+    let age = currentDate.getFullYear() - birthDate.getFullYear();
+    const monthDifference = currentDate.getMonth() - birthDate.getMonth();
+    const dayDifference = currentDate.getDate() - birthDate.getDate();
+  
+    // ปรับอายุหากเดือนหรือวันยังไม่ถึงวันเกิดในปีนี้
+    if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+      age--;
+    }
+  
+    // แปลงวันเกิดเป็นฟอร์แมตที่อ่านง่าย
+    const formattedBirthDate = formatter.format(birthDate);
+  
+    return {
+      age,
+      formattedBirthDate,
+    };
+  }
+
+  const petInfo = calculatePetAge(pet[0].pet_birthdate);
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
 
   return (
     <div className="bg-[#EBE4F2]  flex flex-col items-start">
@@ -130,6 +201,7 @@ const PetProfile = () => {
             {!isEditing ? (
               <>
                 <h2 className="text-color-b text-2xl font-sans font-bold mb-6">
+<<<<<<< HEAD
                   {petName} :
                 </h2>
                 <p className="text-xl text-color-b font-sans">
@@ -148,6 +220,26 @@ const PetProfile = () => {
                   น้ำหนัก: {petWeight}
                 </p>
                 <p className="text-xl text-color-b font-sans"> Note: {note}</p>
+=======
+                  {pet[0].pet_name} :
+                </h2>
+                <p className="text-xl text-color-b font-sans">
+                  {" "}
+                  สัตว์เลี้ยง: {pet[0].pet_breed} เพศ: {pet[0].pet_gender}
+                </p>
+                <p className="text-xl text-color-b font-sans">
+                  {" "}
+                  วันเกิด: {petInfo.formattedBirthDate}
+                </p>
+                <p className="text-xl text-color-b font-sans">
+                  อายุของสัตว์เลี้ยง: {petInfo.age} ปี
+                </p>
+                <p className="text-xl text-color-b font-sans">
+                  {" "}
+                  น้ำหนัก: {pet[0].pet_weight} กิโลกรัม
+                </p>
+                <p className="text-xl text-color-b font-sans"> Note: {pet[0].pet_note}</p>
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
                 <div className="flex space-x-2 w-full mt-20 items-end">
                   <button
                     onClick={toggleEditMode}
@@ -384,7 +476,11 @@ const PetProfile = () => {
           <div className="lg:w-1/3 w-full lg:pr-8 flex flex-col items-center lg:order-last order-first">
             <div className="relative w-50 h-50 rounded-full flex items-center justify-center mb-10">
               <img
+<<<<<<< HEAD
                 src={profilePic}
+=======
+                src={pet[0].pet_photo}
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
                 alt="Profile"
                 className="w-full h-full rounded-full object-cover"
               />

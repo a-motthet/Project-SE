@@ -9,7 +9,7 @@ export default function VaccinationForm() {
   };
 
   const NotificationPopup = ({ onClose }) => (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 font-sans">
       <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
         <h2 className="text-color-b text-lg font-bold mb-2">แจ้งเตือน</h2>
         <p className="text-color-b mb-4">เพิ่มข้อมูลสำเร็จ</p>

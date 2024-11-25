@@ -18,7 +18,7 @@ const Welcome = () => {
             เจ้าของสัตว์เลี้ยงสามารถติดตามและดูแลสุขภาพของสัตว์เลี้ยงได้อย่างง่ายดาย
           </p>
         </div>
-        <img src={mypic} className="ml-48 w-72 h-72 rounded-full my-10" />
+        <img src={mypic} className="ml-48 w-72 h-72 my-10" />
       </div>
     </>
   );

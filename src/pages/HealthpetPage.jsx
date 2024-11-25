@@ -18,7 +18,7 @@ function HealthPetPage() {
       condition: "xxxx",
       weight: "4 Kg.",
       vaccine: "วัคซีนป้องกันโรคพิษสุนัขบ้า",
-      healthDate: "10-11-2023",
+      healthDate: "11-11-2023",
     },
     2: {
       name: "สมหมาย",

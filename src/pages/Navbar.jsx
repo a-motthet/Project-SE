@@ -8,10 +8,16 @@ function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpenPet, setDropdownOpenPet] = useState(false);
   const [dropdownOpenUser, setDropdownOpenUser] = useState(false);
+<<<<<<< HEAD
 
   const [username, setUsername] = useState(""); // State สำหรับชื่อผู้ใช้
   const navigate = useNavigate();
   // const user = "Atsadawut";/////////////////////////////
+=======
+  const [username, setUsername] = useState("");
+  
+  const navigate = useNavigate();
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -20,6 +26,7 @@ function Navbar() {
     setMenuOpen(false);
   };
 
+<<<<<<< HEAD
 useEffect(() => {
     const token = localStorage.getItem("token"); // ดึง JWT
     if (token) {
@@ -32,10 +39,27 @@ useEffect(() => {
             setUsername(response.data.username); // ตั้งค่าชื่อผู้ใช้ใน State
           } else {
             console.error("Failed to fetch username:", response.data.message);
+=======
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      axios
+        .get("http://localhost:3001/getUsername", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          if (response.data.success) {
+            setUsername(response.data.username);
+          } else {
+            console.error("Invalid token:", response.data.message);
+            localStorage.removeItem("token");
+            navigate("/login");
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
           }
         })
         .catch((error) => {
           console.error("Error fetching username:", error);
+<<<<<<< HEAD
         });
     } else {
       console.error("No token found, please log in");
@@ -44,15 +68,30 @@ useEffect(() => {
 
   return (
     <nav className="bg-color-b shadow-md p-4">
+=======
+          localStorage.removeItem("token");
+          navigate("/login");
+        });
+    } else {
+      navigate("/login");
+    }
+  }, [navigate]);
+
+  return (
+    <nav className="bg-color-b shadow-md p-4 font-sans">
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
       {/* Navbar container */}
       <div className="flex items-center justify-between px-5 py-4">
         {/* Logo */}
-        <div>
+        <div
+          className="cursor-pointer"
+          onClick={() => handleNavigation("/Home")}
+        >
           <div className="flex items-center">
             <img
               src={mypic}
               alt="Profile"
-              className="md:ml-20 w-20 h-20 rounded-full mr-5 shadow-xl"
+              className="md:ml-20 w-20 h-20 mr-5 "
             />
             <a className="text-white text-[30px] font-extrabold md:block hidden ">
               Animalover
@@ -92,7 +131,7 @@ useEffect(() => {
             {dropdownOpenPet && (
               <div className="absolute left-0 mt-2 w-48 bg-white shadow-lg rounded-lg text-center">
                 {/* ลูกศรของ Dropdown */}
-                <div className="absolute top-[-8px] left-6 w-4 h-4 bg-white rotate-45 shadow-md"></div>
+                <div className="absolute top-[-8px] left-6 w-4 h-4 bg-white rotate-45 "></div>
 
                 <a
                   href="/Mypet"
@@ -107,7 +146,7 @@ useEffect(() => {
                   เพิ่มสัตว์เลี้ยง
                 </a>
                 <a
-                  href="/HealthpetPage"
+                  href="/HomeHealth"
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
                 >
                   ข้อมูลสุขภาพ
@@ -162,8 +201,12 @@ useEffect(() => {
                   จัดการบัญชี
                 </a>
                 <a
-                  href="/Logout"
-                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:rounded-b-lg"
+                  href="/"
+                  onClick={() => {
+                    localStorage.removeItem("token");
+                    // navigate("/login"); // Redirect to login page
+                  }}
+                  className="block hover:text-color-holdber"
                 >
                   ออกจากระบบ
                 </a>
@@ -184,6 +227,7 @@ useEffect(() => {
           </button>
           <div>
             <button
+              aria-expanded={dropdownOpenPet}
               onClick={() => setDropdownOpenPet(!dropdownOpenPet)}
               className="flex items-center text-lg font-medium"
             >
@@ -198,7 +242,11 @@ useEffect(() => {
                   เพิ่มสัตว์เลี้ยง
                 </a>
                 <a
+<<<<<<< HEAD
                   href="/HealthpetPage"
+=======
+                  href="/HomeHealth"
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
                   className="block hover:text-color-holdber"
                 >
                   ข้อมูลสุขภาพ

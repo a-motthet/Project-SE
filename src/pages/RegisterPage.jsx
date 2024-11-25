@@ -18,9 +18,67 @@ function RegisterPage() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isErrorPopupVisible, setIsErrorPopupVisible] = useState(false);
+  const [isSuccessPopupVisible, setIsSuccessPopupVisible] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
 
+<<<<<<< HEAD
+=======
+  const NotificationPopup = ({ type, message, onClose }) => {
+    const isError = type === "error";
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+        <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
+          <h2
+            className={`text-lg mb-2 ${
+              isError ? "text-red-400" : "text-green-400"
+            }`}
+          >
+            {isError ? "แจ้งเตือนข้อผิดพลาด" : "แจ้งเตือนความสำเร็จ"}
+          </h2>
+          <p className={`mb-4 ${isError ? "text-red-400" : "text-green-400"}`}>
+            {message}
+          </p>
+          <button
+            onClick={onClose}
+            className={`px-4 py-2 rounded-large text-white ${
+              isError
+                ? "bg-red-400 hover:bg-red-200"
+                : "bg-green-400 hover:bg-green-200"
+            }`}
+          >
+            ยืนยัน
+          </button>
+        </div>
+      </div>
+    );
+  };
+
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
   const addCustomer = () => {
+    if (
+      !firstname ||
+      !lastname ||
+      !username ||
+      !phone ||
+      !email ||
+      !password ||
+      !confirmPassword
+    ) {
+      setPopupMessage("กรุณากรอกข้อมูลให้ครบถ้วน");
+      setIsErrorPopupVisible(true); // แสดง Popup ความผิดพลาด
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setPopupMessage("รหัสผ่านไม่ตรงกัน");
+      setIsErrorPopupVisible(true);
+      return;
+    }
+    
     Axios.post("http://localhost:3001/register", {
+<<<<<<< HEAD
       firstname: firstname,
       lastname: lastname,
       username: username,
@@ -30,6 +88,29 @@ function RegisterPage() {
     }).then(() => {
       console.log("Customer registered successfully");
     });
+=======
+      firstname,
+      lastname,
+      username,
+      phone,
+      email,
+      password,
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          setPopupMessage(response.data); // ใช้ข้อความที่มาจาก Backend
+          setIsSuccessPopupVisible(true);
+        } else {
+          setPopupMessage("เกิดข้อผิดพลาดในการสมัครสมาชิก");
+          setIsErrorPopupVisible(true);
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error.response?.data || error.message);
+        setPopupMessage(error.response?.data || "เกิดข้อผิดพลาด");
+        setIsErrorPopupVisible(true);
+      });
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
   };
 
   const handleLogin = () => {
@@ -38,6 +119,26 @@ function RegisterPage() {
 
   return (
     <div className="bg-color-bg flex h-screen justify-center items-center">
+<<<<<<< HEAD
+=======
+      {isErrorPopupVisible && (
+        <NotificationPopup
+          type="error"
+          message={popupMessage}
+          onClose={() => setIsErrorPopupVisible(false)}
+        />
+      )}
+      {isSuccessPopupVisible && (
+        <NotificationPopup
+          type="success"
+          message={popupMessage}
+          onClose={() => {
+            setIsSuccessPopupVisible(false);
+            navigate("/"); // ย้ายหน้าไปยัง "/" หลังปิด Popup
+          }}
+        />
+      )}
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
       <div className="w-1/3 bg-gradient-to-t from-color-b to-color-md h-4/6 rounded-l-large"></div>
 
       <div className="w-1/3 bg-white flex items-center justify-center h-4/6 rounded-r-large">
@@ -134,6 +235,7 @@ function RegisterPage() {
                   id="confirm-password"
                   type="password"
                   placeholder="Confirm Password"
+                  onChange={(event) => setConfirmPassword(event.target.value)}
                 />
               </div>
             </div>

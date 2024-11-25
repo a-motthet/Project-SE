@@ -94,7 +94,7 @@ function App() {
     : clinics;
 
   return (
-    <div className="flex justify-center items-center py-6">
+    <div className="flex justify-center items-center py-6 font-sans">
       <div className="w-full max-w-4xl rounded-lg bg-white shadow-lg overflow-hidden">
         <div className="p-6">
           <h1 className="text-2xl font-bold text-left text-color-b mb-4 font-sans">

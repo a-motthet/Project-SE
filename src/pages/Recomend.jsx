@@ -7,7 +7,6 @@ import mypic5 from "../images/7.jpg";
 import { useNavigate } from "react-router-dom";
 
 function Recomend() {
-  const [currentComponent, setCurrentComponent] = useState("home");
   const navigate = useNavigate();
 
   const handleNavigation = (path) => {
@@ -16,16 +15,16 @@ function Recomend() {
 
   const RecommendedItem = ({ title, path, imgSrc }) => (
     <div
-      className="container flex flex-col items-center bg-gray-100 rounded-large p-4 mx-auto max-w-72 hover:scale-105"
+      className="container flex flex-col items-center bg-gray-100 rounded-large p-4 mx-auto max-w-72 hover:scale-110 hover:delay-100"
       onClick={() => handleNavigation(path)}
     >
       <div>
         <img
           src={imgSrc}
           alt="Profile"
-          className="w-32 h-32 flex rounded-full object-cover items-center justify-self-center content-center"
+          className="w-32 h-32 flex object-cover items-center justify-self-center content-center"
         />
-        <h4 className="font-semibold mb-4 mt-4 font-sans justify-self-center">
+        <h4 className="font-semibold mb-4 mt-4 justify-self-center font-sans">
           {title}
         </h4>
       </div>
@@ -34,7 +33,7 @@ function Recomend() {
 
   return (
     <>
-      <div className="bg-white min-screen flex flex-col rounded-large ">
+      <div className="bg-white min-screen flex flex-col rounded-large">
         <div className="grid grid-cols-3 gap-0 md:gap-8 md:p-8">
           <RecommendedItem
             title="สัตว์เลี้ยงของฉัน"

@@ -15,7 +15,11 @@ function LoginPage() {
   const NotificationPopup = ({ type, message, onClose }) => {
     const isError = type === "error";
     return (
+<<<<<<< HEAD
       <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
+=======
+      <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 font-sans">
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
         <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
           <h2
             className={`text-lg mb-2 ${
@@ -72,7 +76,11 @@ function LoginPage() {
   };
 
   return (
+<<<<<<< HEAD
     <div className="bg-color-bg flex h-screen justify-center items-center px-4">
+=======
+    <div className="bg-color-bg flex h-screen justify-center items-center px-4 font-sans">
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
       {isErrorPopupVisible && (
         <NotificationPopup
           type="error"

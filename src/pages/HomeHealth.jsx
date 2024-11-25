@@ -1,10 +1,52 @@
+<<<<<<< HEAD
 import React from "react";
 import { Link } from "react-router-dom";
 import mypic from "../images/2.jpg";
+=======
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import mypic from "../images/2.jpg";
+import axios from "axios";
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
 
 function App() {
+
+  const [petlist, setPetlist] = useState([]);
+  const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
+
+
+  const getPet = () => {
+    if (!token) {
+      console.error("Token is missing. Please log in.");
+      return;
+    }
+  
+    axios.get('http://localhost:3001/pets', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then((response) => {
+      setPetlist(response.data);
+    })
+    .catch((error) => {
+      console.error("Failed to fetch pets:", error);
+    });
+  };
+  
+
+  useEffect(() => {
+    getPet();
+  }, []);
+
+
+
   return (
+<<<<<<< HEAD
     <div className="bg-color-bg min-h-screen flex flex-col">
+=======
+    <div className="bg-color-bg min-h-screen flex flex-col font-sans">
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
       <div className="container mx-auto p-6 flex flex-col items-center">
         <div className="p-6 bg-white rounded-lg shadow-lg flex flex-col items-center mb-8 w-full sm:w-80 md:w-96 lg:w-96 xl:w-1/3">
           <img
@@ -20,12 +62,17 @@ function App() {
         </div>
 
         <div className="w-full grid grid-cols-3 gap-3 p-4 bg-white rounded-lg shadow-lg">
-          {[1, 2, 3, 4, 5].map((item) => (
-            <Link to={`/HealthpetPage/${item}`} key={item}>
+          {petlist.map((val, key) => (
+            <Link to={`/HealthpetPage/${val.pet_id}`} key={val.pet_id}>
               <div className="group relative w-full h-48 max-w-xs mx-auto rounded-lg overflow-hidden shadow-md transition-all duration-500 ease-in-out transform hover:scale-105">
                 <img
+<<<<<<< HEAD
                   src={mypic}
                   alt={`pet ${item}`}
+=======
+                  src={val.pet_photo}
+                  alt={`${val.pet_name}`}
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
                   className="w-full h-full object-cover group-hover:opacity-80 transition-opacity duration-300"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-center items-center">

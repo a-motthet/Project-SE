@@ -4,32 +4,44 @@ import React from "react";
 const Footer = () => {
   return (
     <footer className="bg-color-b text-gray-300 py-8">
+<<<<<<< HEAD
       {/* <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+=======
+      <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
         <div>
           <h3 className="text-lg font-semibold text-white">Contact Us</h3>
-          <p className="mt-2">Email: example@example.com</p>
-          <p>Phone: 012-345-6789</p>
-          <p>Address: 123 Street, City, Country</p>
+          <ol className="mt-2">
+            สมาชิกในกลุ่ม
+            <li>จาฏุกันตพัฒน์ จันทวฤทธิ์</li>
+            <li>ธราธร ปรากฏกล้า</li>
+            <li>นันทภพ ผู้ฐานิสสร</li>
+            <li>วรติยา พาทีทิน</li>
+            <li>อัษฎาวุธ โหมดเทศ</li>
+            <li>จิรกิตติ์ ไชยวิภานนท์</li>
+            <li>ญาณภัทร พึ่งแสงธรรมเลิศ</li>
+            <li>บุรินทร์ ราชกิจจา</li>
+          </ol>
         </div>
 
         <div>
           <h3 className="text-lg font-semibold text-white">Quick Links</h3>
           <ul className="mt-2 space-y-2">
             <li>
-              <a href="/about" className="hover:underline">
+              <a href="/Contact" className="hover:underline">
                 About Us
               </a>
             </li>
             <li>
-              <a href="/privacy" className="hover:underline">
-                Privacy Policy
+              <a href="/Home" className="hover:underline">
+                Home
               </a>
             </li>
-            <li>
+            {/* <li>
               <a href="/terms" className="hover:underline">
                 Terms of Service
               </a>
-            </li>
+            </li> */}
           </ul>
         </div>
 
@@ -47,7 +59,10 @@ const Footer = () => {
         </div>
       </div>
 
+<<<<<<< HEAD
 */}
+=======
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
       <div className="border-t border-color-holdber mt-8 pt-4 text-center">
         <p>
           &copy; {new Date().getFullYear()} KMUTT COMPUTER ENGINEERING CPE#36

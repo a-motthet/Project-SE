@@ -10,6 +10,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+<<<<<<< HEAD
+=======
+const upload = multer({ storage: multer.memoryStorage() });
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
 
 const db = mysql.createConnection({
   user: "root",
@@ -18,6 +22,7 @@ const db = mysql.createConnection({
   database: "animalover",
 });
 
+<<<<<<< HEAD
 // กำหนดที่เก็บไฟล์
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -42,6 +47,8 @@ const upload = multer({
 
 
 
+=======
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
 app.get("/", (req, res) => {
   res.send("Welcome to the server!");
 });
@@ -109,6 +116,7 @@ app.get("/customers", (req, res) => {
   });
 });
 
+<<<<<<< HEAD
 app.post("/register", (req, res) => {
   const firstname = req.body.firstname;
   const lastname = req.body.lastname;
@@ -120,16 +128,27 @@ app.post("/register", (req, res) => {
   db.query(
     "INSERT INTO customers (user_firstname, user_lastname, user_email, user_username, user_password, user_phone) VALUES(?,?,?,?,?,?)",
     [firstname, lastname, email, username, password, phone],
+=======
+app.post("/edit", authenticateToken, (req, res) => {
+  const { firstname, lastname, phone, email } = req.body;
+  const userId = req.userId;
+
+  db.query(
+    "UPDATE customers SET user_firstname = ?, user_lastname = ?, user_phone = ?, user_email = ? WHERE user_id = ?",
+    [firstname, lastname, phone, email, userId],
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
     (err, result) => {
       if (err) {
-        console.log(err);
+        console.error(err);
+        res.status(500).send({ success: false, message: "Failed to update profile." });
       } else {
-        res.send("Values inserted");
+        res.status(200).send({ success: true, message: "Profile updated successfully!" });
       }
     }
   );
 });
 
+<<<<<<< HEAD
 app.post("/addPet", authenticateToken, upload.single("imageFile"), (req, res) => {
   console.log("Request body:", req.body); // Debug ข้อมูลอื่นๆ
 
@@ -149,6 +168,79 @@ app.post("/addPet", authenticateToken, upload.single("imageFile"), (req, res) =>
   );
 });
 
+=======
+app.post("/register", (req, res) => {
+  const { firstname, lastname, username, phone, email, password } = req.body;
+
+  // ตรวจสอบว่าข้อมูลครบถ้วน
+  if (!firstname || !lastname || !username || !phone || !email || !password) {
+    return res.status(400).send("กรุณากรอกข้อมูลให้ครบถ้วน");
+  }
+
+  // ตรวจสอบว่าฐานข้อมูลมี schema ตรงกับโค้ด SQL
+  const query =
+    "INSERT INTO customers (user_firstname, user_lastname, user_email, user_username, user_password, user_phone) VALUES (?, ?, ?, ?, ?, ?)";
+  const values = [firstname, lastname, email, username, password, phone];
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.error("Database Error:", err);
+      return res.status(500).send("เกิดข้อผิดพลาด");
+    }
+    res.status(200).send("สมัครสมาชิกสำเร็จ");
+  });
+});
+
+app.post('/addPet', authenticateToken, upload.single('imageFile'), (req, res) => {
+  console.log("Request body:", req.body);
+  const userId = req.userId;
+  const { petName, petType, petSex, petWeight, birthdate, note, imageFile } = req.body;
+
+  if (!petName || !petType || !petSex || !petWeight || !birthdate || !imageFile) {
+    return res.status(400).send("กรุณากรอกข้อมูลให้ครบถ้วน");
+  }
+
+  db.query(
+    "INSERT INTO pet (user_id, pet_name, pet_breed, pet_gender, pet_weight, pet_birthdate, pet_description, pet_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
+    [userId, petName, petType, petSex, petWeight, birthdate, note, imageFile],
+    (err, result) => {
+      if (err) {
+        console.error("Database error: ", err);
+        return res.status(500).send("An error occurred while adding the pet");
+      }
+      res.status(200).send("Pet added successfully");
+    }
+  );
+});
+
+app.get("/pets", authenticateToken, (req, res) => {
+  const userId = req.userId;
+
+  db.query("SELECT * FROM pet WHERE user_id = ?", userId, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error fetching pets.");
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+app.get("/pets/:id", authenticateToken, (req, res) => {
+  const petId = req.params.id;
+
+  db.query("SELECT * FROM pet WHERE pet_id = ?", petId, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error fetching pets.");
+    } else {
+      res.send(result); //
+    }
+  });
+});
+
+
+>>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
 app.listen('3001', () => {
   console.log('Sever is running on port 3001');
 })
