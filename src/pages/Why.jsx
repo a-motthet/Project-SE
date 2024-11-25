@@ -6,7 +6,7 @@ import mypic5 from "../images/5.jpg";
 
 function WHY() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center mx-auto md:mx-[320px] space-y-8 bg-puple-box text-black rounded-lg shadow-lg p-4 font-sans relative overflow-hidden">
+    <div className="min-h-screen flex flex-col items-center justify-center mx-auto md:mx-[320px] space-y-8 bg-color-box text-black rounded-lg shadow-lg p-4 font-sans relative overflow-hidden">
       {/* Background Glow Effect */}
       <div className="absolute inset-0 bg-gradient-to-r from-purple-300 via-purple-400 to-purple-500 opacity-20 blur-3xl"></div>
 

@@ -7,15 +7,16 @@ const ContactSection = () => {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   useEffect(() => {
-    setIsPopupVisible(true); 
+    setIsPopupVisible(true);
   }, []);
 
   return (
-    <div className="flex items-center justify-center bg-[#EBE4F2] font-sans p-4 m-8">
+    <div className="flex items-center justify-center bg-color-bg font-sans p-4 m-8">
       <div className="flex flex-col lg:flex-row items-start bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full gap-6">
         <div className="lg:w-1/2 px-6 text-justify">
           <h1 className="text-gray-800 text-xl mb-6 leading-relaxed">
-            หากคุณต้องการสอบถามข้อมูลเพิ่มเติมเกี่ยวกับผลิตภัณฑ์หรือต้องการความช่วยเหลือเกี่ยวกับเว็บไซต์ กรุณาติดต่อ
+            หากคุณต้องการสอบถามข้อมูลเพิ่มเติมเกี่ยวกับผลิตภัณฑ์หรือต้องการความช่วยเหลือเกี่ยวกับเว็บไซต์
+            กรุณาติดต่อ
           </h1>
           <ul className="text-gray-600 space-y-4">
             <li className="flex items-start">
@@ -33,7 +34,8 @@ const ContactSection = () => {
             <li className="flex items-start">
               <FaClock className="text-gray-500 mr-3 mt-1" />
               <span className="leading-relaxed whitespace-normal">
-                <strong>เวลาทำการ:</strong> จันทร์ - วันศุกร์ เวลา 8.30 - 17.00 น.
+                <strong>เวลาทำการ:</strong> จันทร์ - วันศุกร์ เวลา 8.30 - 17.00
+                น.
               </span>
             </li>
             <li className="flex items-start">
@@ -65,7 +67,8 @@ const ContactSection = () => {
               ปิด
             </button>
             <h2 className="text-red-500 font-bold mb-4 text-lg leading-relaxed">
-              เพื่อความสะดวกรวดเร็ว กรุณาแอดไลน์เพื่อติดต่อสอบถาม <br />เจ้าเเนน เจ้าจู
+              เพื่อความสะดวกรวดเร็ว กรุณาแอดไลน์เพื่อติดต่อสอบถาม <br />
+              เจ้าเเนน เจ้าจู
             </h2>
             <img src={qrCode} alt="LINE QR Code" className="mx-auto max-w-xs" />
           </div>

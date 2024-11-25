@@ -1,14 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { FaBars, FaTimes, FaAngleDown } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import mypic from "../images/1.jpg";
+import axios from "axios";
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpenPet, setDropdownOpenPet] = useState(false);
   const [dropdownOpenUser, setDropdownOpenUser] = useState(false);
+
+  const [username, setUsername] = useState(""); // State สำหรับชื่อผู้ใช้
   const navigate = useNavigate();
-  const user = "Atsadawut";
+  // const user = "Atsadawut";/////////////////////////////
 
   const toggleMenu = () => setMenuOpen(!menuOpen);
 
@@ -17,8 +20,30 @@ function Navbar() {
     setMenuOpen(false);
   };
 
+useEffect(() => {
+    const token = localStorage.getItem("token"); // ดึง JWT
+    if (token) {
+      axios
+        .get("http://localhost:3001/getUsername", {
+          headers: { Authorization: `Bearer ${token}` }, // ส่ง JWT ใน Header
+        })
+        .then((response) => {
+          if (response.data.success) {
+            setUsername(response.data.username); // ตั้งค่าชื่อผู้ใช้ใน State
+          } else {
+            console.error("Failed to fetch username:", response.data.message);
+          }
+        })
+        .catch((error) => {
+          console.error("Error fetching username:", error);
+        });
+    } else {
+      console.error("No token found, please log in");
+    }
+  }, []);
+
   return (
-    <nav className="bg-puple-b shadow-md p-4">
+    <nav className="bg-color-b shadow-md p-4">
       {/* Navbar container */}
       <div className="flex items-center justify-between px-5 py-4">
         {/* Logo */}
@@ -48,7 +73,7 @@ function Navbar() {
               setDropdownOpenPet(false);
               setDropdownOpenUser(false);
             }}
-            className="text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-puple-holdber hover:shadow-md"
+            className="text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-color-holdber hover:shadow-md"
           >
             Home
           </button>
@@ -59,7 +84,7 @@ function Navbar() {
               setDropdownOpenUser(false);
             }}
           >
-            <button className="flex items-center text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-puple-holdber hover:shadow-md">
+            <button className="flex items-center text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-color-holdber hover:shadow-md">
               Pet <FaAngleDown className="ml-2" />
             </button>
 
@@ -109,7 +134,7 @@ function Navbar() {
               setDropdownOpenUser(false);
             }}
             onClick={() => handleNavigation("/Contact")}
-            className="text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-puple-holdber hover:shadow-md"
+            className="text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-color-holdber hover:shadow-md"
           >
             Contact Us
           </button>
@@ -120,8 +145,8 @@ function Navbar() {
               setDropdownOpenUser(true);
             }}
           >
-            <button className="flex items-center text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-puple-holdber hover:shadow-md">
-              {user} <FaAngleDown className="ml-2" />
+            <button className="flex items-center text-white text-lg font-medium px-5 py-2 rounded-large hover:bg-color-holdber hover:shadow-md">
+              {username || "Guest"} <FaAngleDown className="ml-2" />
             </button>
 
             {/* Dropdown */}
@@ -150,7 +175,7 @@ function Navbar() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="md:hidden bg-puple-b text-white space-y-4 px-5 py-4">
+        <div className="md:hidden bg-color-b text-white space-y-4 px-5 py-4">
           <button
             onClick={() => handleNavigation("/Home")}
             className="block text-lg font-medium"
@@ -166,27 +191,27 @@ function Navbar() {
             </button>
             {dropdownOpenPet && (
               <div className="ml-4 mt-2 space-y-2">
-                <a href="/Mypet" className="block hover:text-puple-holdber">
+                <a href="/Mypet" className="block hover:text-color-holdber">
                   สัตว์เลี้ยงของฉัน
                 </a>
-                <a href="/Addpet" className="block hover:text-puple-holdber">
+                <a href="/Addpet" className="block hover:text-color-holdber">
                   เพิ่มสัตว์เลี้ยง
                 </a>
                 <a
                   href="/HealthpetPage"
-                  className="block hover:text-puple-holdber"
+                  className="block hover:text-color-holdber"
                 >
                   ข้อมูลสุขภาพ
                 </a>
                 <a
                   href="/ClinicNear"
-                  className="block hover:text-puple-holdber"
+                  className="block hover:text-color-holdber"
                 >
                   คลินิกใกล้เคียง
                 </a>
                 <a
                   href="/Pet_benefit"
-                  className="block hover:text-puple-holdber"
+                  className="block hover:text-color-holdber"
                 >
                   แนะนำโภชนาการ
                 </a>
@@ -204,14 +229,14 @@ function Navbar() {
               onClick={() => setDropdownOpenUser(!dropdownOpenUser)}
               className="flex items-center text-lg font-medium"
             >
-              {user} <FaAngleDown className="ml-2" />
+              {username || "Guest"} <FaAngleDown className="ml-2" />
             </button>
             {dropdownOpenUser && (
               <div className="ml-4 mt-2 space-y-2">
-                <a href="/Edit" className="block hover:text-puple-holdber">
+                <a href="/Edit" className="block hover:text-color-holdber">
                   จัดการบัญชี
                 </a>
-                <a href="/" className="block hover:text-puple-holdber">
+                <a href="/" className="block hover:text-color-holdber">
                   ออกจากระบบ
                 </a>
               </div>

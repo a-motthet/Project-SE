@@ -4,7 +4,7 @@ import mypic from "../images/2.jpg";
 const Welcome = () => {
   return (
     <>
-      <div className="flex bg-puple-b rounded-b-large">
+      <div className="flex bg-color-b rounded-b-large">
         <div className="md:ml-[320px] my-10 ml-auto">
           <p className="justify-items-start text-white text-[30px] font-bold my-10 font-bold font-sans">
             ยินดีต้อนรับสู่ Animalover <br />

@@ -10,7 +10,7 @@ const CircleCard = ({ image, text }) => {
           className="w-full h-full object-cover"
         />
       </div>
-      <div className="text-center text-sm text-[#6373B7] mt-2">{text}</div>
+      <div className="text-center text-sm text-color-b mt-2">{text}</div>
     </div>
   );
 };

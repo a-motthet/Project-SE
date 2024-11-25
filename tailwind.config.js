@@ -14,11 +14,11 @@ module.exports = {
     },
     extend: {
       colors: {
-        "pupul-bg": "#EBE4F2",
-        "puple-md": "#BEC9E7",
-        "puple-b": "#6373B7",
-        "puple-holdber": "#7986BD",
-        "puple-box": "#8B98D0",
+        "color-bg": "#EBE4F2",
+        "color-md": "#BEC9E7",
+        "color-b": "#6373B7",
+        "color-holdber": "#7986BD",
+        "color-box": "#8B98D0",
       },
       fontFamily: {
         sans: ['"Chakra Petch"', "sans-serif"],
