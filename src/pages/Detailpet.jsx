@@ -69,7 +69,7 @@ const PetProfile = () => {
   
   const addPet = () => {
     const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
-
+    
     const formData = new FormData(); // ใช้ FormData เพื่อจัดการข้อมูลที่มีไฟล์
     formData.append("petName", petName);
     formData.append("petType", editPetType);
@@ -154,8 +154,12 @@ const PetProfile = () => {
         selectedMonth - 1,
         selectedDay
       );
+      
       setBirthdate(formattedBirthdate.toLocaleDateString("th-TH")); // เปลี่ยนให้แสดงวันที่ในรูปแบบไทย
       const { ageYears, ageMonths } = calculateAge(formattedBirthdate);
+      const dbDate = formattedBirthdate.toISOString().split("T")[0];
+      setDbbirthdate(dbDate);
+
       setPetAge(`${ageYears} ปี ${ageMonths} เดือน`);
     }
   }, [selectedDay, selectedMonth, selectedYear, birthdateOption]);
