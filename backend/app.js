@@ -150,7 +150,8 @@ app.get("/pets/:id", authenticateToken, (req, res) => {
       console.log(err);
       res.status(500).send("Error fetching pets.");
     } else {
-      res.send(result); //
+      res.send(result); 
+      console.log(result);
     }
   });
 });
@@ -176,6 +177,8 @@ app.post('/addPet', authenticateToken, upload.single('imageFile'), (req, res) =>
     }
   );
 });
+
+
 
 app.post('/pets/:id', authenticateToken , upload.single('imageFile') , async (req, res) => {
   console.log("Request body:", req.body);
@@ -203,6 +206,19 @@ app.post('/pets/:id', authenticateToken , upload.single('imageFile') , async (re
   }
 });
 
+app.get("/vaccine_Home/:id", authenticateToken, (req, res) => {
+  const petId = req.params.id;
+
+  db.query("SELECT * FROM vaccine_record WHERE pet_id = ? ORDER BY vaccine_date DESC LIMIT 1", petId, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error fetching vaccine.");
+    } else {
+      res.send(result);
+      console.log(result)
+    }
+  });
+});
 
 
 

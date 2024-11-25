@@ -1,117 +1,132 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import mypic from "../images/2.jpg";
-import { useNavigate, useState } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 function HealthPetPage() {
   const navigate = useNavigate();
   const { id } = useParams();
+  const [thispet, setThispet] = useState([]);
+  const [vaccine, setVaccine] = useState([]);
+  const [history, setHistory] = useState([]);
 
-  // สร้าง data มาเก็บ เเบบตัวอย่าง ต้องใช้ database
-  const petData = {
-    1: {
-      name: "สมหมาย",
-      type: "แมว",
-      sex: "ผู้",
-      age: "2 ปี",
-      breed: "xxxx",
-      condition: "xxxx",
-      weight: "4 Kg.",
-      vaccine: "วัคซีนป้องกันโรคพิษสุนัขบ้า",
-      healthDate: "11-11-2023",
-    },
-    2: {
-      name: "สมหมาย",
-      type: "แมว",
-      sex: "ผู้",
-      age: "2 ปี",
-      breed: "xxxx",
-      condition: "xxxx",
-      weight: "4 Kg.",
-      vaccine: "วัคซีนป้องกันโรคพิษสุนัขบ้า",
-      healthDate: "10-11-2023",
-    },
-    3: {
-      name: "สมหมาย",
-      type: "แมว",
-      sex: "ผู้",
-      age: "2 ปี",
-      breed: "xxxx",
-      condition: "xxxx",
-      weight: "4 Kg.",
-      vaccine: "วัคซีนป้องกันโรคพิษสุนัขบ้า",
-      healthDate: "10-11-2023",
-    },
-    4: {
-      name: "มะลิ",
-      type: "สุนัข",
-      sex: "เมีย",
-      age: "5 ปี",
-      breed: "xxxx",
-      condition: "xxxx",
-      weight: "2.5 Kg.",
-      vaccine: "วัคซีนไข้หัดสุนัข",
-      healthDate: "15-10-2023",
-    },
-    5: {
-      name: "มะลิ",
-      type: "สุนัข",
-      sex: "เมีย",
-      age: "5 ปี",
-      breed: "xxxx",
-      condition: "xxxx",
-      weight: "2.5 Kg.",
-      vaccine: "วัคซีนไข้หัดสุนัข",
-      healthDate: "15-10-2023",
-    },
-  };
+  useEffect(() => {
+    const fetchPet = async () => {
+      try {
+        const token = localStorage.getItem("token"); // ดึง Token
+        const response = await axios.get(`http://localhost:3001/pets/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setThispet(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน State
+        console.log(response.data)
+      } catch (err) {
+        console.error("Error fetching pets:", err);
+      }
+    };
 
-  const pet = petData[id];
+    fetchPet();
+  }, []);
 
-  if (!pet) {
-    return (
-      <div className="min-h-screen flex items-center justify-center font-sans">
-        <p className="text-red-500 text-xl">
-          ไม่พบข้อมูลสัตว์เลี้ยงที่คุณต้องการ
-        </p>
-      </div>
-    );
+  useEffect(() => {
+    const fetchVaccine = async () => {
+      try {
+        const token = localStorage.getItem("token"); // ดึง Token
+        const response = await axios.get(`http://localhost:3001/vaccine_Home/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setVaccine(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน State
+      } catch (err) {
+        console.error("Error fetching pets:", err);
+      }
+    };
+
+    fetchVaccine();
+  }, []);
+
+  const formatter = new Intl.DateTimeFormat("th-TH", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+
+  function calculatePetAge(birthDateString) {
+    // แปลงวันเกิดจากสตริงเป็น Date object
+    const birthDate = new Date(birthDateString);
+    const currentDate = new Date(); // วันที่ปัจจุบัน
+  
+    // คำนวณอายุ
+    let age = currentDate.getFullYear() - birthDate.getFullYear();
+    const monthDifference = currentDate.getMonth() - birthDate.getMonth();
+    const dayDifference = currentDate.getDate() - birthDate.getDate();
+  
+    // ปรับอายุหากเดือนหรือวันยังไม่ถึงวันเกิดในปีนี้
+    if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
+      age--;
+    }
+  
+    // แปลงวันเกิดเป็นฟอร์แมตที่อ่านง่าย
+    const formattedBirthDate = formatter.format(birthDate);
+  
+    return {
+      age,
+      formattedBirthDate,
+    };
   }
+  
+  if (thispet.length === 0) {
+    return <p className="text-center">กำลังโหลดข้อมูลสัตว์เลี้ยง...</p>;
+  }
+
+  const petInfo = calculatePetAge(thispet[0].pet_birthdate);
+
+  // if (!pet) {
+  //   return (
+  //     <div className="min-h-screen flex items-center justify-center font-sans">
+  //       <p className="text-red-500 text-xl">
+  //         ไม่พบข้อมูลสัตว์เลี้ยงที่คุณต้องการ
+  //       </p>
+  //     </div>
+  //   );
+  // }
+
+  
+
   return (
     <div className="min-h-screen flex items-center justify-center font-sans">
       <div className="bg-white rounded-large shadow-inner w-11/12 lg:w-3/4 xl:w-2/3">
-        <p className="pl-8 pt-8 text-color-b text-3xl font-bold">{pet.name}</p>
+        <p className="pl-8 pt-8 text-color-b text-3xl font-bold">{thispet[0].pet_name}</p>
         <div className="grid grid-cols-4 items-center">
           <div className="col-span-3">
             <div className="grid grid-cols-2 mb-2">
               <div className="ml-8 text-color-b text-xl">
-                ชนิดสัตว์เลี้ยง: {pet.type}
+                ชนิดสัตว์เลี้ยง: {thispet[0].pet_breed}
               </div>
-              <div className="text-color-b text-xl">เพศของสัตว์: {pet.sex}</div>
+              <div className="text-color-b text-xl">เพศของสัตว์: {thispet[0].pet_gender}</div>
             </div>
             <div className="grid grid-cols-2 mb-2">
               <div className="ml-8 text-color-b text-xl">
-                อายุของสัตว์เลี้ยง: {pet.age}
+                อายุของสัตว์เลี้ยง: {petInfo.age} ปี
               </div>
               <div className="text-color-b text-xl">
-                น้ำหนักของสัตว์เลี้ยง: {pet.weight}
+                น้ำหนักของสัตว์เลี้ยง: {thispet[0].pet_weight} กิโลกรัม
               </div>
             </div>
             <div className="grid grid-cols-1 mb-2">
               <div className="ml-8 text-color-b text-xl">
-                สายพันธุ์สัตว์เลี้ยง: {pet.breed}
+                สายพันธุ์สัตว์เลี้ยง: pet.breed
               </div>
             </div>
             <div className="grid grid-cols-1 mb-2">
               <div className="ml-8 text-color-b text-xl">
-                โรคประจำตัว: {pet.condition}
+                โรคประจำตัว: pet.condition
               </div>
             </div>
           </div>
           <div className="flex justify-center items-center pr-8">
             <img
-              src={mypic}
-              alt={`${pet.name} picture`}
+              src={thispet[0].pet_photo}
+              alt={`${thispet[0].pet_photo} picture`}
               className="w-48 object-cover rounded-full border border-gray-300"
             />
           </div>
@@ -122,7 +137,11 @@ function HealthPetPage() {
           </div>
           <div className="mx-8">
             <div className="w-full h-auto p-4 border-2 border-gray-300 bg-black bg-opacity-5 rounded-large text-color-b text-2xl content-center">
-              {pet.vaccine}
+              {vaccine.length > 0 ? (
+                vaccine[0].vaccine_name
+              ) : (
+                <p className="text-gray-500">ไม่มีข้อมูลวัคซีน</p>
+              )}
             </div>
             <div
               className="text-end underline text-color-b hover:text-blue-600/100 cursor-pointer"
@@ -141,7 +160,11 @@ function HealthPetPage() {
           </div>
           <div className="mx-8 mb-4">
             <div className="text-center w-full h-auto p-4 border-2 border-gray-300 bg-black bg-opacity-5 rounded-large text-color-b text-2xl">
-              {pet.healthDate}
+              {history.length > 0 ? (
+                history[0].health_date
+              ) : (
+                <p className="text-gray-500">ไม่มีประวัติการตรวจสุขภาพ</p>
+              )}
             </div>
           </div>
           <div className="flex items-center justify-center mb-4">
