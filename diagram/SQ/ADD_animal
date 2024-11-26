@@ -1,0 +1,22 @@
+sequenceDiagram 
+   actor user1  
+   participant  web 
+   participant  Newpet
+   participant  DB 
+   autonumber
+   user1->>+web:เพิ่มสัตว์
+   loop If have
+      web->>+Newpet:Add
+      Newpet->>+DB:Check
+      DB->>-Newpet:its match
+      Newpet->>-web:pls do it again
+      web-->>+user1:It same 
+   end
+   
+   
+ 
+    web->>+Newpet:Add
+    Newpet->>+DB:Check
+    DB->>-Newpet:hg
+    Newpet->>-web:succes
+    web-->>-user1:Save Complet
