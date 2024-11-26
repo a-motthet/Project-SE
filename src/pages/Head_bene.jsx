@@ -10,7 +10,7 @@ function App() {
     const fetchPets = async () => {
       try {
         const token = localStorage.getItem("token"); // ดึง token จาก localStorage (กรณีมีการ auth)
-        const response = await axios.get("http://localhost:3000/Pet_benefit", {
+        const response = await axios.get("http://localhost:3001/pets", {
           headers: {
             Authorization: `Bearer ${token}`, // เพิ่ม token ใน request header
           },
@@ -43,7 +43,7 @@ function App() {
         {/* Grid สำหรับแสดงรายการสัตว์เลี้ยง */}
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4 bg-white rounded-lg shadow-lg">
           {pets.map((val, key) => (
-            <Link to={`/Detailpet/${val.pet_id}`} key={val.pet_id}>
+            <Link to={`/Pet_benefit/${val.pet_id}`} key={val.pet_id}>
               <div className="group relative content-center items-center max-w-xs w-[300px] h-[300px] mx-auto rounded-full overflow-hidden shadow-md transition-all duration-500 ease-in-out transform hover:scale-105">
                 <img
                   src={val.pet_photo || mypic} // ใช้รูปภาพจาก database หรือรูป default
