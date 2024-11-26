@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Axios from "axios";
 
+
+
 const NotificationPopup = ({ onClose }) => (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
     <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
@@ -40,7 +42,7 @@ const PetProfile = () => {
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [ShowNotificationMessage, setShowNotificationMessage] = useState(false);
-  const [petName, setPetName] = useState("สมหมาย");
+  const [petName, setPetName] = useState("ควย");
   const [petType, setPetType] = useState("แมว");
   const [petSex, setPetSex] = useState("ผู้");
   const [petAge, setPetAge] = useState("2 ปี");
@@ -61,6 +63,12 @@ const PetProfile = () => {
   const [pet, setPet] = useState(null); // เก็บข้อมูลสัตว์เลี้ยง
   const [error, setError] = useState(null); // เก็บ Error (ถ้ามี)
   const [dbbirthdate, setDbbirthdate] = useState("");
+  const token = localStorage.getItem("token"); // ดึง Token
+
+  
+
+  
+  
   
   const delPet = () => {
     const token = localStorage.getItem("token");
@@ -157,6 +165,20 @@ const PetProfile = () => {
       reader.readAsDataURL(file);
     }
   };
+  useEffect(() => {
+    const fetchPet = async () => {
+      try {
+        const token = localStorage.getItem("token"); // ดึง Token
+        const response = await axios.get(`http://localhost:3001/pets/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setPet(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน State
+      } catch (err) {
+        console.error("Error fetching pets:", err);
+      }
+    };
+    fetchPet();
+  }, []);
 
   useEffect(() => {
     if (
@@ -186,21 +208,7 @@ const PetProfile = () => {
     }
   }, [ageYears, ageMonths, birthdateOption]);
 
-  useEffect(() => {
-    const fetchPet = async () => {
-      try {
-        const token = localStorage.getItem("token"); // ดึง Token
-        const response = await axios.get(`http://localhost:3001/pets/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setPet(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน State
-      } catch (err) {
-        setError("ไม่สามารถโหลดข้อมูลสัตว์เลี้ยงได้");
-      }
-    };
-
-    fetchPet();
-  }, [id]);
+  
 
   if (error) {
     return <p className="text-red-500">{error}</p>;
@@ -538,7 +546,7 @@ const PetProfile = () => {
           <div className="lg:w-1/3 w-full lg:pr-8 flex flex-col items-center lg:order-last order-first">
             <div className="relative w-50 h-50 rounded-full flex items-center justify-center mb-10">
               <img
-                src={pet[0].pet_photo}
+                src={mypic}
                 alt="Profile"
                 className="w-full h-full rounded-full object-cover"
               />

@@ -205,7 +205,7 @@ app.post('/delpet/:id', authenticateToken, async (req, res) => {
 app.post('/pets/:id', authenticateToken , upload.single('imageFile') , async (req, res) => {
   
   const petId = req.params.id;
-  const { petName, petType, petSex, petWeight, birthdate, note } = req.body;
+  const { petName, petType, petSex, petWeight, birthdate, note ,profilePic  } = req.body;
 
   try {
     // // ตรวจสอบว่ามีสัตว์เลี้ยงนี้อยู่ในระบบหรือไม่
@@ -217,8 +217,8 @@ app.post('/pets/:id', authenticateToken , upload.single('imageFile') , async (re
     // อัปเดตข้อมูล
     
     await db.query(
-      'UPDATE pet SET pet_name = ?, pet_breed = ?, pet_gender = ?, pet_weight = ?, pet_birthdate = ?, pet_description = ? WHERE pet_id = ?',
-      [petName, petType, petSex, petWeight, birthdate, note, petId]
+      'UPDATE pet SET pet_name = ?, pet_breed = ?, pet_gender = ?, pet_weight = ?, pet_birthdate = ?, pet_description = ?, pet_photo = ? WHERE pet_id = ?',
+      [petName, petType, petSex, petWeight, birthdate, note,profilePic, petId]
     );
 
     res.status(200).send({ message: 'แก้ไขข้อมูลสัตว์เลี้ยงสำเร็จ' });
