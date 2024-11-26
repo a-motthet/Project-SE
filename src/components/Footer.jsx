@@ -8,6 +8,7 @@ const Footer = () => {
       {/* <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
 =======
       <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-4">
+<<<<<<< HEAD
 >>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
         <div>
           <h3 className="text-lg font-semibold text-white">Contact Us</h3>
@@ -22,6 +23,20 @@ const Footer = () => {
             <li>ญาณภัทร พึ่งแสงธรรมเลิศ</li>
             <li>บุรินทร์ ราชกิจจา</li>
           </ol>
+=======
+        <div className="grid grid-cols-2">
+          <h3 className="text-lg font-semibold text-white col-span-2">
+            Contact Us
+          </h3>
+          <div>จาฏุกันตพัฒน์ จันทวฤทธิ์</div>
+          <div>ธราธร ปรากฏกล้า</div>
+          <div>นันทภพ ผู้ฐานิสสร</div>
+          <div>วรติยา พาทีทิน</div>
+          <div>อัษฎาวุธ โหมดเทศ</div>
+          <div>จิรกิตติ์ ไชยวิภานนท์</div>
+          <div>ญาณภัทร พึ่งแสงธรรมเลิศ</div>
+          <div>บุรินทร์ ราชกิจจา</div>
+>>>>>>> 13c5bffc3c103be1b8130f4097fe70e0139608cb
         </div>
 
         <div>

@@ -2,14 +2,13 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-export default function VaccinationForm() {
+export default function HealtPetform() {
   const [isErrorPopupVisible, setIsErrorPopupVisible] = useState(false);
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const { id } = useParams();
-  const [name, setName] = useState("");
   const [date, setDate] = useState("");
-  const [exp, setExp] = useState("");
+  const [note, setNote] = useState("");
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -61,10 +60,10 @@ export default function VaccinationForm() {
     );
   };
 
-  const addvaccine = () => {
+  const addhistory = () => {
     const token = localStorage.getItem("token");
   
-    if (!name || !date || !exp) {
+    if (!date) {
       setPopupMessage("กรุณากรอกข้อมูลให้ครบถ้วน");
       setIsErrorPopupVisible(true);
       return;
@@ -72,11 +71,10 @@ export default function VaccinationForm() {
   
     axios
       .post(
-        `http://localhost:3001/addVaccine/${id}`,
+        `http://localhost:3001/addHistory/${id}`,
         {
-          name: name,
           date: date,
-          exp: exp,
+          note: note,
         }, // ส่งเป็น JSON
         {
           headers: {
@@ -86,17 +84,16 @@ export default function VaccinationForm() {
         }
       )
       .then(() => {
-        console.log("เพิ่มวัคซีนสำเร็จ");
-        setPopupMessage("เพิ่มวัคซีนสำเร็จ");
+        console.log("เพิ่มประวัติการตรวจสุขภาพสำเร็จ");
+        setPopupMessage("เพิ่มประวัติการตรวจสุขภาพสำเร็จ");
         setIsPopupVisible(true); // แสดง Popup สำเร็จ
       })
       .catch((error) => {
         console.error("เกิดข้อผิดพลาด: ", error);
-        setPopupMessage("ไม่สามารถเพิ่มวัคซีนได้ กรุณาตรวจสอบข้อมูลอีกครั้ง");
+        setPopupMessage("ไม่สามารถเพิ่มประวัติการตรวจสุขภาพได้ กรุณาตรวจสอบข้อมูลอีกครั้ง");
         setIsErrorPopupVisible(true);
       });
   };
-  
 
   return (
     <div className="min-h-screen flex items-center justify-center font-sans">
@@ -112,58 +109,42 @@ export default function VaccinationForm() {
         <NotificationPopup onClose={() => setIsPopupVisible(false)} />
       )}
       <div className="bg-white shadow-md rounded-large p-8 w-full max-w-screen-lg">
-        <h2 className="text-color-b text-3xl font-bold mb-4 ">
-          ประวัติการฉีดวัคซีน :
-        </h2>
         <form>
-          {/* วัคซีน */}
+          <h2 className="text-color-b text-3xl font-bold mb-4 ">
+            ประวัติการตรวจสุขภาพ :
+          </h2>
+
+          {/* วันที่ตรวจสุขภาพ */}
           <div className="mb-4">
             <label
               className="block text-color-b text-2xl mb-2"
-              htmlFor="vaccine"
+              htmlFor="checkupDate"
             >
-              วัคซีน
+              วันที่ตรวจสุขภาพ:
             </label>
             <input
-              type="text"
-              id="vaccine"
-              className="w-full px-3 py-4 border rounded-large text-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-color-b focus:border-transparent"
-              placeholder="โปรดระบุชื่อวัคซีน"
-              onChange={(e) => setName(e.target.value)}
+              type="date"
+              id="checkupDate"
+              className="w-auto px-3 py-4 border rounded-large text-xl text-color-box shadow-sm focus:outline-none focus:ring-2 focus:ring-color-box focus:border-transparent"
+              onChange={(e) => setDate(e.target.value)}
             />
           </div>
-          <div className="grid grid-cols-2 gap-32 mb-2 ">
-            {/* วันที่ฉีดวัคซีน */}
-            <div className="mb-4">
-              <label
-                className="block text-color-b text-2xl mb-2"
-                htmlFor="vaccineDate"
-              >
-                วันที่ที่ฉีดวัคซีน
-              </label>
-              <input
-                type="date"
-                id="vaccineDate"
-                className="w-full px-3 py-4 border rounded-large text-xl text-color-box shadow-sm focus:outline-none focus:ring-2 focus:ring-color-b focus:border-transparent"
-                onChange={(e) => setDate(e.target.value)}
-              />
-            </div>
 
-            {/* วันหมดอายุ */}
-            <div className="mb-4">
-              <label
-                className="block text-color-b text-2xl mb-2"
-                htmlFor="expiryDate"
-              >
-                วันหมดอายุ
-              </label>
-              <input
-                type="date"
-                id="expiryDate"
-                className="w-full px-3 py-4 border rounded-large text-xl text-color-box shadow-sm focus:outline-none focus:ring-2 focus:ring-color-b focus:border-transparent"
-                onChange={(e) => setExp(e.target.value)}             
-              />
-            </div>
+          {/* ข้อมูลเพิ่มเติม */}
+          <div className="mb-4">
+            <label
+              className="block text-color-b text-2xl mb-2"
+              htmlFor="additionalInfo"
+            >
+              ข้อมูลเพิ่มเติม:
+            </label>
+            <textarea
+              id="additionalInfo"
+              rows="4"
+              className="w-full px-3 py-4 border rounded-large shadow-sm focus:outline-none focus:ring-2 focus:ring-color-box focus:border-transparent"
+              placeholder="ใส่ข้อมูลเพิ่มเติม..."
+              onChange={(e) => setNote(e.target.value)}
+            ></textarea>
           </div>
 
           {/* ปุ่มบันทึกข้อมูล */}
@@ -171,7 +152,7 @@ export default function VaccinationForm() {
             <button
               onClick={(e) => {
                 e.preventDefault(); // หยุดการ reload หน้า
-                addvaccine();
+                addhistory();
               }}
               className="w-auto bg-color-b text-white text-xl py-4 px-4 rounded-large hover:bg-color-holdber transition"
             >
@@ -180,8 +161,11 @@ export default function VaccinationForm() {
           </div>
         </form>
       </div>
+
+      {/* แสดง NotificationPopup */}
+      {isPopupVisible && (
+        <NotificationPopup onClose={() => setIsPopupVisible(false)} />
+      )}
     </div>
   );
-
 }
- 

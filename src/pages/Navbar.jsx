@@ -15,7 +15,7 @@ function Navbar() {
   // const user = "Atsadawut";/////////////////////////////
 =======
   const [username, setUsername] = useState("");
-  
+
   const navigate = useNavigate();
 >>>>>>> 4dd25795be980e14dfa0ccf2b5825369996f1a10
 
@@ -158,7 +158,7 @@ useEffect(() => {
                   คลินิกใกล้เคียง
                 </a>
                 <a
-                  href="/Pet_benefit"
+                  href="/Head_bene"
                   className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:rounded-b-lg"
                 >
                   แนะนำโภชนาการ
@@ -206,7 +206,7 @@ useEffect(() => {
                     localStorage.removeItem("token");
                     // navigate("/login"); // Redirect to login page
                   }}
-                  className="block hover:text-color-holdber"
+                  className="block px-4 py-2 text-gray-700 hover:bg-gray-100 hover:rounded-b-lg"
                 >
                   ออกจากระบบ
                 </a>

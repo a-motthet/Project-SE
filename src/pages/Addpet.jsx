@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import mypic from "../images/2.jpg";
 import Axios from "axios";
+import { useParams } from "react-router-dom";
 
 const NotificationPopup = ({ onClose }) => (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 font-sans">
@@ -66,6 +67,14 @@ const Addpet = () => {
   const [ageYears, setAgeYears] = useState("");
   const [ageMonths, setAgeMonths] = useState("");
   const [profilePic, setProfilePic] = useState(mypic);
+<<<<<<< HEAD
+=======
+  const [isErrorPopupVisible, setIsErrorPopupVisible] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [dbbirthdate, setDbbirthdate] = useState("");
+  const [petDisease, setPetDisease] = useState("")
+  const { id } = useParams();
+>>>>>>> 13c5bffc3c103be1b8130f4097fe70e0139608cb
 
   const addPet = () => {
     const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
@@ -77,9 +86,29 @@ const Addpet = () => {
     formData.append("petWeight", petWeight);
     formData.append("birthdate", birthdate);
     formData.append("note", note);
+<<<<<<< HEAD
     formData.append("imageFile", profilePic);
   
     Axios.post("http://localhost:3001/addPet", formData, {
+=======
+    formData.append("imageFile", profilePic); // profilePic ตอนนี้คือ Base64
+    formData.append("petDisease", petDisease);
+
+    if (
+      !petName ||
+      !editPetType ||
+      !petSex ||
+      !petWeight ||
+      !birthdate ||
+      !profilePic
+    ) {
+      setPopupMessage("กรุณากรอกข้อมูลให้ครบถ้วน");
+      setIsErrorPopupVisible(true); // แสดง Popup ความผิดพลาด
+      return;
+    }
+
+    Axios.post(`http://localhost:3001/addPet`, formData, {
+>>>>>>> 13c5bffc3c103be1b8130f4097fe70e0139608cb
       headers: {
         Authorization: `Bearer ${token}`, // แนบ Token ใน Header
         "Content-Type": "multipart/form-data", // กำหนดประเภทข้อมูล
@@ -221,26 +250,28 @@ const Addpet = () => {
               <label className="block text-color-b mb-1 font-sans">
                 น้ำหนักของสัตว์เลี้ยง:
               </label>
-              {showWeightInput ? (
-                <input
-                  type="number"
-                  placeholder="กรอกน้ำหนัก"
-                  min="0"
-                  value={petWeight}
-                  onChange={(e) => setPetWeight(e.target.value)}
-                  className="w-full p-3 border-2 border-gray-300 rounded-md"
-                />
-              ) : (
-                <button 
-                  onClick={() => setShowWeightInput(true)}
-                  className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-md"
-                ></button>
-              )}
+              <input
+                type="number"
+                placeholder="กรอกน้ำหนัก"
+                min="0"
+                value={petWeight}
+                onChange={(e) => setPetWeight(e.target.value)}
+                className="w-full p-3 border-2 border-gray-300 rounded-md"
+              />
             </div>
             <div className="w-full mb-4">
-              <p className="block text-color-b mb-1 font-sans">
-                อายุของสัตว์เลี้ยง:
-              </p>
+              <label className="block text-color-b mb-1 font-sans">
+                โรคประจำตัวของสัตว์เลี้ยงของท่าน:
+              </label>
+              <input
+                type="text"
+                placeholder="โปรดโรคประจำตัวของสัตว์เลี้ยง"
+                name="pet_disease"
+                onChange={(e) => setPetDisease(e.target.value)}
+                className="w-full p-3 border-2 border-gray-300 rounded-md"
+              />
+            </div>
+            <div className="w-full mb-4">
               <p className="block text-color-b mb-1 font-sans">
                 หากคุณไม่ทราบวันเดือนปีเกิด กรุณาเลือกอายุโดยประมาณ ในช่อง
                 'อายุโดยประมาณ'

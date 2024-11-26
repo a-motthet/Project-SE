@@ -1,0 +1,22 @@
+sequenceDiagram 
+   actor user1  
+   participant  web 
+   participant  Health_care
+   participant  DB 
+   autonumber
+   user1->>+web:เพิ่มประวัติ
+   
+      web->>+Health_care:Save
+      Health_care->>+DB:Check
+      DB->>-Health_care:its match
+      Health_care->>-web:show_detail
+      web-->>-user1:succes
+   
+   
+   
+   user1->>+web:ดูเพิ่มเติม
+    web->>+Health_care:เรียกข้อมูล
+    Health_care->>+DB:Check
+    DB->>-Health_care:Its match
+    Health_care->>-web:Succes
+    web-->>-user1:Show
