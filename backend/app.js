@@ -178,15 +178,32 @@ app.post('/addPet', authenticateToken, upload.single('imageFile'), (req, res) =>
   );
 });
 
-app.post('/delpet/:id', authenticateToken, async (req ,res )=>{
+app.post('/delpet/:id', authenticateToken, async (req, res) => {
   const petId = req.params.id;
-  db.query("DELETE FROM pet WHERE pet_id = ?;",[petId],(err,result) => {
-    res.status(200).send("DEL successfully");
-  })
-})
+
+  try {
+    console.log(`Deleting pet with ID: ${petId}`);
+    await db.query("DELETE FROM vaccine_record WHERE pet_id = ?", [petId])
+    await db.query("DELETE FROM health_record WHERE pet_id = ?", [petId])
+    await db.query("DELETE FROM pet WHERE pet_id = ?;", [petId], (err, result) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).send("Internal server error.");
+      }
+      if (result.affectedRows === 0) {
+        return res.status(404).send("Pet not found.");
+      }
+      res.status(200).send("Pet deleted successfully.");
+    });
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    res.status(500).send("Internal server error.");
+  }
+});
+
 
 app.post('/pets/:id', authenticateToken , upload.single('imageFile') , async (req, res) => {
-  console.log("Request body:", req.body);
+  
   const petId = req.params.id;
   const { petName, petType, petSex, petWeight, birthdate, note } = req.body;
 
@@ -198,7 +215,7 @@ app.post('/pets/:id', authenticateToken , upload.single('imageFile') , async (re
     //   return res.status(404).json({ message: 'ไม่พบข้อมูลสัตว์เลี้ยง' });
     // }
     // อัปเดตข้อมูล
-    console.log(petName)
+    
     await db.query(
       'UPDATE pet SET pet_name = ?, pet_breed = ?, pet_gender = ?, pet_weight = ?, pet_birthdate = ?, pet_description = ? WHERE pet_id = ?',
       [petName, petType, petSex, petWeight, birthdate, note, petId]
@@ -240,7 +257,7 @@ app.get("/vaccines/:id", authenticateToken, (req, res) => {
 });
 
 app.post('/addVaccine/:id', authenticateToken, (req, res) => {
-  console.log("Request body:", req.body);
+  
   const petId = req.params.id;
   const { name, date, exp } = req.body;
 
@@ -262,7 +279,7 @@ app.post('/addVaccine/:id', authenticateToken, (req, res) => {
 });
 
 app.post('/addHistory/:id', authenticateToken, (req, res) => {
-  console.log("Request body:", req.body);
+ 
   const petId = req.params.id;
   const { date, note } = req.body;
 

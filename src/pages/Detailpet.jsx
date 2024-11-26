@@ -61,6 +61,29 @@ const PetProfile = () => {
   const [pet, setPet] = useState(null); // เก็บข้อมูลสัตว์เลี้ยง
   const [error, setError] = useState(null); // เก็บ Error (ถ้ามี)
   const [dbbirthdate, setDbbirthdate] = useState("");
+  
+  const delPet = () => {
+    const token = localStorage.getItem("token");
+    Axios.post(
+      `http://localhost:3001/delpet/${id}`,
+      {}, // No body needed
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((response) => {
+        
+        alert("Pet deleted successfully!");
+      })
+      .catch((error) => {
+        console.error("Error deleting pet:", error);
+        alert("Failed to delete pet.");
+      });
+  };
+  
+    
 
   const addPet = () => {
     const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
@@ -553,7 +576,7 @@ const PetProfile = () => {
             />
             <div className="flex justify-center space-x-10">
               <button
-                onClick={handleDelete}
+                onClick={delPet}
                 className="bg-color-b text-white px-4 py-2 rounded-md font-sans"
               >
                 ยืนยัน
