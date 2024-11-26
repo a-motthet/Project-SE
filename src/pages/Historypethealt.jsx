@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function VaccinationForm() {
+export default function HealtPetform() {
   const [isPopupVisible, setIsPopupVisible] = useState(false);
 
   const handleFormSubmit = (e) => {
@@ -26,55 +26,40 @@ export default function VaccinationForm() {
   return (
     <div className="min-h-screen flex items-center justify-center font-sans">
       <div className="bg-white shadow-md rounded-large p-8 w-full max-w-screen-lg">
-        <h2 className="text-color-b text-3xl font-bold mb-4 ">
-          ประวัติการฉีดวัคซีน :
-        </h2>
         <form onSubmit={handleFormSubmit}>
-          {/* วัคซีน */}
+          <h2 className="text-color-b text-3xl font-bold mb-4 ">
+            ประวัติการตรวจสุขภาพ :
+          </h2>
+
+          {/* วันที่ตรวจสุขภาพ */}
           <div className="mb-4">
             <label
               className="block text-color-b text-2xl mb-2"
-              htmlFor="vaccine"
+              htmlFor="checkupDate"
             >
-              วัคซีน
+              วันที่ตรวจสุขภาพ:
             </label>
             <input
-              type="text"
-              id="vaccine"
-              className="w-full px-3 py-4 border rounded-large text-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-color-b focus:border-transparent"
-              placeholder="โปรดระบุชื่อวัคซีน"
+              type="date"
+              id="checkupDate"
+              className="w-auto px-3 py-4 border rounded-large text-xl text-color-box shadow-sm focus:outline-none focus:ring-2 focus:ring-color-box focus:border-transparent"
             />
           </div>
-          <div className="grid grid-cols-2 gap-32 mb-2 ">
-            {/* วันที่ฉีดวัคซีน */}
-            <div className="mb-4">
-              <label
-                className="block text-color-b text-2xl mb-2"
-                htmlFor="vaccineDate"
-              >
-                วันที่ที่ฉีดวัคซีน
-              </label>
-              <input
-                type="date"
-                id="vaccineDate"
-                className="w-full px-3 py-4 border rounded-large text-xl text-color-box shadow-sm focus:outline-none focus:ring-2 focus:ring-color-b focus:border-transparent"
-              />
-            </div>
 
-            {/* วันหมดอายุ */}
-            <div className="mb-4">
-              <label
-                className="block text-color-b text-2xl mb-2"
-                htmlFor="expiryDate"
-              >
-                วันหมดอายุ
-              </label>
-              <input
-                type="date"
-                id="expiryDate"
-                className="w-full px-3 py-4 border rounded-large text-xl text-color-box shadow-sm focus:outline-none focus:ring-2 focus:ring-color-b focus:border-transparent"
-              />
-            </div>
+          {/* ข้อมูลเพิ่มเติม */}
+          <div className="mb-4">
+            <label
+              className="block text-color-b text-2xl mb-2"
+              htmlFor="additionalInfo"
+            >
+              ข้อมูลเพิ่มเติม:
+            </label>
+            <textarea
+              id="additionalInfo"
+              rows="4"
+              className="w-full px-3 py-4 border rounded-large shadow-sm focus:outline-none focus:ring-2 focus:ring-color-box focus:border-transparent"
+              placeholder="ใส่ข้อมูลเพิ่มเติม..."
+            ></textarea>
           </div>
 
           {/* ปุ่มบันทึกข้อมูล */}

@@ -1,16 +1,7 @@
-import React, { useState } from "react";
-import PetHead from "./PetHead";
-import PetCenter from "./PetCenter";
-import PetFoodInfo from "./PetFoodInfo";
+import React from "react";
 import mypic from "../images/2.jpg";
 
 const PetProfile = () => {
-  const [ageGroup, setAgeGroup] = useState("อาหารตามวัย");
-
-  const handleAgeChange = (newAgeGroup) => {
-    setAgeGroup(newAgeGroup); // เมื่อเลือกช่วงอายุ จะอัปเดตค่า state
-  };
-
   return (
     <>
       <div className="m-10 flex items-center justify-center font-sans">
@@ -49,7 +40,7 @@ const PetProfile = () => {
                 </div>
               </div>
               <div>
-                <h3 className="text-lg text-color-b font-bold">{ageGroup}</h3>
+                <h3 className="text-lg text-color-b font-bold">อาหารตามวัย</h3>
                 <div className="border-2 p-4 text-color-b font-bold rounded-large">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Accusamus facere velit temporibus exercitationem harum

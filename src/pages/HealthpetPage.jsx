@@ -19,7 +19,7 @@ function HealthPetPage() {
           headers: { Authorization: `Bearer ${token}` },
         });
         setThispet(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน State
-        console.log(response.data)
+        console.log(response.data);
       } catch (err) {
         console.error("Error fetching pets:", err);
       }
@@ -32,9 +32,12 @@ function HealthPetPage() {
     const fetchVaccine = async () => {
       try {
         const token = localStorage.getItem("token"); // ดึง Token
-        const response = await axios.get(`http://localhost:3001/vaccine_Home/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          `http://localhost:3001/vaccine_Home/${id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setVaccine(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน State
       } catch (err) {
         console.error("Error fetching pets:", err);
@@ -54,26 +57,26 @@ function HealthPetPage() {
     // แปลงวันเกิดจากสตริงเป็น Date object
     const birthDate = new Date(birthDateString);
     const currentDate = new Date(); // วันที่ปัจจุบัน
-  
+
     // คำนวณอายุ
     let age = currentDate.getFullYear() - birthDate.getFullYear();
     const monthDifference = currentDate.getMonth() - birthDate.getMonth();
     const dayDifference = currentDate.getDate() - birthDate.getDate();
-  
+
     // ปรับอายุหากเดือนหรือวันยังไม่ถึงวันเกิดในปีนี้
     if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
       age--;
     }
-  
+
     // แปลงวันเกิดเป็นฟอร์แมตที่อ่านง่าย
     const formattedBirthDate = formatter.format(birthDate);
-  
+
     return {
       age,
       formattedBirthDate,
     };
   }
-  
+
   if (thispet.length === 0) {
     return <p className="text-center">กำลังโหลดข้อมูลสัตว์เลี้ยง...</p>;
   }
@@ -90,19 +93,21 @@ function HealthPetPage() {
   //   );
   // }
 
-  
-
   return (
     <div className="min-h-screen flex items-center justify-center font-sans">
       <div className="bg-white rounded-large shadow-inner w-11/12 lg:w-3/4 xl:w-2/3">
-        <p className="pl-8 pt-8 text-color-b text-3xl font-bold">{thispet[0].pet_name}</p>
+        <p className="pl-8 pt-8 text-color-b text-3xl font-bold">
+          {thispet[0].pet_name}
+        </p>
         <div className="grid grid-cols-4 items-center">
           <div className="col-span-3">
             <div className="grid grid-cols-2 mb-2">
               <div className="ml-8 text-color-b text-xl">
                 ชนิดสัตว์เลี้ยง: {thispet[0].pet_breed}
               </div>
-              <div className="text-color-b text-xl">เพศของสัตว์: {thispet[0].pet_gender}</div>
+              <div className="text-color-b text-xl">
+                เพศของสัตว์: {thispet[0].pet_gender}
+              </div>
             </div>
             <div className="grid grid-cols-2 mb-2">
               <div className="ml-8 text-color-b text-xl">
@@ -110,11 +115,6 @@ function HealthPetPage() {
               </div>
               <div className="text-color-b text-xl">
                 น้ำหนักของสัตว์เลี้ยง: {thispet[0].pet_weight} กิโลกรัม
-              </div>
-            </div>
-            <div className="grid grid-cols-1 mb-2">
-              <div className="ml-8 text-color-b text-xl">
-                สายพันธุ์สัตว์เลี้ยง: pet.breed
               </div>
             </div>
             <div className="grid grid-cols-1 mb-2">
@@ -167,12 +167,18 @@ function HealthPetPage() {
               )}
             </div>
           </div>
-          <div className="flex items-center justify-center mb-4">
+          <div className="flex items-center justify-center mb-4 gap-4">
+            <button
+              className="w-auto bg-color-b text-white text-xl py-4 px-4 rounded-large hover:bg-color-holdber transition"
+              onClick={() => navigate("/Historypethealt")}
+            >
+              เพิ่มข้อมูลสุขภาพ
+            </button>
             <button
               className="w-auto bg-color-b text-white text-xl py-4 px-4 rounded-large hover:bg-color-holdber transition"
               onClick={() => navigate("/HistorypetVaccine")}
             >
-              เพิ่มข้อมูลสุขภาพ
+              เพิ่มข้อมูลวัคซีน
             </button>
           </div>
         </div>

@@ -70,7 +70,7 @@ const Addpet = () => {
   const [isErrorPopupVisible, setIsErrorPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [dbbirthdate, setDbbirthdate] = useState("");
-  const { id } = useParams(); 
+  const { id } = useParams();
 
   const addPet = () => {
     const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
@@ -266,26 +266,27 @@ const Addpet = () => {
               <label className="block text-color-b mb-1 font-sans">
                 น้ำหนักของสัตว์เลี้ยง (กิโลกรัม):
               </label>
-              {showWeightInput ? (
-                <input
-                  type="number"
-                  placeholder="กรอกน้ำหนัก"
-                  min="0"
-                  value={petWeight}
-                  onChange={(e) => setPetWeight(e.target.value)}
-                  className="w-full p-3 border-2 border-gray-300 rounded-md"
-                />
-              ) : (
-                <button 
-                  onClick={() => setShowWeightInput(true)}
-                  className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-md"
-                ></button>
-              )}
+              <input
+                type="number"
+                placeholder="กรอกน้ำหนัก"
+                min="0"
+                value={petWeight}
+                onChange={(e) => setPetWeight(e.target.value)}
+                className="w-full p-3 border-2 border-gray-300 rounded-md"
+              />
             </div>
             <div className="w-full mb-4">
-              <p className="block text-color-b mb-1 font-sans">
-                อายุของสัตว์เลี้ยง:
-              </p>
+              <label className="block text-color-b mb-1 font-sans">
+                โรคประจำตัวของสัตว์เลี้ยงของท่าน:
+              </label>
+              <input
+                type="text"
+                placeholder="โปรดโรคประจำตัวของสัตว์เลี้ยง"
+                name="pet_disease"
+                className="w-full p-3 border-2 border-gray-300 rounded-md"
+              />
+            </div>
+            <div className="w-full mb-4">
               <p className="block text-color-b mb-1 font-sans">
                 หากคุณไม่ทราบวันเดือนปีเกิด กรุณาเลือกอายุโดยประมาณ ในช่อง
                 'อายุโดยประมาณ'

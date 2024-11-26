@@ -35,11 +35,6 @@ const NotificationMessagePopup = ({ onClose }) => (
   </div>
 );
 
-
-
-
-
-
 const PetProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
@@ -66,10 +61,10 @@ const PetProfile = () => {
   const [pet, setPet] = useState(null); // เก็บข้อมูลสัตว์เลี้ยง
   const [error, setError] = useState(null); // เก็บ Error (ถ้ามี)
   const [dbbirthdate, setDbbirthdate] = useState("");
-  
+
   const addPet = () => {
     const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
-    
+
     const formData = new FormData(); // ใช้ FormData เพื่อจัดการข้อมูลที่มีไฟล์
     formData.append("petName", petName);
     formData.append("petType", editPetType);
@@ -79,12 +74,10 @@ const PetProfile = () => {
     formData.append("note", note);
     // formData.append("imageFile", profilePic); // profilePic ตอนนี้คือ Base64
 
-
     Axios.post(`http://localhost:3001/pets/${id}`, formData, {
-      
       headers: {
         Authorization: `Bearer ${token}`, // แนบ Token ใน Header
-         // กำหนดประเภทข้อมูล
+        // กำหนดประเภทข้อมูล
       },
     })
       .then(() => {
@@ -154,7 +147,7 @@ const PetProfile = () => {
         selectedMonth - 1,
         selectedDay
       );
-      
+
       setBirthdate(formattedBirthdate.toLocaleDateString("th-TH")); // เปลี่ยนให้แสดงวันที่ในรูปแบบไทย
       const { ageYears, ageMonths } = calculateAge(formattedBirthdate);
       const dbDate = formattedBirthdate.toISOString().split("T")[0];
@@ -169,7 +162,6 @@ const PetProfile = () => {
       setPetAge(`${ageYears} ปี ${ageMonths} เดือน`);
     }
   }, [ageYears, ageMonths, birthdateOption]);
-  
 
   useEffect(() => {
     const fetchPet = async () => {
@@ -194,7 +186,7 @@ const PetProfile = () => {
   if (!pet) {
     return <p>กำลังโหลดข้อมูล...</p>; // แสดงข้อความขณะกำลังโหลด
   }
-  
+
   const formatter = new Intl.DateTimeFormat("th-TH", {
     day: "2-digit",
     month: "2-digit",
@@ -202,28 +194,28 @@ const PetProfile = () => {
   });
 
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' }; // เช่น 26 November 2024
-    return new Date(dateString).toLocaleDateString('th-TH', options);
-};
+    const options = { year: "numeric", month: "long", day: "numeric" }; // เช่น 26 November 2024
+    return new Date(dateString).toLocaleDateString("th-TH", options);
+  };
 
   function calculatePetAge(birthDateString) {
     // แปลงวันเกิดจากสตริงเป็น Date object
     const birthDate = new Date(birthDateString);
     const currentDate = new Date(); // วันที่ปัจจุบัน
-  
+
     // คำนวณอายุ
     let age = currentDate.getFullYear() - birthDate.getFullYear();
     const monthDifference = currentDate.getMonth() - birthDate.getMonth();
     const dayDifference = currentDate.getDate() - birthDate.getDate();
-  
+
     // ปรับอายุหากเดือนหรือวันยังไม่ถึงวันเกิดในปีนี้
     if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
       age--;
     }
-  
+
     // แปลงวันเกิดเป็นฟอร์แมตที่อ่านง่าย
     const formattedBirthDate = formatter.format(birthDate);
-  
+
     return {
       age,
       formattedBirthDate,
@@ -240,7 +232,33 @@ const PetProfile = () => {
           <div className="lg:w-2/3 w-full lg:pr-8 flex flex-col items-start">
             {!isEditing ? (
               <>
-                <h2 className="text-color-b text-2xl font-sans font-bold mb-6">
+                <div className="bg-white w-11/12 lg:w-3/4 xl:w-2/3">
+                  <p className="pl-8 pt-8 text-color-b text-3xl font-bold">
+                    {pet[0].pet_name}
+                  </p>
+                  <div className="grid grid-cols-2 gap-5 mb-2">
+                    <div className="ml-8 text-color-b">
+                      ชนิดสัตว์เลี้ยง: {pet[0].pet_breed}
+                    </div>
+                    <div className="text-color-b">
+                      เพศของสัตว์: {pet[0].pet_gender}
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-2 gap-5 mb-2">
+                    <div className="ml-8 text-color-b">
+                      อายุของสัตว์เลี้ยง: {petInfo.age} ปี
+                    </div>
+                    <div className="text-color-b ">
+                      น้ำหนักของสัตว์เลี้ยง: {pet[0].pet_weight} กิโลกรัม
+                    </div>
+                  </div>
+                  <div className="grid grid-cols-1 mb-2">
+                    <div className="ml-8 text-color-b">
+                      โรคประจำตัว: pet.condition
+                    </div>
+                  </div>
+                </div>
+                {/* <h2 className="text-color-b text-2xl font-sans font-bold mb-6">
                   {pet[0].pet_name} :
                 </h2>
                 <p className="text-xl text-color-b font-sans">
@@ -258,7 +276,10 @@ const PetProfile = () => {
                   {" "}
                   น้ำหนัก: {pet[0].pet_weight} กิโลกรัม
                 </p>
-                <p className="text-xl text-color-b font-sans"> Note: {pet[0].pet_note || "-"}</p>
+                <p className="text-xl text-color-b font-sans">
+                  {" "}
+                  Note: {pet[0].pet_note || "-"}
+                </p> */}
                 <div className="flex space-x-2 w-full mt-20 items-end">
                   <button
                     onClick={toggleEditMode}
@@ -337,27 +358,26 @@ const PetProfile = () => {
                 <div className="w-full mb-4">
                   <label className="block text-color-b mb-1 font-sans">
                     น้ำหนักของสัตว์เลี้ยง:
-                  </label>
-                  {showWeightInput ? (
-                    <input
-                      type="text"
-                      value={petWeight}
-                      onChange={(e) => setPetWeight(e.target.value)}
-                      className="w-full p-3 border-2 border-gray-300 rounded-md"
-                    />
-                  ) : (
-                    <button
-                      onClick={() => setShowWeightInput(true)}
-                      className="w-full px-4 py-2 bg-gray-200 text-gray-700 rounded-md"
-                    >
-                      กรอกน้ำหนัก
-                    </button>
-                  )}
+                  </label>{" "}
+                  <input
+                    type="text"
+                    value={petWeight}
+                    onChange={(e) => setPetWeight(e.target.value)}
+                    className="w-full p-3 border-2 border-gray-300 rounded-md"
+                  />
                 </div>
                 <div className="w-full mb-4">
-                  <p className="block text-color-b mb-1 font-sans">
-                    อายุของสัตว์เลี้ยง:
-                  </p>
+                  <label className="block text-color-b mb-1 font-sans">
+                    โรคประจำตัวของสัตว์เลี้ยงของท่าน:
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="โปรดโรคประจำตัวของสัตว์เลี้ยง"
+                    name="pet_disease"
+                    className="w-full p-3 border-2 border-gray-300 rounded-md"
+                  />
+                </div>
+                <div className="w-full mb-4">
                   <p className="block text-color-b mb-1 font-sans">
                     หากคุณไม่ทราบวันเดือนปีเกิด กรุณาเลือกอายุโดยประมาณ ในช่อง
                     'อายุโดยประมาณ'

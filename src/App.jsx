@@ -16,13 +16,14 @@ import Addpet from "./pages/Addpet";
 import Pet_benefit from "./pages/Pet_benefit";
 import HealthpetPage from "./pages/HealthpetPage";
 import HistorypetVaccine from "./pages/HistorypetVaccine";
+import Historypethealt from "./pages/Historypethealt";
 import ClinicNear from "./pages/ClinicNear";
 import ViewHistorypage from "./pages/ViewHistorypage";
 import HomeHealth from "./pages/HomeHealth";
 import Footer from "./components/Footer";
 import Contact from "./pages/Contact";
 import Edit from "./pages/Edit";
-import Head_bene from "./pages/Head_bene"
+import Head_bene from "./pages/Head_bene";
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function MainContent() {
             <Route path="/Pet_benefit/" element={<Pet_benefit />} />
             <Route path="/HealthpetPage/:id" element={<HealthpetPage />} />
             <Route path="/HistorypetVaccine/" element={<HistorypetVaccine />} />
+            <Route path="/Historypethealt/" element={<Historypethealt />} />
             <Route path="/ClinicNear/" element={<ClinicNear />} />
             <Route path="/ViewHistorypage/:id" element={<ViewHistorypage />} />
             <Route path="/Head_bene/" element={<Head_bene />} />
