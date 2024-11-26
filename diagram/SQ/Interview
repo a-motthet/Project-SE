@@ -1,0 +1,28 @@
+sequenceDiagram
+  actor User as ผู้ใช้
+  participant Website as Websit
+  participant Database as DB
+
+  autonumber
+  User ->> Website: เพิ่มสัตว์ใหม่
+  Website ->> Database: บันทึกรายละเอียดสัตว์
+  Database -->> Website: ยืนยันการบันทึก
+  Website -->> User: เพิ่มสัตว์เรียบร้อยแล้ว
+  User ->> Website: ขอคำแนะนำด้านสุขภาพ
+  Website ->> Database: ดึงข้อมูลด้านสุขภาพ
+  Database -->> Website: ข้อมูลด้านสุขภาพ
+  Website -->> User: ให้คำแนะนำด้านสุขภาพ
+  User ->> Website: เข้าถึงโปรไฟล์สัตว์ของฉัน
+  Website ->> Database: ดึงข้อมูลโปรไฟล์สัตว์
+  Database -->> Website: ข้อมูลโปรไฟล์สัตว์
+  Website -->> User: แสดงโปรไฟล์สัตว์ของฉัน
+  User ->> Website: ค้นหาคลินิก
+  Website ->> Database: ค้นหาข้อมูลคลินิก
+  Database -->> Website: รายชื่อคลินิกใกล้เคียง
+  Website -->> User: แสดงข้อมูลคลินิก
+  User ->> Website: ขอคำแนะนำโภชนาการ
+  Website ->> Database: ดึงข้อมูลโภชนาการ
+  Database -->> Website: รายละเอียดคำแนะนำโภชนาการ
+  Website -->> User: ให้คำแนะนำโภชนาการ
+
+
