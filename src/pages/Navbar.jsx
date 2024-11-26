@@ -38,10 +38,10 @@ function Navbar() {
         .catch((error) => {
           console.error("Error fetching username:", error);
           localStorage.removeItem("token");
-          navigate("/login");
+          navigate("/");
         });
     } else {
-      navigate("/login");
+      navigate("/");
     }
   }, [navigate]);
 
