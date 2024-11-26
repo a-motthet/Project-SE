@@ -159,15 +159,15 @@ app.get("/pets/:id", authenticateToken, (req, res) => {
 app.post('/addPet', authenticateToken, upload.single('imageFile'), (req, res) => {
   console.log("Request body:", req.body);
   const userId = req.userId;
-  const { petName, petType, petSex, petWeight, birthdate, note, imageFile } = req.body;
+  const { petName, petType, petSex, petWeight, birthdate, note, imageFile,petDisease } = req.body;
 
   if (!petName || !petType || !petSex || !petWeight || !birthdate || !imageFile) {
     return res.status(400).send("กรุณากรอกข้อมูลให้ครบถ้วน");
   }
 
   db.query(
-    "INSERT INTO pet (user_id, pet_name, pet_breed, pet_gender, pet_weight, pet_birthdate, pet_description, pet_photo) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-    [userId, petName, petType, petSex, petWeight, birthdate, note, imageFile],
+    "INSERT INTO pet (user_id, pet_name, pet_breed, pet_gender, pet_weight, pet_birthdate, pet_description, pet_photo, pet_disease) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [userId, petName, petType, petSex, petWeight, birthdate, note, imageFile, petDisease],
     (err, result) => {
       if (err) {
         console.error("Database error: ", err);
@@ -220,6 +220,77 @@ app.get("/vaccine_Home/:id", authenticateToken, (req, res) => {
   });
 });
 
+app.get("/vaccines/:id", authenticateToken, (req, res) => {
+  const petId = req.params.id;
+
+  db.query("SELECT * FROM vaccine_record WHERE pet_id = ? ORDER BY vaccine_date", petId, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("เกิดข้อผิดพลาด");
+    } else {
+      res.send(result); 
+      console.log(result);
+    }
+  });
+});
+
+app.post('/addVaccine/:id', authenticateToken, (req, res) => {
+  console.log("Request body:", req.body);
+  const petId = req.params.id;
+  const { name, date, exp } = req.body;
+
+  if (!name || !date || !exp) {
+    return res.status(400).send("กรุณากรอกข้อมูลให้ครบถ้วน");
+  }
+
+  db.query(
+    "INSERT INTO vaccine_record (pet_id, vaccine_name, vaccine_date, vaccine_exp) VALUES (?, ?, ?, ?)",
+    [petId, name, date, exp],
+    (err, result) => {
+      if (err) {
+        console.error("Database error: ", err);
+        return res.status(500).send("An error occurred while adding the vaccine");
+      }
+      res.status(200).send("Vaccine added successfully");
+    }
+  );
+});
+
+app.post('/addHistory/:id', authenticateToken, (req, res) => {
+  console.log("Request body:", req.body);
+  const petId = req.params.id;
+  const { date, note } = req.body;
+
+  if (!date) {
+    return res.status(400).send("กรุณากรอกข้อมูลให้ครบถ้วน");
+  }
+
+  db.query(
+    "INSERT INTO health_record (pet_id, health_date, health_description) VALUES (?, ?, ?)",
+    [petId, date, note],
+    (err, result) => {
+      if (err) {
+        console.error("Database error: ", err);
+        return res.status(500).send("An error occurred while adding the history");
+      }
+      res.status(200).send("History added successfully");
+    }
+  );
+});
+
+app.get("/history_Home/:id", authenticateToken, (req, res) => {
+  const petId = req.params.id;
+
+  db.query("SELECT * FROM health_record WHERE pet_id = ? ORDER BY health_date DESC LIMIT 1", petId, (err, result) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error fetching history.");
+    } else {
+      res.send(result);
+      console.log(result)
+    }
+  });
+});
 
 
 app.listen('3001', () => {

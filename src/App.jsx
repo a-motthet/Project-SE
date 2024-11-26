@@ -55,8 +55,8 @@ function MainContent() {
             <Route path="/Addpet/" element={<Addpet />} />
             <Route path="/Pet_benefit/" element={<Pet_benefit />} />
             <Route path="/HealthpetPage/:id" element={<HealthpetPage />} />
-            <Route path="/HistorypetVaccine/" element={<HistorypetVaccine />} />
-            <Route path="/Historypethealt/" element={<Historypethealt />} />
+            <Route path="/HistorypetVaccine/:id" element={<HistorypetVaccine />} />
+            <Route path="/Historypethealt/:id" element={<Historypethealt />} />
             <Route path="/ClinicNear/" element={<ClinicNear />} />
             <Route path="/ViewHistorypage/:id" element={<ViewHistorypage />} />
             <Route path="/Head_bene/" element={<Head_bene />} />
