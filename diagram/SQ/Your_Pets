@@ -19,5 +19,5 @@ sequenceDiagram
     Your_Pets ->>+DB:Checks
     DB->>-Your_Pets :Dont have it
     Your_Pets ->>-web:Show_Details
-    web-->>-user1:Pls add yor Pet
+    web-->>-user1:Pls add your Pet
     end
