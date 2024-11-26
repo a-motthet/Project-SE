@@ -63,13 +63,13 @@ app.get("/getUsername", authenticateToken, (req, res) => {
   const userId = req.userId; // รับ userId จาก query parameter
 
   db.query(
-    "SELECT user_username FROM customers WHERE user_id = ?",
+    "SELECT user_firstname FROM customers WHERE user_id = ?",
     [userId],
     (err, result) => {
       if (err) {
         res.status(500).send({ success: false, message: "Server error" });
       } else if (result.length > 0) {
-        res.send({ success: true, username: result[0].user_username });
+        res.send({ success: true, username: result[0].user_firstname });
       } else {
         res.status(404).send({ success: false, message: "User not found" });
       }
