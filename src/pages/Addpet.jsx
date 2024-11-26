@@ -70,6 +70,7 @@ const Addpet = () => {
   const [isErrorPopupVisible, setIsErrorPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [dbbirthdate, setDbbirthdate] = useState("");
+  const [petDisease, setPetDisease] = useState("")
   const { id } = useParams();
 
   const addPet = () => {
@@ -83,6 +84,7 @@ const Addpet = () => {
     formData.append("birthdate", dbbirthdate);
     formData.append("note", note);
     formData.append("imageFile", profilePic); // profilePic ตอนนี้คือ Base64
+    formData.append("petDisease", petDisease);
 
     if (
       !petName ||
@@ -97,7 +99,7 @@ const Addpet = () => {
       return;
     }
 
-    Axios.post(`http://localhost:3001/pets/${id}`, formData, {
+    Axios.post(`http://localhost:3001/addPet`, formData, {
       headers: {
         Authorization: `Bearer ${token}`, // แนบ Token ใน Header
         "Content-Type": "multipart/form-data", // กำหนดประเภทข้อมูล
@@ -283,6 +285,7 @@ const Addpet = () => {
                 type="text"
                 placeholder="โปรดโรคประจำตัวของสัตว์เลี้ยง"
                 name="pet_disease"
+                onChange={(e) => setPetDisease(e.target.value)}
                 className="w-full p-3 border-2 border-gray-300 rounded-md"
               />
             </div>

@@ -254,7 +254,7 @@ const PetProfile = () => {
                   </div>
                   <div className="grid grid-cols-1 mb-2">
                     <div className="ml-8 text-color-b">
-                      โรคประจำตัว: pet.condition
+                      โรคประจำตัว: {pet[0].pet_disease}
                     </div>
                   </div>
                 </div>

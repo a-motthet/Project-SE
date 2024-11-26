@@ -40,11 +40,30 @@ function HealthPetPage() {
         );
         setVaccine(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน State
       } catch (err) {
-        console.error("Error fetching pets:", err);
+        console.error("Error fetching vaccine:", err);
       }
     };
 
     fetchVaccine();
+  }, []);
+
+  useEffect(() => {
+    const fetchHistory = async () => {
+      try {
+        const token = localStorage.getItem("token"); // ดึง Token
+        const response = await axios.get(
+          `http://localhost:3001/history_Home/${id}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setHistory(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน State
+      } catch (err) {
+        console.error("Error fetching history:", err);
+      }
+    };
+
+    fetchHistory();
   }, []);
 
   const formatter = new Intl.DateTimeFormat("th-TH", {
@@ -119,7 +138,7 @@ function HealthPetPage() {
             </div>
             <div className="grid grid-cols-1 mb-2">
               <div className="ml-8 text-color-b text-xl">
-                โรคประจำตัว: pet.condition
+                โรคประจำตัว: {thispet[0].pet_disease}
               </div>
             </div>
           </div>
@@ -140,7 +159,7 @@ function HealthPetPage() {
               {vaccine.length > 0 ? (
                 vaccine[0].vaccine_name
               ) : (
-                <p className="text-gray-500">ไม่มีข้อมูลวัคซีน</p>
+                <p className="text-gray-500">ไม่มีประวัติการฉีดวัคซีน</p>
               )}
             </div>
             <div
@@ -161,7 +180,7 @@ function HealthPetPage() {
           <div className="mx-8 mb-4">
             <div className="text-center w-full h-auto p-4 border-2 border-gray-300 bg-black bg-opacity-5 rounded-large text-color-b text-2xl">
               {history.length > 0 ? (
-                history[0].health_date
+                calculatePetAge(history[0].health_date).formattedBirthDate
               ) : (
                 <p className="text-gray-500">ไม่มีประวัติการตรวจสุขภาพ</p>
               )}
@@ -170,13 +189,13 @@ function HealthPetPage() {
           <div className="flex items-center justify-center mb-4 gap-4">
             <button
               className="w-auto bg-color-b text-white text-xl py-4 px-4 rounded-large hover:bg-color-holdber transition"
-              onClick={() => navigate("/Historypethealt")}
+              onClick={() => navigate(`/Historypethealt/${id}`)}
             >
               เพิ่มข้อมูลสุขภาพ
             </button>
             <button
               className="w-auto bg-color-b text-white text-xl py-4 px-4 rounded-large hover:bg-color-holdber transition"
-              onClick={() => navigate("/HistorypetVaccine")}
+              onClick={() => navigate(`/HistorypetVaccine/${id}`)}
             >
               เพิ่มข้อมูลวัคซีน
             </button>
