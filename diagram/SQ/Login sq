@@ -1,0 +1,18 @@
+
+sequenceDiagram 
+actor user1  
+participant  web 
+user1->>+web:Login
+participant  DB 
+  
+
+loop If False
+  web->>+DB:Check  
+  DB->>-web: Dont have !
+  web-->>+user1:PLS Register!
+end
+
+
+  web->>+DB:Check
+  DB->>-web: It has !
+  web-->>-user1:Welcome
