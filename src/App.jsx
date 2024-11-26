@@ -24,7 +24,7 @@ import Footer from "./components/Footer";
 import Contact from "./pages/Contact";
 import Edit from "./pages/Edit";
 import Head_bene from "./pages/Head_bene";
-
+import Forget from "./pages/Forget";
 function App() {
   return (
     <Router>
@@ -37,7 +37,9 @@ function MainContent() {
   const location = useLocation();
 
   const showNavbar =
-    location.pathname !== "/" && location.pathname !== "/register";
+    location.pathname !== "/" &&
+    location.pathname !== "/register" &&
+    location.pathname !== "/forget";
   const showFooter = showNavbar;
 
   return (
@@ -55,13 +57,17 @@ function MainContent() {
             <Route path="/Addpet/" element={<Addpet />} />
             <Route path="/Pet_benefit/:id" element={<Pet_benefit />} />
             <Route path="/HealthpetPage/:id" element={<HealthpetPage />} />
-            <Route path="/HistorypetVaccine/:id" element={<HistorypetVaccine />} />
+            <Route
+              path="/HistorypetVaccine/:id"
+              element={<HistorypetVaccine />}
+            />
             <Route path="/Historypethealt/:id" element={<Historypethealt />} />
             <Route path="/ClinicNear/" element={<ClinicNear />} />
             <Route path="/ViewHistorypage/:id" element={<ViewHistorypage />} />
             <Route path="/Head_bene/" element={<Head_bene />} />
             <Route path="/Contact" element={<Contact />} />
             <Route path="/Edit" element={<Edit />} />
+            <Route path="/forget" element={<Forget />} />
           </Routes>
         </div>
         {showFooter && <Footer />}

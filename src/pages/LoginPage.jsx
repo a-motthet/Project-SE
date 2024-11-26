@@ -71,6 +71,10 @@ function LoginPage() {
     navigate("/register");
   };
 
+  const handleforget = () => {
+    navigate("/forget");
+  };
+
   return (
     <div className="bg-color-bg flex h-screen justify-center items-center px-4 font-sans">
       {isErrorPopupVisible && (
@@ -101,7 +105,7 @@ function LoginPage() {
               className="w-32 h-32 md:w-48 md:h-48 rounded-full object-cover"
             />
           </div>
-          <form onSubmit={(e) => e.preventDefault()}>
+          <form>
             <div className="mb-3">
               <div className="flex items-center border border-gray-300 rounded-large shadow-sm bg-white">
                 <IoPersonOutline className="text-gray-500 mx-4 text-xl sm:text-2xl" />
@@ -124,6 +128,8 @@ function LoginPage() {
                   id="password"
                   type="password"
                   placeholder="Password"
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+                  title="Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*)."
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -131,13 +137,16 @@ function LoginPage() {
             </div>
 
             <div className="flex justify-end">
-              <a
+              <button
                 className="font-bold text-sm text-blue-500 hover:text-blue-800"
-                href="#"
+                type="button"
+                onClick={handleforget}
+                aria-label="Forgot Password"
               >
                 ลืมรหัสผ่าน?
-              </a>
+              </button>
             </div>
+
             <div className="flex justify-end mt-3">
               <button
                 className="bg-color-b hover:bg-color-md text-white font-bold py-2 px-4 rounded-large focus:outline-none focus:shadow-outline"

@@ -1,8 +1,8 @@
 import React from "react";
-import mypic2 from "../images/2.jpg";
-import mypic3 from "../images/3.jpg";
-import mypic4 from "../images/4.jpg";
-import mypic5 from "../images/5.jpg";
+import mypic2 from "../images/cat-sleep.png";
+import mypic3 from "../images/exploration.png";
+import mypic4 from "../images/contact-us.png";
+import mypic5 from "../images/care.png";
 
 function WHY() {
   return (
@@ -45,7 +45,7 @@ function WHY() {
           <img
             src={mypic3}
             alt="Data Icon"
-            className="mb-4 w-24 h-24 rounded-full border-4 border-purple-300 animate-spin-slow group-hover:animate-pulse"
+            className="mb-4 w-24 h-24 rounded-full border-4 border-purple-300 animate-bounce group-hover:animate-pulse"
           />
           <h2 className="text-purple-700 font-bold text-xl mb-2 group-hover:text-purple-900">
             ความครอบคลุมของข้อมูล
@@ -89,7 +89,7 @@ function WHY() {
           <img
             src={mypic5}
             alt="Community Icon"
-            className="mb-4 w-24 h-24 rounded-full border-4 border-purple-300 animate-pulse"
+            className="mb-4 w-24 h-24 rounded-full border-4 border-purple-300 animate-bounce"
           />
           <h2 className="text-purple-700 font-bold text-xl mb-2 group-hover:text-purple-900">
             ชุมชนของคนรักสัตว์
