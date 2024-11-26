@@ -178,7 +178,12 @@ app.post('/addPet', authenticateToken, upload.single('imageFile'), (req, res) =>
   );
 });
 
-
+app.post('/delpet/:id', authenticateToken, async (req ,res )=>{
+  const petId = req.params.id;
+  db.query("DELETE FROM pet WHERE pet_id = ?;",[petId],(err,result) => {
+    res.status(200).send("DEL successfully");
+  })
+})
 
 app.post('/pets/:id', authenticateToken , upload.single('imageFile') , async (req, res) => {
   console.log("Request body:", req.body);
