@@ -154,7 +154,9 @@ const PetProfile = () => {
                   {guide[0].guide_recommended_food
                     .split("\n")
                     .map((line, index) => (
-                      <p key={index}>{line}</p>
+                      <p key={index}>
+                        {line} <br></br>
+                      </p>
                     ))}
                 </div>
               </div>
