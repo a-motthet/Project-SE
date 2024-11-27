@@ -292,6 +292,27 @@ app.get("/history_Home/:id", authenticateToken, (req, res) => {
   });
 });
 
+app.get('/fetchClinics', async (req, res) => {
+  const { location } = req.query; // รับพิกัดจาก query string (lat,lng)
+  const apiKey = 'AIzaSyCBSJ8DbwphFIcZZi4GLwDo8Xb8gBsFsCk'; // ใส่ API Key ของ Google
+
+  try {
+    const response = await axios.get(
+      `https://maps.googleapis.com/maps/api/place/nearbysearch/json`, {
+        params: {
+          location, // ตำแหน่งที่ส่งมาจาก Frontend
+          radius: 10000, // รัศมีการค้นหาที่ 5 กิโลเมตร
+          type: 'veterinary_clinic', // ประเภทคลินิกที่ต้องการ
+          key: apiKey, // API Key ของ Google
+        }
+      }
+    );
+    res.json(response.data); // ส่งข้อมูลจาก Google API กลับไปที่ Frontend
+  } catch (error) {
+    res.status(500).json({ error: 'Error fetching data from Google API' });
+  }
+});
+
 
 app.listen('3001', () => {
   console.log('Sever is running on port 3001');

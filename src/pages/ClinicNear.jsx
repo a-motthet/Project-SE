@@ -1,46 +1,37 @@
 import React, { useState, useEffect } from "react";
-import {
-  GoogleMap,
-  LoadScript,
-  Marker,
-  InfoWindow,
-} from "@react-google-maps/api";
-
-const containerStyle = {
-  width: "100%",
-  height: "100%",
-};
 
 function App() {
-  const [userLocation, setUserLocation] = useState(null); // สถานะตำแหน่งผู้ใช้
+  const [userLocation, setUserLocation] = useState(null);
   const [clinics] = useState([
     {
-      name: "โรงพยาบาลสัตว์วิภา 24 ชั่วโมง ",
-      phone: "082-127-3536",
+      name: "โรงพยาบาลสัตว์วันใสรักษาสัตว์",
+      phone: "02-872-7903",
       address: "ตำแหน่งที่ตั้ง",
-      position: { lat: 13.755, lng: 100.501 },
+      position: { lat: 13.64929, lng: 100.49619 },
     },
     {
-      name: "โรงพยาบาลสัตว์ MAH",
-      phone: "02-463-4199",
+      name: "คลินิกสัตว์ทุ่งครุ",
+      phone: "094-985-5151",
       address: "ตำแหน่งที่ตั้ง",
-      position: { lat: 13.757, lng: 100.504 },
+      position: { lat: 13.62142, lng: 100.5128 },
     },
     {
-      name: "บางบอนสัตวแพทย์",
-      phone: "02-870-6701",
+      name: "บ้านสวนธนฯสัตวแพทย์",
+      phone: "02-426-4773",
       address: "ตำแหน่งที่ตั้ง",
-      position: { lat: 13.759, lng: 100.498 },
+      position: { lat: 13.65114, lng: 100.48811 },
     },
     {
-      name: "โรงพยาบาลสัตว์สุขสวัสดิ์",
-      phone: "02-428-1443",
+      name: "ปุกปุยสัตวแพทย์",
+      phone: "086-369-6244",
       address: "ตำแหน่งที่ตั้ง",
-      position: { lat: 13.752, lng: 100.506 },
+      position: { lat: 13.65043, lng: 100.48016 },
     },
   ]);
 
-  const [selectedClinic, setSelectedClinic] = useState(null);
+  const [searchQuery, setSearchQuery] = useState("คลินิกในประชาอุทิศ");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [geoError, setGeoError] = useState("");
 
   useEffect(() => {
     if (navigator.geolocation) {
@@ -49,36 +40,33 @@ function App() {
           setUserLocation({
             lat: position.coords.latitude,
             lng: position.coords.longitude,
-          });
+          }); 
         },
         (error) => {
-          console.error("Error getting location:", error);
-          // กรณีไม่สามารถดึงตำแหน่งได้ ให้ตั้งค่าเริ่มต้น
-          setUserLocation({ lat: 13.7563, lng: 100.5018 });
+          setGeoError("ไม่สามารถดึงตำแหน่งของคุณได้");
+          setUserLocation({ lat: 13.7563, lng: 100.5018 }); // Default: กรุงเทพฯ
         }
       );
     } else {
-      console.error("Geolocation is not supported by this browser.");
+      setErrorMessage("เบราว์เซอร์ของคุณไม่รองรับการระบุตำแหน่ง");
       setUserLocation({ lat: 13.7563, lng: 100.5018 });
     }
   }, []);
 
-  // คำนวณระยะทางระหว่างสองจุด
   const calculateDistance = (lat1, lng1, lat2, lng2) => {
-    const R = 6371; // รัศมีโลก (กิโลเมตร)
-    const dLat = (lat2 - lat1) * (Math.PI / 180);
-    const dLng = (lng2 - lng1) * (Math.PI / 180);
+    const R = 6371; // Radius of the earth in km
+    const dLat = ((lat2 - lat1) * Math.PI) / 180;
+    const dLng = ((lng2 - lng1) * Math.PI) / 180;
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-      Math.cos(lat1 * (Math.PI / 180)) *
-        Math.cos(lat2 * (Math.PI / 180)) *
+      Math.cos((lat1 * Math.PI) / 180) *
+        Math.cos((lat2 * Math.PI) / 180) *
         Math.sin(dLng / 2) *
         Math.sin(dLng / 2);
     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-    return R * c; // ระยะทางในกิโลเมตร
+    return R * c;
   };
 
-  // เรียงลำดับคลินิกตามระยะทาง
   const sortedClinics = userLocation
     ? clinics
         .map((clinic) => ({
@@ -93,88 +81,98 @@ function App() {
         .sort((a, b) => a.distance - b.distance)
     : clinics;
 
+    const filteredClinics = sortedClinics.filter((clinic) =>
+      clinic.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    
+    const displayedClinics = sortedClinics.filter((clinic) =>
+      clinic.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    const handleSearch = () => {
+      const matchingClinic = sortedClinics.find((clinic) =>
+        clinic.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    
+      if (matchingClinic) {
+        const { lat, lng } = matchingClinic.position;
+        window.open(
+          `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`,
+          "_blank"
+        );
+      } else {
+        setErrorMessage(`ไม่พบคลินิกที่ตรงกับคำว่า "${searchQuery}"`);
+      }
+    };
+    
+
   return (
-    <div className="flex justify-center items-center py-6 font-sans">
-      <div className="w-full max-w-4xl rounded-lg bg-white shadow-lg overflow-hidden">
+    <div className="flex justify-center items-center py-6 font-sans bg-puple-box min-h-screen">
+      <div className="w-full max-w-4xl bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="p-6">
-          <h1 className="text-2xl font-bold text-left text-[#6373B7] mb-4 font-sans">
-            ค้นหาคลินิกแนะนำ
+          <h1 className="text-2xl font-bold text-[#6373B7] mb-4">
+            ค้นหาคลินิก
           </h1>
+          <div className="mb-4">
+            <input
+              type="text"
+              className="w-full p-2 border rounded-lg"
+              placeholder="ค้นหาคลินิก เช่น 'คลินิกในประชาอุทิศ'"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                setErrorMessage(""); 
+              }}
+            />
+            <button
+              className="mt-2 bg-[#6373B7] text-white py-2 px-4 rounded-lg color-holdber hover:scale-110"
+              onClick={handleSearch}
+            >
+              ค้นหา
+            </button>
+          </div>
+          {geoError && <div className="text-red-500 text-sm mb-4">{geoError}</div>}
+          {errorMessage && (
+            <div className="text-red-500 text-sm mb-4">{errorMessage}</div>
+          )}
           <div className="w-full h-64 rounded-lg shadow-md overflow-hidden">
-            <LoadScript googleMapsApiKey="AIzaSyDkrkJNScs9Qjy3gwkqNzurOoucjfUqfmg">
-              <GoogleMap
-                mapContainerStyle={containerStyle}
-                center={userLocation || { lat: 13.7563, lng: 100.5018 }}
-                zoom={13}
-              >
-                {userLocation && (
-                  <>
-                    <Marker
-                      position={userLocation}
-                      icon={{
-                        url: "http://maps.google.com/mapfiles/ms/icons/blue-dot.png", // Marker สีฟ้า
-                        scaledSize:
-                          window.google && window.google.maps
-                            ? new window.google.maps.Size(40, 40)
-                            : null,
-                      }}
-                    />
-                    <InfoWindow position={userLocation}>
-                      <div>
-                        <h2 className="font-bold font-sans">ตำแหน่งของคุณ</h2>
-                        <p className="font-sans">ตำแหน่งปัจจุบันของคุณ</p>
-                      </div>
-                    </InfoWindow>
-                  </>
-                )}
-
-                {userLocation &&
-                  sortedClinics.map((clinic, index) => (
-                    <Marker
-                      key={index}
-                      position={clinic.position}
-                      icon={{
-                        url: "http://maps.google.com/mapfiles/ms/icons/red-dot.png", // Marker สีแดง
-                        scaledSize:
-                          window.google && window.google.maps
-                            ? new window.google.maps.Size(40, 40)
-                            : null,
-                      }}
-                      onClick={() => setSelectedClinic(clinic)}
-                    />
-                  ))}
-
-                {selectedClinic && (
-                  <InfoWindow
-                    position={selectedClinic.position}
-                    onCloseClick={() => setSelectedClinic(null)}
-                  >
-                    <div>
-                      <h2 className="font-bold">{selectedClinic.name}</h2>
-                      <p>เบอร์โทรศัพท์: {selectedClinic.phone}</p>
-                    </div>
-                  </InfoWindow>
-                )}
-              </GoogleMap>
-            </LoadScript>
+            <iframe
+              title="ค้นหาคลินิก"
+              src={`https://www.google.com/maps/embed/v1/search?key=AIzaSyBPwGATC2MYwwKj2rMoFxJlEsy9qqphuKQ&q=${encodeURIComponent(
+                searchQuery
+              )}`}
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              allowFullScreen=""
+              loading="lazy"
+            ></iframe>
           </div>
         </div>
 
-        <div className="p-6">
+        <div className="p-6 ">
+        <h1 className="text-2xl font-bold text-[#6373B7] mb-4">
+            คลินิกที่ทางเราเเนะนำ
+          </h1>
           {sortedClinics.map((clinic, index) => (
+            
             <div
               key={index}
-              className="flex items-center justify-between bg-gray-100 shadow-md rounded-lg p-4 mb-4"
+              className="flex items-center justify-between bg-gray-100 shadow-md rounded-lg p-4 mb-4 transform transition-all hover:scale-105 hover:translate-x-2"
             >
+              
               <div>
-                <h2 className="font-semibold text-lg text-gray-800">
-                  {clinic.name}
-                </h2>
-                <p className="text-gray-600">เบอร์โทรศัพท์: {clinic.phone}</p>
-                <p className="text-gray-600">ที่อยู่: {clinic.address}</p>
+                <h2 className="font-semibold text-lg ">{clinic.name}</h2>
+                <p>เบอร์โทรศัพท์: {clinic.phone}</p>
+                <p>ที่อยู่: {clinic.address}</p>
+                {userLocation && (
+                  <p className="text-sm text-gray-600">
+                    ระยะทาง: {clinic.distance.toFixed(2)} กม.
+                  </p>
+                )}
               </div>
               <button
-                className="bg-[#6373B7] text-white py-2 px-4 rounded-lg hover:bg-purple-600 font-sans"
+                className="bg-[#6373B7] text-white py-2 px-4 rounded-lg color-holdber hover:scale-110 transition-all duration-300"
                 onClick={() =>
                   window.open(
                     `https://www.google.com/maps/dir/?api=1&destination=${clinic.position.lat},${clinic.position.lng}`,
@@ -191,5 +189,4 @@ function App() {
     </div>
   );
 }
-
 export default App;
