@@ -201,11 +201,24 @@ app.post('/delpet/:id', authenticateToken, async (req, res) => {
   }
 });
 
+app.post('/photo/:id', authenticateToken , upload.single('imageFile') , async (req, res) => {
+  const petId = req.params.id;
+  const { imageFile } = req.body;
+  console.log("Request body:", req.body);
+
+  try {
+    await db.query("UPDATE pet SET pet_photo = ? WHERE pet_id = ?", [imageFile, petId]);
+    res.status(200).send("Photo updated successfully.");
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    res.status(500).send("Internal server error.");
+  }
+});
 
 app.post('/pets/:id', authenticateToken , upload.single('imageFile') , async (req, res) => {
   
   const petId = req.params.id;
-  const { petName, petType, petSex, petWeight, birthdate, note ,profilePic  } = req.body;
+  const { petName, petType, petSex, petWeight, birthdate, note ,imageFile ,petDisease } = req.body;
 
   try {
     // // ตรวจสอบว่ามีสัตว์เลี้ยงนี้อยู่ในระบบหรือไม่
@@ -217,8 +230,8 @@ app.post('/pets/:id', authenticateToken , upload.single('imageFile') , async (re
     // อัปเดตข้อมูล
     
     await db.query(
-      'UPDATE pet SET pet_name = ?, pet_breed = ?, pet_gender = ?, pet_weight = ?, pet_birthdate = ?, pet_description = ?, pet_photo = ? WHERE pet_id = ?',
-      [petName, petType, petSex, petWeight, birthdate, note,profilePic, petId]
+      'UPDATE pet SET pet_name = ?, pet_breed = ?, pet_gender = ?, pet_weight = ?, pet_birthdate = ?, pet_description = ?, pet_photo = ? , pet_disease = ? WHERE pet_id = ?',
+      [petName, petType, petSex, petWeight, birthdate, note, imageFile, petDisease, petId]
     );
 
     res.status(200).send({ message: 'แก้ไขข้อมูลสัตว์เลี้ยงสำเร็จ' });
