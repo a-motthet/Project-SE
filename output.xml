@@ -1,78 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.1.1 (Python 3.12.5 on win32)" generated="2024-11-27T03:36:38.957935" rpa="false" schemaversion="5">
+<robot generator="Robot 7.1.1 (Python 3.12.5 on win32)" generated="2024-11-27T21:08:06.289577" rpa="false" schemaversion="5">
 <suite id="s1" name="Test" source="c:\Users\jirak\Documents\Proj.SE\Project-SE\src\Test\test.robot">
-<test id="s1-t1" name="Register" line="17">
+<test id="s1-t1" name="Login" line="9">
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-11-27T03:36:39.224223" level="INFO">Opening browser 'edge' to base url 'http://localhost:3000/'.</msg>
+<msg time="2024-11-27T21:08:06.627412" level="INFO">Opening browser 'edge' to base url 'http://localhost:3000/'.</msg>
 <arg>${BASE_URL}</arg>
 <arg>edge</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-11-27T03:36:39.224223" elapsed="3.487961"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-11-27T03:36:42.713366" level="INFO">Clicking element '//*[@id="root"]/div/div/div/div[2]/div/form/div[5]/div/button'.</msg>
-<arg>//*[@id="root"]/div/div/div/div[2]/div/form/div[5]/div/button</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-11-27T03:36:42.713366" elapsed="0.091035"/>
+<status status="PASS" start="2024-11-27T21:08:06.627412" elapsed="2.202509"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-11-27T03:36:42.805404" level="INFO">Typing text 'Ratiya' into text field '//*[@id="Firstname"]'.</msg>
-<arg>//*[@id="Firstname"]</arg>
-<arg>Ratiya</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-11-27T03:36:42.804401" elapsed="0.156931"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-11-27T03:36:42.963842" level="INFO">Typing text 'Phatitin' into text field '//*[@id="Lastname"]'.</msg>
-<arg>//*[@id="Lastname"]</arg>
-<arg>Phatitin</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-11-27T03:36:42.962838" elapsed="0.136978"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-11-27T03:36:43.099816" level="INFO">Typing text 'RatiyaPhatitin' into text field '//*[@id="username"]'.</msg>
+<msg time="2024-11-27T21:08:08.832182" level="INFO">Typing text 'RatiyaPhatitin' into text field '//*[@id="username"]'.</msg>
 <arg>//*[@id="username"]</arg>
 <arg>RatiyaPhatitin</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-11-27T03:36:43.099816" elapsed="0.087747"/>
+<status status="PASS" start="2024-11-27T21:08:08.830937" elapsed="0.184104"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-11-27T21:08:14.015123" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-11-27T21:08:09.015041" elapsed="5.000082"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-11-27T03:36:43.190157" level="INFO">Typing text '0643160042' into text field '//*[@id="phone"]'.</msg>
-<arg>//*[@id="phone"]</arg>
-<arg>0643160042</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-11-27T03:36:43.189157" elapsed="0.093779"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-11-27T03:36:43.283945" level="INFO">Typing text 'ratiyaphatitin@gmail.com' into text field '//*[@id="email"]'.</msg>
-<arg>//*[@id="email"]</arg>
-<arg>ratiyaphatitin@gmail.com</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-11-27T03:36:43.283945" elapsed="0.095768"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-11-27T03:36:43.380770" level="INFO">Typing text 'Ratiya19!' into text field '//*[@id="password"]'.</msg>
+<msg time="2024-11-27T21:08:14.015626" level="INFO">Typing text 'Ratiya19!' into text field '//*[@id="password"]'.</msg>
 <arg>//*[@id="password"]</arg>
 <arg>Ratiya19!</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-11-27T03:36:43.380770" elapsed="0.070907"/>
+<status status="PASS" start="2024-11-27T21:08:14.015626" elapsed="0.081654"/>
 </kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-11-27T03:36:43.453768" level="INFO">Typing text 'Ratiya19!' into text field '//*[@id="confirm-password"]'.</msg>
-<arg>//*[@id="confirm-password"]</arg>
-<arg>Ratiya19!</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-11-27T03:36:43.452681" elapsed="0.074682"/>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-11-27T21:08:19.098987" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-11-27T21:08:14.098283" elapsed="5.000704"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-11-27T03:36:43.528520" level="INFO">Clicking element '//*[@id="root"]/div/div/div/div[2]/div/form/div[7]/button'.</msg>
-<arg>//*[@id="root"]/div/div/div/div[2]/div/form/div[7]/button</arg>
+<msg time="2024-11-27T21:08:19.099490" level="INFO">Clicking element '//*[@id="root"]/div/div/div/div[2]/div/form/div[4]/button'.</msg>
+<arg>//*[@id="root"]/div/div/div/div[2]/div/form/div[4]/button</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2024-11-27T03:36:43.528520" elapsed="0.087133"/>
+<status status="PASS" start="2024-11-27T21:08:19.099490" elapsed="0.048968"/>
 </kw>
-<status status="PASS" start="2024-11-27T03:36:39.223195" elapsed="4.393464"/>
+<status status="PASS" start="2024-11-27T21:08:06.626409" elapsed="12.522049"/>
 </test>
-<status status="PASS" start="2024-11-27T03:36:38.961886" elapsed="4.656814"/>
+<status status="PASS" start="2024-11-27T21:08:06.298621" elapsed="12.850892"/>
 </suite>
 <statistics>
 <total>
