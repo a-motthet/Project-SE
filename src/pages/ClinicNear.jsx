@@ -29,7 +29,7 @@ function App() {
     },
   ]);
 
-  const [searchQuery, setSearchQuery] = useState("คลินิกในประชาอุทิศ");
+  const [searchQuery, setSearchQuery] = useState("คลินิกใกล้ มจธ.");
   const [errorMessage, setErrorMessage] = useState("");
   const [geoError, setGeoError] = useState("");
 
