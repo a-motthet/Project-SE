@@ -203,6 +203,8 @@ function RegisterPage() {
                   id="password"
                   type="password"
                   placeholder="Password"
+                  pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
+                  title="Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*)."
                   onChange={(event) => setPassword(event.target.value)}
                 />
               </div>
@@ -227,7 +229,7 @@ function RegisterPage() {
               <button
                 className="bg-color-b hover:bg-color-md text-white py-2 px-4 rounded-large focus:outline-none"
                 onClick={addCustomer}
-                type="button"
+                type="submit"
               >
                 Register
               </button>

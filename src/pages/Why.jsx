@@ -89,7 +89,7 @@ function WHY() {
           <img
             src={mypic5}
             alt="Community Icon"
-            className="mb-4 w-24 h-24 rounded-full border-4 border-purple-300 animate-bounce"
+            className="mb-4 w-24 h-24 rounded-full border-4 border-purple-300 animate-bounce group-hover:animate-pulse"
           />
           <h2 className="text-purple-700 font-bold text-xl mb-2 group-hover:text-purple-900">
             ชุมชนของคนรักสัตว์

@@ -1,22 +1,21 @@
-sequenceDiagram 
-   actor user1  
-   participant  web 
-   participant  Newpet
-   participant  DB 
-   autonumber
-   user1->>+web:เพิ่มสัตว์
-   loop If have
-      web->>+Newpet:Add
-      Newpet->>+DB:Check
-      DB->>-Newpet:its match
-      Newpet->>-web:pls do it again
-      web-->>+user1:It same 
-   end
-   
-   
- 
-    web->>+Newpet:Add
-    Newpet->>+DB:Check
-    DB->>-Newpet:hg
-    Newpet->>-web:succes
-    web-->>-user1:Save Complet
+sequenceDiagram
+    actor User1 as User
+    participant Web
+    participant NewPet
+    participant DB
+    autonumber
+
+    User1->>+Web: Request to add a new pet
+    loop If pet already exists
+        Web->>+NewPet: Add pet details
+        NewPet->>+DB: Check for existing record
+        DB-->>-NewPet: Match found
+        NewPet-->>-Web: Notify duplicate entry
+        Web-->>+User1: Pet already exists, please try again
+    end
+
+    Web->>+NewPet: Add pet details
+    NewPet->>+DB: Verify record in database
+    DB-->>-NewPet: Entry created successfully
+    NewPet-->>-Web: Save successful
+    Web-->>-User1: Save completed

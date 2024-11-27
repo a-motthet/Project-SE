@@ -327,6 +327,23 @@ app.get("/history_Home/:id", authenticateToken, (req, res) => {
   });
 });
 
+app.get('/guide', (req, res) => {
+  const { breed, gender, weight, age,  petType } = req.query;
+
+  // Query ฐานข้อมูลโดยใช้ Parameter
+  const query = `
+    SELECT *
+    FROM nutrition_guide
+    WHERE pet_type = ? AND age = ? AND gender = ?`;
+  
+  db.query(query, [petType, age, gender], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.json(results);
+  });
+});
+
 
 app.listen('3001', () => {
   console.log('Sever is running on port 3001');
