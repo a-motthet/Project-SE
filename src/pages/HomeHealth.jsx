@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import mypic from "../images/2.jpg";
+import mypic from "../images/4.jpg";
 import axios from "axios";
 
 function App() {

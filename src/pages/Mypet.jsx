@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios"; // ไลบรารีสำหรับทำ HTTP Request
-import mypic from "../images/2.jpg"; // รูปภาพ default
+import mypic from "../images/4.jpg"; // รูปภาพ default
 
 function App() {
   const [pets, setPets] = useState([]); // สร้าง state สำหรับเก็บข้อมูลสัตว์เลี้ยง
