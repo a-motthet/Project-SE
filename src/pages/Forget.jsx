@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Axios from "axios";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 function Forget() {
@@ -12,7 +12,15 @@ function Forget() {
     confirmPassword: "",
   });
 
+  const [isPopupVisible, setIsPopupVisible] = useState(false);
+  const navigate = useNavigate();
+
+  const handlePopupConfirm = () => {
+    setIsPopupVisible(false); // ซ่อน pop-up
+    navigate("/"); // เปลี่ยนเส้นทางไปยังหน้า `/`
+  };
   // ฟังก์ชันจัดการการเปลี่ยนแปลงใน input
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -27,6 +35,18 @@ function Forget() {
       alert("Passwords do not match!");
       return;
     }
+
+    axios
+      .post("http://localhost:3001/forget", formData)
+      .then((res) => {
+        console.log(res.data.message);
+        setIsPopupVisible(true);
+      })
+      .catch((err) => {
+        console.error(err.response?.data?.message || err.message);
+        alert("Failed to update profile.");
+      });
+  };
 
     // Axios.post(
     //   "http://localhost:3001/edit",
@@ -50,7 +70,7 @@ function Forget() {
     //     console.error(err.response.data.message);
     //     alert("Failed to update profile.");
     //   });
-  };
+
 
   const NotificationPopup = ({ onClose }) => (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25 font-sans">
@@ -66,8 +86,7 @@ function Forget() {
       </div>
     </div>
   );
-  const [isPopupVisible, setIsPopupVisible] = useState(false);
-  const navigate = useNavigate();
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-purple-100 font-sans">
       <div className="bg-white shadow-lg rounded-lg w-[90%] max-w-[600px] p-8">
@@ -85,7 +104,7 @@ function Forget() {
             <input
               name="firstname"
               type="text"
-              // value={formData.firstname}
+              value={formData.firstname}
               onChange={handleInputChange}
               placeholder="Firstname"
               className="w-full mt-2 px-4 py-2 border rounded-large bg-gray-100"
@@ -115,8 +134,9 @@ function Forget() {
               เบอร์โทรศัพท์
             </label>
             <input
-              name="tel"
-              type="tel"
+              name="phone"
+              type="phone"
+              value={formData.phone}
               onChange={handleInputChange}
               placeholder="Enter Your Phone"
               className="w-full mt-2 px-4 py-2 border rounded-large bg-gray-100"
@@ -147,8 +167,8 @@ function Forget() {
             <input
               name="password"
               type="password"
-              // value={formData.password}
-              // onChange={handleInputChange}
+              value={formData.password}
+              onChange={handleInputChange}
               placeholder="New Password"
               pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$"
               title="Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*)."
@@ -157,8 +177,8 @@ function Forget() {
             <input
               name="confirmPassword"
               type="password"
-              // value={formData.confirmPassword}
-              // onChange={handleInputChange}
+              value={formData.confirmPassword}
+              onChange={handleInputChange}
               placeholder="Confirm New Password"
               className="w-full mt-2 px-4 py-2 border rounded-large bg-gray-100"
             />
@@ -174,7 +194,7 @@ function Forget() {
         </form>
       </div>
       {isPopupVisible && (
-        <NotificationPopup onClose={() => setIsPopupVisible(false)} />
+        <NotificationPopup onClose={() => handlePopupConfirm()} />
       )}
     </div>
   );
