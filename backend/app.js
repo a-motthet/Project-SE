@@ -314,16 +314,16 @@ app.get("/history_Home/:id", authenticateToken, (req, res) => {
   });
 });
 
-app.get('/guide', (req, res) => {
-  const { breed, gender, weight, age,  petType } = req.query;
+app.get('/guide', authenticateToken, (req, res) => {
+  const { breed, gender, weight, age } = req.query;
 
   // Query ฐานข้อมูลโดยใช้ Parameter
   const query = `
     SELECT *
     FROM nutrition_guide
-    WHERE pet_type = ? AND age = ? AND gender = ?`;
+    WHERE ? = guide_breed AND ? = guide_gender AND ? >= guide_startweight AND ? < guide_endweight AND ? >= guide_startage	AND ? < guide_endage`;
   
-  db.query(query, [petType, age, gender], (err, results) => {
+  db.query(query, [breed, gender, weight, weight, age, age], (err, results) => {
     if (err) {
       return res.status(500).json({ error: 'Database error' });
     }
