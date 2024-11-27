@@ -4,6 +4,7 @@ import mypic from "../images/2.jpg";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const NotificationPopup = ({ onClose }) => (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
@@ -11,7 +12,8 @@ const NotificationPopup = ({ onClose }) => (
       <h2 className="text-color-b text-lg font-bold mb-2">📢 แจ้งเตือน</h2>
       <p className="text-color-b mb-4">เเก้ไขสัตว์เลี้ยงเสร็จสิ้น</p>
       <button
-        onClick={() => onClose()}
+        onClick={() => window.location.reload()}
+        // onClick={() => onClose()}
         className="bg-color-b text-white px-4 py-2 rounded-md"
       >
         ยืนยัน
@@ -26,7 +28,8 @@ const NotificationMessagePopup = ({ onClose }) => (
       <h2 className="text-color-b text-lg font-bold mb-2">📢 แจ้งเตือน</h2>
       <p className="text-color-b mb-4">ลบสัตว์เลี้ยงเสร็จสิ้น</p>
       <button
-        onClick={() => onClose()}
+        onClick={() => window.location.reload()}
+        // onClick={() => onClose()}
         className="bg-color-b text-white px-4 py-2 rounded-md"
       >
         ยืนยัน
@@ -37,14 +40,16 @@ const NotificationMessagePopup = ({ onClose }) => (
 
 const PetProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
   const [showDeletePopup, setShowDeletePopup] = useState(false);
   const [showNotification, setShowNotification] = useState(false);
   const [ShowNotificationMessage, setShowNotificationMessage] = useState(false);
-  const [petName, setPetName] = useState("สมหมาย");
-  const [petType, setPetType] = useState("แมว");
-  const [petSex, setPetSex] = useState("ผู้");
+  const [petName, setPetName] = useState("");
+  const [petType, setPetType] = useState("");
+  const [petSex, setPetSex] = useState("");
   const [petAge, setPetAge] = useState("2 ปี");
-  const [petWeight, setPetWeight] = useState("200 กิโลกรัม");
+  const [petDisease, setPetDisease] = useState("");
+  const [petWeight, setPetWeight] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [note, setNote] = useState("น้องสมหมายชอบน่ารักของ มารี่");
   const [editPetType, setEditPetType] = useState(petType);
@@ -52,7 +57,7 @@ const PetProfile = () => {
   const [birthdateOption, setBirthdateOption] = useState("exact");
   const [selectedDay, setSelectedDay] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
-  const [selectedYear, setSelectedYear] = useState("");
+  const [selectedYear, setSelectedYear] = useState("2012"); /// hERE
   const [ageYears, setAgeYears] = useState("");
   const [ageMonths, setAgeMonths] = useState("");
   const [profilePic, setProfilePic] = useState(mypic);
@@ -61,6 +66,31 @@ const PetProfile = () => {
   const [pet, setPet] = useState(null); // เก็บข้อมูลสัตว์เลี้ยง
   const [error, setError] = useState(null); // เก็บ Error (ถ้ามี)
   const [dbbirthdate, setDbbirthdate] = useState("");
+  const token = localStorage.getItem("token"); // ดึง Token
+  const navigate = useNavigate();
+
+  const delPet = () => {
+    const token = localStorage.getItem("token");
+    Axios.post(
+      `http://localhost:3001/delpet/${id}`,
+      {}, // No body needed
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    )
+      .then((response) => {
+        setShowDeletePopup(true); // แสดง Popup ลบสัตว์เลี้ยง
+        setShowNotification(true); // แสดงการแจ้งเตือนเมื่อเพิ่มสำเร็จ
+        setIsDeleted(true);
+        navigate("/Mypet");
+      })
+      .catch((error) => {
+        console.error("Error deleting pet:", error);
+        alert("Failed to delete pet.");
+      });
+  };
 
   const addPet = () => {
     const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
@@ -72,7 +102,8 @@ const PetProfile = () => {
     formData.append("petWeight", petWeight);
     formData.append("birthdate", dbbirthdate);
     formData.append("note", note);
-    // formData.append("imageFile", profilePic); // profilePic ตอนนี้คือ Base64
+    formData.append("petDisease", petDisease);
+    formData.append("imageFile", profilePic); // profilePic ตอนนี้คือ Base64
 
     Axios.post(`http://localhost:3001/pets/${id}`, formData, {
       headers: {
@@ -82,6 +113,7 @@ const PetProfile = () => {
     })
       .then(() => {
         console.log("เพิ่มสัตว์เลี้ยงสำเร็จ");
+        setShowNotification(true);
         NotificationPopup(true); // แสดงการแจ้งเตือนเมื่อเพิ่มสำเร็จ
       })
       .catch((error) => {
@@ -110,9 +142,6 @@ const PetProfile = () => {
 
   const toggleEditMode = () => {
     if (isEditing) {
-      setPetType(editPetType);
-      setPetWeight(petWeight);
-      setShowNotification(true);
     }
     setIsEditing(!isEditing);
   };
@@ -126,6 +155,27 @@ const PetProfile = () => {
     }
   };
 
+  const calculateAgeAndMonths = (birthdate) => {
+    const birthDate = new Date(birthdate); // แปลง string เป็น Date object
+    const today = new Date(); // วันที่ปัจจุบัน
+
+    let years = today.getFullYear() - birthDate.getFullYear(); // คำนวณปี
+    let months = today.getMonth() - birthDate.getMonth(); // คำนวณเดือน
+
+    // ตรวจสอบว่าเดือนเกิดล้ำเดือนปัจจุบันหรือไม่
+    if (months < 0 || (months === 0 && today.getDate() < birthDate.getDate())) {
+      years--; // อายุลดลง 1 ปี
+      months += 12; // บวก 12 เดือน
+    }
+
+    // ตรวจสอบวันในเดือน หากวันเกิดยังไม่ถึงวันที่ปัจจุบัน ให้ลดเดือนลง
+    if (today.getDate() < birthDate.getDate()) {
+      months--; // ลดลง 1 เดือน
+    }
+
+    return { years, months };
+  };
+
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -134,6 +184,40 @@ const PetProfile = () => {
       reader.readAsDataURL(file);
     }
   };
+
+  useEffect(() => {
+    if (isDeleted) return;
+    const fetchPet = async () => {
+      try {
+        const token = localStorage.getItem("token"); // ดึง Token
+        const response = await axios.get(`http://localhost:3001/pets/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        const petData = response.data;
+        setPet(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน State
+        setPetName(petData[0].pet_name);
+        setEditPetType(petData[0].pet_breed);
+        setPetSex(petData[0].pet_gender);
+        setPetAge(petData[0].age);
+        setPetWeight(petData[0].pet_weight);
+        setNote(petData[0].pet_description);
+        setProfilePic(petData[0].pet_photo);
+        setPetDisease(petData[0].pet_disease);
+        const date = new Date(petData[0].pet_birthdate);
+        setSelectedDay(date.getDate());
+        setSelectedMonth(date.getMonth() + 1); // +1 เพราะ getMonth เริ่มที่ 0
+        setSelectedYear(date.getFullYear());
+        const { years, months } = calculateAgeAndMonths(
+          petData[0].pet_birthdate
+        );
+        setAgeMonths(months);
+        setAgeYears(years);
+      } catch (err) {
+        console.error("Error fetching pets:", err);
+      }
+    };
+    fetchPet();
+  }, [isDeleted]);
 
   useEffect(() => {
     if (
@@ -162,22 +246,6 @@ const PetProfile = () => {
       setPetAge(`${ageYears} ปี ${ageMonths} เดือน`);
     }
   }, [ageYears, ageMonths, birthdateOption]);
-
-  useEffect(() => {
-    const fetchPet = async () => {
-      try {
-        const token = localStorage.getItem("token"); // ดึง Token
-        const response = await axios.get(`http://localhost:3001/pets/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setPet(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน State
-      } catch (err) {
-        setError("ไม่สามารถโหลดข้อมูลสัตว์เลี้ยงได้");
-      }
-    };
-
-    fetchPet();
-  }, [id]);
 
   if (error) {
     return <p className="text-red-500">{error}</p>;
@@ -372,8 +440,8 @@ const PetProfile = () => {
                   </label>
                   <input
                     type="text"
-                    placeholder="โปรดโรคประจำตัวของสัตว์เลี้ยง"
-                    name="pet_disease"
+                    value={petDisease}
+                    onChange={(e) => setPetDisease(e.target.value)}
                     className="w-full p-3 border-2 border-gray-300 rounded-md"
                   />
                 </div>
@@ -483,7 +551,7 @@ const PetProfile = () => {
                       <input
                         type="number"
                         placeholder="เดือน"
-                        value={ageMonths}
+                        value={ageMonths} //////// APOX น่้า
                         onChange={(e) => setAgeMonths(e.target.value)}
                         className="w-1/3 p-3 border-2 border-gray-300 rounded-md"
                         min="0"
@@ -515,16 +583,17 @@ const PetProfile = () => {
           <div className="lg:w-1/3 w-full lg:pr-8 flex flex-col items-center lg:order-last order-first">
             <div className="relative w-50 h-50 rounded-full flex items-center justify-center mb-10">
               <img
-                src={pet[0].pet_photo}
+                src={profilePic}
                 alt="Profile"
-                className="w-full h-full rounded-full object-cover"
+                className="w-64 h-64 rounded-full object-cover justify-self-center transition-opacity "
               />
               <label className="absolute bottom-0 right-0 bg-white p-2 px-3 rounded-full shadow-md cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 flex items-center justify-center text-color-b font-semibold text-sm">
                 <FaUpload />
                 <input
                   type="file"
-                  onChange={handleProfilePicChange}
                   className="hidden"
+                  name="imageFile"
+                  onChange={handleProfilePicChange}
                 />
               </label>
             </div>
@@ -544,16 +613,16 @@ const PetProfile = () => {
               โปรดทำการนี้ด้วยความระมัดระวัง
               โปรดระบุชื่อสัตว์เลี้ยงของท่านเพื่อทำการลบอย่างสมบูรณ์
             </p>
-            <input
+            {/* <input
               type="text"
               placeholder="กรุณาระบุชื่อสัตว์เลี้ยง"
               value={petNameToDelete}
               onChange={(e) => setPetNameToDelete(e.target.value)}
               className="w-full p-3 border-2 border-gray-300 rounded-md mb-4"
-            />
+            /> */}
             <div className="flex justify-center space-x-10">
               <button
-                onClick={handleDelete}
+                onClick={delPet}
                 className="bg-color-b text-white px-4 py-2 rounded-md font-sans"
               >
                 ยืนยัน

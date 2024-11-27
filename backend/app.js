@@ -127,6 +127,31 @@ app.post("/register", (req, res) => {
   });
 });
 
+app.post("/forget", (req, res) => {
+  const { firstname, lastname, phone, email, password } = req.body;
+
+  // ตรวจสอบว่าข้อมูลครบถ้วน
+  if (!firstname || !lastname || !phone || !email || !password) {
+    return res.status(400).send("กรุณากรอกข้อมูลให้ครบถ้วน");
+  }
+
+  // ตรวจสอบว่าฐานข้อมูลมี schema ตรงกับโค้ด SQL
+  const query = `
+    UPDATE customers
+    SET user_password = ?
+    WHERE user_firstname = ? AND user_lastname = ? AND user_email = ? AND user_phone = ?
+  `;
+  const values = [password, firstname, lastname, email, phone];
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.error("Database Error:", err);
+      return res.status(500).send("เกิดข้อผิดพลาด");
+    }
+    res.status(200).send("สมัครสมาชิกสำเร็จ");
+  });
+});
+
 
 
 app.get("/pets", authenticateToken, (req, res) => {
@@ -178,12 +203,47 @@ app.post('/addPet', authenticateToken, upload.single('imageFile'), (req, res) =>
   );
 });
 
+app.post('/delpet/:id', authenticateToken, async (req, res) => {
+  const petId = req.params.id;
 
+  try {
+    console.log(`Deleting pet with ID: ${petId}`);
+    await db.query("DELETE FROM vaccine_record WHERE pet_id = ?", [petId])
+    await db.query("DELETE FROM health_record WHERE pet_id = ?", [petId])
+    await db.query("DELETE FROM pet WHERE pet_id = ?;", [petId], (err, result) => {
+      if (err) {
+        console.error("Database error:", err);
+        return res.status(500).send("Internal server error.");
+      }
+      if (result.affectedRows === 0) {
+        return res.status(404).send("Pet not found.");
+      }
+      res.status(200).send("Pet deleted successfully.");
+    });
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    res.status(500).send("Internal server error.");
+  }
+});
+
+app.post('/photo/:id', authenticateToken , upload.single('imageFile') , async (req, res) => {
+  const petId = req.params.id;
+  const { imageFile } = req.body;
+  console.log("Request body:", req.body);
+
+  try {
+    await db.query("UPDATE pet SET pet_photo = ? WHERE pet_id = ?", [imageFile, petId]);
+    res.status(200).send("Photo updated successfully.");
+  } catch (err) {
+    console.error("Unexpected error:", err);
+    res.status(500).send("Internal server error.");
+  }
+});
 
 app.post('/pets/:id', authenticateToken , upload.single('imageFile') , async (req, res) => {
-  console.log("Request body:", req.body);
+  
   const petId = req.params.id;
-  const { petName, petType, petSex, petWeight, birthdate, note } = req.body;
+  const { petName, petType, petSex, petWeight, birthdate, note ,imageFile ,petDisease } = req.body;
 
   try {
     // // ตรวจสอบว่ามีสัตว์เลี้ยงนี้อยู่ในระบบหรือไม่
@@ -193,10 +253,10 @@ app.post('/pets/:id', authenticateToken , upload.single('imageFile') , async (re
     //   return res.status(404).json({ message: 'ไม่พบข้อมูลสัตว์เลี้ยง' });
     // }
     // อัปเดตข้อมูล
-    console.log(petName)
+    
     await db.query(
-      'UPDATE pet SET pet_name = ?, pet_breed = ?, pet_gender = ?, pet_weight = ?, pet_birthdate = ?, pet_description = ? WHERE pet_id = ?',
-      [petName, petType, petSex, petWeight, birthdate, note, petId]
+      'UPDATE pet SET pet_name = ?, pet_breed = ?, pet_gender = ?, pet_weight = ?, pet_birthdate = ?, pet_description = ?, pet_photo = ? , pet_disease = ? WHERE pet_id = ?',
+      [petName, petType, petSex, petWeight, birthdate, note, imageFile, petDisease, petId]
     );
 
     res.status(200).send({ message: 'แก้ไขข้อมูลสัตว์เลี้ยงสำเร็จ' });
@@ -235,7 +295,7 @@ app.get("/vaccines/:id", authenticateToken, (req, res) => {
 });
 
 app.post('/addVaccine/:id', authenticateToken, (req, res) => {
-  console.log("Request body:", req.body);
+  
   const petId = req.params.id;
   const { name, date, exp } = req.body;
 
@@ -257,7 +317,7 @@ app.post('/addVaccine/:id', authenticateToken, (req, res) => {
 });
 
 app.post('/addHistory/:id', authenticateToken, (req, res) => {
-  console.log("Request body:", req.body);
+ 
   const petId = req.params.id;
   const { date, note } = req.body;
 
@@ -292,6 +352,7 @@ app.get("/history_Home/:id", authenticateToken, (req, res) => {
   });
 });
 
+<<<<<<< HEAD
 app.get('/fetchClinics', async (req, res) => {
   const { location } = req.query; // รับพิกัดจาก query string (lat,lng)
   const apiKey = 'AIzaSyCBSJ8DbwphFIcZZi4GLwDo8Xb8gBsFsCk'; // ใส่ API Key ของ Google
@@ -311,6 +372,23 @@ app.get('/fetchClinics', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Error fetching data from Google API' });
   }
+=======
+app.get('/guide', authenticateToken, (req, res) => {
+  const { breed, gender, weight, age } = req.query;
+
+  // Query ฐานข้อมูลโดยใช้ Parameter
+  const query = `
+    SELECT *
+    FROM nutrition_guide
+    WHERE ? = guide_breed AND ? = guide_gender AND ? >= guide_startweight AND ? < guide_endweight AND ? >= guide_startage	AND ? < guide_endage`;
+  
+  db.query(query, [breed, gender, weight, weight, age, age], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.json(results);
+  });
+>>>>>>> 378e7f928cc88b60a6f784a6477c6747a481cc59
 });
 
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios"; // ไลบรารีสำหรับทำ HTTP Request
-import mypic from "../images/2.jpg"; // รูปภาพ default
+import mypic from "../images/4.jpg"; // รูปภาพ default
 
 function App() {
   const [pets, setPets] = useState([]); // สร้าง state สำหรับเก็บข้อมูลสัตว์เลี้ยง
@@ -48,7 +48,7 @@ function App() {
                 <img
                   src={val.pet_photo || mypic} // ใช้รูปภาพจาก database หรือรูป default
                   alt={`${val.pet_name}`}
-                  className=" object-cover group-hover:opacity-80 transition-opacity duration-300"
+                  className=" object-cover justify-self-center group-hover:opacity-80 transition-opacity duration-300"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-center items-center">
                   <span className="text-white text-xl font-semibold font-sans">

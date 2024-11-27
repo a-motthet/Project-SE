@@ -1,0 +1,16 @@
+sequenceDiagram
+    actor User as ผู้ใช้
+    participant Web as หน้าเว็บ
+    participant NutritionService as บริการโภชนาการ
+    participant DB as ฐานข้อมูล
+
+    autonumber
+
+    User->>+Web: ขอข้อมูลโภชนาการ
+    Web->>+NutritionService: ส่งคำขอข้อมูลอาหาร
+    NutritionService->>+DB: ดึงข้อมูลโภชนาการจากฐานข้อมูล
+    DB-->>-Web: ข้อ ID
+    Web->>+DB:ให้ ID
+    DB-->>-NutritionService:ส่งข้อมูล
+    NutritionService-->>-Web: ส่งข้อมูลอาหารให้หน้าเว็บ
+    Web-->>-User: แสดงข้อมูลโภชนาการบนหน้าเว็บ

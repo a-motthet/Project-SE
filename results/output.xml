@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1.1 (Python 3.12.5 on win32)" generated="2024-11-27T21:08:08.044938" rpa="false" schemaversion="5">
+<suite id="s1" name="Project-SE" source="C:\Users\jirak\Documents\Proj.SE\Project-SE">
+<suite id="s1-s1" name="Src" source="C:\Users\jirak\Documents\Proj.SE\Project-SE\src">
+<suite id="s1-s1-s1" name="Test" source="C:\Users\jirak\Documents\Proj.SE\Project-SE\src\Test">
+<suite id="s1-s1-s1-s1" name="Test" source="C:\Users\jirak\Documents\Proj.SE\Project-SE\src\Test\test.robot">
+<test id="s1-s1-s1-s1-t1" name="Login" line="9">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2024-11-27T21:08:08.370557" level="INFO">Opening browser 'edge' to base url 'http://localhost:3000/'.</msg>
+<arg>${BASE_URL}</arg>
+<arg>edge</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-11-27T21:08:08.370557" elapsed="3.904516"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-11-27T21:08:12.278591" level="INFO">Typing text 'RatiyaPhatitin' into text field '//*[@id="username"]'.</msg>
+<arg>//*[@id="username"]</arg>
+<arg>RatiyaPhatitin</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-11-27T21:08:12.277079" elapsed="0.206897"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-11-27T21:08:17.485443" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-11-27T21:08:12.483976" elapsed="5.001971"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-11-27T21:08:17.486450" level="INFO">Typing text 'Ratiya19!' into text field '//*[@id="password"]'.</msg>
+<arg>//*[@id="password"]</arg>
+<arg>Ratiya19!</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-11-27T21:08:17.485947" elapsed="0.068229"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-11-27T21:08:22.555656" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-11-27T21:08:17.555320" elapsed="5.000839"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-11-27T21:08:22.556159" level="INFO">Clicking element '//*[@id="root"]/div/div/div/div[2]/div/form/div[4]/button'.</msg>
+<arg>//*[@id="root"]/div/div/div/div[2]/div/form/div[4]/button</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-11-27T21:08:22.556159" elapsed="0.050477"/>
+</kw>
+<status status="PASS" start="2024-11-27T21:08:08.367692" elapsed="14.238944"/>
+</test>
+<status status="PASS" start="2024-11-27T21:08:08.091412" elapsed="14.516224"/>
+</suite>
+<status status="PASS" start="2024-11-27T21:08:08.089408" elapsed="14.520286"/>
+</suite>
+<status status="PASS" start="2024-11-27T21:08:08.086879" elapsed="14.523817"/>
+</suite>
+<status status="PASS" start="2024-11-27T21:08:08.055125" elapsed="14.557575"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Project-SE">Project-SE</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="Src">Project-SE.Src</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1-s1" name="Test">Project-SE.Src.Test</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1-s1-s1" name="Test">Project-SE.Src.Test.Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

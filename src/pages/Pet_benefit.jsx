@@ -6,23 +6,7 @@ import axios from "axios";
 const PetProfile = () => {
   const { id } = useParams();
   const [thispet, setThispet] = useState([]);
-
-  useEffect(() => {
-    const fetchPet = async () => {
-      try {
-        const token = localStorage.getItem("token"); // ดึง Token
-        const response = await axios.get(`http://localhost:3001/pets/${id}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        setThispet(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน State
-        console.log(response.data);
-      } catch (err) {
-        console.error("Error fetching pets:", err);
-      }
-    };
-
-    fetchPet();
-  }, []);
+  const [guide, setGuide] = useState([]);
 
   const formatter = new Intl.DateTimeFormat("th-TH", {
     day: "2-digit",
@@ -54,10 +38,57 @@ const PetProfile = () => {
     };
   }
 
+  useEffect(() => {
+    const fetchPet = async () => {
+      try {
+        const token = localStorage.getItem("token"); // ดึง Token
+        const response = await axios.get(`http://localhost:3001/pets/${id}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setThispet(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน State
+        console.log(response.data);
+      } catch (err) {
+        console.error("Error fetching pets:", err);
+      }
+    };
+
+    fetchPet();
+  }, []);
+
+  useEffect(() => {
+    const fetchGuide = async () => {
+      if (thispet.length > 0) {
+        try {
+          const token = localStorage.getItem("token");
+          const breed = thispet[0].pet_breed;
+          const gender = thispet[0].pet_gender;
+          const weight = thispet[0].pet_weight;
+          const age = calculatePetAge(thispet[0].pet_birthdate).age;
+
+          const response = await axios.get(
+            `http://localhost:3001/guide?breed=${breed}&gender=${gender}&weight=${weight}&age=${age}`,
+            {
+              headers: { Authorization: `Bearer ${token}` },
+            }
+          );
+          console.log(response.data);
+          setGuide(response.data);
+        } catch (err) {
+          console.error("Error fetching Guide:", err);
+        }
+      }
+    };
+
+    fetchGuide();
+  }, [thispet]);
+
   if (thispet.length === 0) {
     return <p className="text-center">กำลังโหลดข้อมูลสัตว์เลี้ยง...</p>;
   }
 
+  if (guide.length === 0) {
+    return <p className="text-center">กำลังโหลดข้อมูลโภชนาการ...</p>;
+  }
 
   return (
     <>
@@ -78,7 +109,8 @@ const PetProfile = () => {
                       เพศ : {thispet[0].pet_gender}
                     </div>
                     <div className="text-md text-color-b  font-bold md:text-lg mt-1">
-                      อายุสัตว์ : {calculatePetAge(thispet[0].pet_birthdate).age}
+                      อายุสัตว์ :{" "}
+                      {calculatePetAge(thispet[0].pet_birthdate).age}
                     </div>
                     {/* <div className="text-md text-color-b  font-bold md:text-lg mt-1">
                       สายพันธุ์ : xxxx
@@ -88,22 +120,20 @@ const PetProfile = () => {
                     </div>
                   </div>
                 </div>
-                <div className="w-52 h-52 rounded-lg bg-gray-200 flex-shrink-0 ml-4 shadow">
+                <div className="w-52 h-52 rounded-lg flex-shrink-0 ml-4">
                   <img
                     src={thispet[0].pet_photo}
                     alt={`${thispet[0].pet_photo} picture`}
-                    className="w-full h-full object-cover rounded-lg"
+                    className="w-full h-full object-cover rounded-full"
                   />
                 </div>
               </div>
               <div>
                 <h3 className="text-lg text-color-b font-bold">อาหารตามวัย</h3>
                 <div className="border-2 p-4 text-color-b font-bold rounded-large">
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                  Accusamus facere velit temporibus exercitationem harum
-                  consectetur voluptatem voluptates laborum aliquam, est,
-                  maiores qui eaque nisi, fugiat neque officia natus tempore
-                  adipisci!
+                  {guide[0].guide_foodwithage.split("\n").map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))}
                 </div>
               </div>
               <div>
@@ -111,11 +141,9 @@ const PetProfile = () => {
                   อาหารที่ควรหลีกเลี่ยง
                 </h3>
                 <div className="border-2 p-4 text-color-b font-bold rounded-large">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Aliquid atque corporis reprehenderit voluptatum, cum ad
-                  adipisci! Recusandae repellat, sapiente repellendus nisi
-                  tenetur deleniti nam maiores voluptatum nemo pariatur? Nemo,
-                  aliquam?
+                  {guide[0].guide_avoid_food.split("\n").map((line, index) => (
+                    <p key={index}>{line}</p>
+                  ))}
                 </div>
               </div>
               <div>
@@ -123,11 +151,13 @@ const PetProfile = () => {
                   อาหารที่แนะนำ
                 </h3>
                 <div className="border-2 p-4 text-color-b font-bold rounded-large">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Aliquid atque corporis reprehenderit voluptatum, cum ad
-                  adipisci! Recusandae repellat, sapiente repellendus nisi
-                  tenetur deleniti nam maiores voluptatum nemo pariatur? Nemo,
-                  aliquam?
+                  {guide[0].guide_recommended_food
+                    .split("\n")
+                    .map((line, index) => (
+                      <p key={index}>
+                        {line} <br></br>
+                      </p>
+                    ))}
                 </div>
               </div>
             </div>

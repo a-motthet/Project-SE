@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.1.1 (Python 3.12.5 on win32)" generated="2024-11-27T21:08:06.289577" rpa="false" schemaversion="5">
+<suite id="s1" name="Test" source="c:\Users\jirak\Documents\Proj.SE\Project-SE\src\Test\test.robot">
+<test id="s1-t1" name="Login" line="9">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2024-11-27T21:08:06.627412" level="INFO">Opening browser 'edge' to base url 'http://localhost:3000/'.</msg>
+<arg>${BASE_URL}</arg>
+<arg>edge</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2024-11-27T21:08:06.627412" elapsed="2.202509"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-11-27T21:08:08.832182" level="INFO">Typing text 'RatiyaPhatitin' into text field '//*[@id="username"]'.</msg>
+<arg>//*[@id="username"]</arg>
+<arg>RatiyaPhatitin</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-11-27T21:08:08.830937" elapsed="0.184104"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-11-27T21:08:14.015123" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-11-27T21:08:09.015041" elapsed="5.000082"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2024-11-27T21:08:14.015626" level="INFO">Typing text 'Ratiya19!' into text field '//*[@id="password"]'.</msg>
+<arg>//*[@id="password"]</arg>
+<arg>Ratiya19!</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2024-11-27T21:08:14.015626" elapsed="0.081654"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2024-11-27T21:08:19.098987" level="INFO">Slept 5 seconds.</msg>
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2024-11-27T21:08:14.098283" elapsed="5.000704"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2024-11-27T21:08:19.099490" level="INFO">Clicking element '//*[@id="root"]/div/div/div/div[2]/div/form/div[4]/button'.</msg>
+<arg>//*[@id="root"]/div/div/div/div[2]/div/form/div[4]/button</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2024-11-27T21:08:19.099490" elapsed="0.048968"/>
+</kw>
+<status status="PASS" start="2024-11-27T21:08:06.626409" elapsed="12.522049"/>
+</test>
+<status status="PASS" start="2024-11-27T21:08:06.298621" elapsed="12.850892"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Test">Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
