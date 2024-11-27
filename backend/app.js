@@ -127,6 +127,31 @@ app.post("/register", (req, res) => {
   });
 });
 
+app.post("/forget", (req, res) => {
+  const { firstname, lastname, phone, email, password } = req.body;
+
+  // ตรวจสอบว่าข้อมูลครบถ้วน
+  if (!firstname || !lastname || !phone || !email || !password) {
+    return res.status(400).send("กรุณากรอกข้อมูลให้ครบถ้วน");
+  }
+
+  // ตรวจสอบว่าฐานข้อมูลมี schema ตรงกับโค้ด SQL
+  const query = `
+    UPDATE customers
+    SET user_password = ?
+    WHERE user_firstname = ? AND user_lastname = ? AND user_email = ? AND user_phone = ?
+  `;
+  const values = [password, firstname, lastname, email, phone];
+
+  db.query(query, values, (err, result) => {
+    if (err) {
+      console.error("Database Error:", err);
+      return res.status(500).send("เกิดข้อผิดพลาด");
+    }
+    res.status(200).send("สมัครสมาชิกสำเร็จ");
+  });
+});
+
 
 
 app.get("/pets", authenticateToken, (req, res) => {
