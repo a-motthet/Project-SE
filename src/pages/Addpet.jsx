@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import mypic from "../images/2.jpg";
+import mypic from "../images/64x64.png";
 import Axios from "axios";
 import { useParams } from "react-router-dom";
 
@@ -70,7 +70,7 @@ const Addpet = () => {
   const [isErrorPopupVisible, setIsErrorPopupVisible] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
   const [dbbirthdate, setDbbirthdate] = useState("");
-  const [petDisease, setPetDisease] = useState("")
+  const [petDisease, setPetDisease] = useState("");
   const { id } = useParams();
 
   const addPet = () => {
@@ -423,11 +423,11 @@ const Addpet = () => {
           </div>
 
           <div className="lg:w-1/3 w-full lg:pr-8 flex flex-col items-center lg:order-last order-first">
-            <div className="relative w-50 h-50 rounded-full flex items-center justify-center mb-10">
+            <div className="relative w-64 h-64 rounded-full flex items-center justify-center mb-10">
               <img
                 src={profilePic}
                 alt="Profile"
-                className="w-full h-full rounded-full object-cover"
+                className="w-full h-full rounded-full object-cover items-center justify-center shadow-md"
               />
               <label className="absolute bottom-0 right-0 bg-white p-2 px-3 rounded-full shadow-md cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 flex items-center justify-center text-color-b font-semibold text-sm">
                 Upload

@@ -146,7 +146,7 @@ function HealthPetPage() {
             <img
               src={thispet[0].pet_photo}
               alt={`${thispet[0].pet_photo} picture`}
-              className="w-48 object-cover rounded-full border border-gray-300"
+              className="md:w-64 md:h-64 object-cover justify-self-center rounded-full border border-gray-300"
             />
           </div>
         </div>

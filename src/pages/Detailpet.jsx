@@ -6,8 +6,6 @@ import axios from "axios";
 import Axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
-
 const NotificationPopup = ({ onClose }) => (
   <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-25">
     <div className="bg-white rounded-lg p-6 shadow-lg w-80 text-center">
@@ -71,11 +69,6 @@ const PetProfile = () => {
   const token = localStorage.getItem("token"); // ดึง Token
   const navigate = useNavigate();
 
-  
-
-  
-  
-  
   const delPet = () => {
     const token = localStorage.getItem("token");
     Axios.post(
@@ -92,15 +85,12 @@ const PetProfile = () => {
         setShowNotification(true); // แสดงการแจ้งเตือนเมื่อเพิ่มสำเร็จ
         setIsDeleted(true);
         navigate("/Mypet");
-
       })
       .catch((error) => {
         console.error("Error deleting pet:", error);
         alert("Failed to delete pet.");
       });
   };
-  
-    
 
   const addPet = () => {
     const token = localStorage.getItem("token"); // ดึง Token จาก Local Storage
@@ -152,7 +142,6 @@ const PetProfile = () => {
 
   const toggleEditMode = () => {
     if (isEditing) {
-      
     }
     setIsEditing(!isEditing);
   };
@@ -169,21 +158,21 @@ const PetProfile = () => {
   const calculateAgeAndMonths = (birthdate) => {
     const birthDate = new Date(birthdate); // แปลง string เป็น Date object
     const today = new Date(); // วันที่ปัจจุบัน
-  
+
     let years = today.getFullYear() - birthDate.getFullYear(); // คำนวณปี
     let months = today.getMonth() - birthDate.getMonth(); // คำนวณเดือน
-  
+
     // ตรวจสอบว่าเดือนเกิดล้ำเดือนปัจจุบันหรือไม่
     if (months < 0 || (months === 0 && today.getDate() < birthDate.getDate())) {
       years--; // อายุลดลง 1 ปี
       months += 12; // บวก 12 เดือน
     }
-  
+
     // ตรวจสอบวันในเดือน หากวันเกิดยังไม่ถึงวันที่ปัจจุบัน ให้ลดเดือนลง
     if (today.getDate() < birthDate.getDate()) {
       months--; // ลดลง 1 เดือน
     }
-  
+
     return { years, months };
   };
 
@@ -193,10 +182,9 @@ const PetProfile = () => {
       const reader = new FileReader();
       reader.onload = () => setProfilePic(reader.result);
       reader.readAsDataURL(file);
-      
     }
   };
-  
+
   useEffect(() => {
     if (isDeleted) return;
     const fetchPet = async () => {
@@ -205,7 +193,7 @@ const PetProfile = () => {
         const response = await axios.get(`http://localhost:3001/pets/${id}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        const petData = response.data
+        const petData = response.data;
         setPet(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน State
         setPetName(petData[0].pet_name);
         setEditPetType(petData[0].pet_breed);
@@ -219,7 +207,9 @@ const PetProfile = () => {
         setSelectedDay(date.getDate());
         setSelectedMonth(date.getMonth() + 1); // +1 เพราะ getMonth เริ่มที่ 0
         setSelectedYear(date.getFullYear());
-        const { years, months } = calculateAgeAndMonths(petData[0].pet_birthdate);
+        const { years, months } = calculateAgeAndMonths(
+          petData[0].pet_birthdate
+        );
         setAgeMonths(months);
         setAgeYears(years);
       } catch (err) {
@@ -256,8 +246,6 @@ const PetProfile = () => {
       setPetAge(`${ageYears} ปี ${ageMonths} เดือน`);
     }
   }, [ageYears, ageMonths, birthdateOption]);
-
-  
 
   if (error) {
     return <p className="text-red-500">{error}</p>;
@@ -306,7 +294,6 @@ const PetProfile = () => {
 
   return (
     <div className="bg-[#EBE4F2]  flex flex-col items-start">
-      
       <div className="container mx-auto p-8 flex flex-col items-center">
         <div className="p-9 bg-white rounded-lg shadow-xl flex flex-col lg:flex-row items-center w-full sm:w-3/5 lg:w-3/5">
           {/* Content Section */}
@@ -425,7 +412,6 @@ const PetProfile = () => {
                         key={sex}
                         onClick={() => setPetSex(sex)}
                         className={`px-4 py-2 rounded-md ${
-                          
                           petSex === sex
                             ? "bg-color-b text-white"
                             : "bg-gray-200 text-gray-700"
@@ -599,7 +585,7 @@ const PetProfile = () => {
               <img
                 src={profilePic}
                 alt="Profile"
-                className="w-full h-full rounded-full object-cover"
+                className="w-64 h-64 rounded-full object-cover justify-self-center transition-opacity "
               />
               <label className="absolute bottom-0 right-0 bg-white p-2 px-3 rounded-full shadow-md cursor-pointer transition-transform duration-200 ease-in-out hover:scale-105 active:scale-95 flex items-center justify-center text-color-b font-semibold text-sm">
                 <FaUpload />

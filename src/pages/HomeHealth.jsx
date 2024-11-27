@@ -50,11 +50,11 @@ function App() {
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-4 bg-white rounded-lg shadow-lg">
           {petlist.map((val, key) => (
             <Link to={`/HealthpetPage/${val.pet_id}`} key={val.pet_id}>
-              <div className="group flex relative content-center items-center max-w-xs w-[300px] h-[300px] mx-auto rounded-full overflow-hidden shadow-md transition-all duration-500 ease-in-out transform hover:scale-105">
+              <div className="group relative content-center items-center max-w-xs w-[300px] h-[300px] mx-auto rounded-full overflow-hidden shadow-md transition-all duration-500 ease-in-out transform hover:scale-105">
                 <img
                   src={val.pet_photo}
                   alt={`${val.pet_name}`}
-                  className="w-full h-full object-cover group-hover:opacity-80 transition-opacity duration-300"
+                  className=" object-cover justify-self-center group-hover:opacity-80 transition-opacity duration-300"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex justify-center items-center">
                   <span className="text-white text-xl font-semibold font-sans">

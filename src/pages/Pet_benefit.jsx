@@ -53,9 +53,8 @@ const PetProfile = () => {
     };
 
     fetchPet();
-
   }, []);
-  
+
   useEffect(() => {
     const fetchGuide = async () => {
       if (thispet.length > 0) {
@@ -72,7 +71,7 @@ const PetProfile = () => {
               headers: { Authorization: `Bearer ${token}` },
             }
           );
-          console.log(response.data)
+          console.log(response.data);
           setGuide(response.data);
         } catch (err) {
           console.error("Error fetching Guide:", err);
@@ -82,7 +81,7 @@ const PetProfile = () => {
 
     fetchGuide();
   }, [thispet]);
-  
+
   if (thispet.length === 0) {
     return <p className="text-center">กำลังโหลดข้อมูลสัตว์เลี้ยง...</p>;
   }
@@ -110,7 +109,8 @@ const PetProfile = () => {
                       เพศ : {thispet[0].pet_gender}
                     </div>
                     <div className="text-md text-color-b  font-bold md:text-lg mt-1">
-                      อายุสัตว์ : {calculatePetAge(thispet[0].pet_birthdate).age}
+                      อายุสัตว์ :{" "}
+                      {calculatePetAge(thispet[0].pet_birthdate).age}
                     </div>
                     {/* <div className="text-md text-color-b  font-bold md:text-lg mt-1">
                       สายพันธุ์ : xxxx
@@ -120,19 +120,19 @@ const PetProfile = () => {
                     </div>
                   </div>
                 </div>
-                <div className="w-52 h-52 rounded-lg bg-gray-200 flex-shrink-0 ml-4 shadow">
+                <div className="w-52 h-52 rounded-lg flex-shrink-0 ml-4">
                   <img
                     src={thispet[0].pet_photo}
                     alt={`${thispet[0].pet_photo} picture`}
-                    className="w-full h-full object-cover rounded-lg"
+                    className="w-full h-full object-cover rounded-full"
                   />
                 </div>
               </div>
               <div>
                 <h3 className="text-lg text-color-b font-bold">อาหารตามวัย</h3>
                 <div className="border-2 p-4 text-color-b font-bold rounded-large">
-                  {guide[0].guide_foodwithage.split('\n').map((line, index) => (
-                  <p key={index}>{line}</p>
+                  {guide[0].guide_foodwithage.split("\n").map((line, index) => (
+                    <p key={index}>{line}</p>
                   ))}
                 </div>
               </div>
@@ -141,8 +141,8 @@ const PetProfile = () => {
                   อาหารที่ควรหลีกเลี่ยง
                 </h3>
                 <div className="border-2 p-4 text-color-b font-bold rounded-large">
-                  {guide[0].guide_avoid_food.split('\n').map((line, index) => (
-                  <p key={index}>{line}</p>
+                  {guide[0].guide_avoid_food.split("\n").map((line, index) => (
+                    <p key={index}>{line}</p>
                   ))}
                 </div>
               </div>
@@ -151,9 +151,11 @@ const PetProfile = () => {
                   อาหารที่แนะนำ
                 </h3>
                 <div className="border-2 p-4 text-color-b font-bold rounded-large">
-                  {guide[0].guide_recommended_food.split('\n').map((line, index) => (
-                  <p key={index}>{line}</p>
-                  ))}
+                  {guide[0].guide_recommended_food
+                    .split("\n")
+                    .map((line, index) => (
+                      <p key={index}>{line}</p>
+                    ))}
                 </div>
               </div>
             </div>
