@@ -68,6 +68,16 @@ function RegisterPage() {
       return;
     }
 
+    const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+
+    if (!password.match(passwordPattern)) {
+      setPopupMessage(
+        "Password must be at least 8 characters long, include at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*)."
+      );
+      setIsErrorPopupVisible(true);
+      return;
+    }
+
     if (password !== confirmPassword) {
       setPopupMessage("รหัสผ่านไม่ตรงกัน");
       setIsErrorPopupVisible(true);
@@ -229,7 +239,7 @@ function RegisterPage() {
               <button
                 className="bg-color-b hover:bg-color-md text-white py-2 px-4 rounded-large focus:outline-none"
                 onClick={addCustomer}
-                type="submit"
+                type="button"
               >
                 Register
               </button>
