@@ -96,7 +96,7 @@ const PetProfile = () => {
           <div className="py-4 flex flex-col items-center font-sans">
             <div className="w-11/12 md:w-3/4 lg:w-1/2 space-y-6">
               <div className="flex flex-cols item-center">
-                <div className="flex-grow text-left mt-2">
+                <div className="flex-grow text-left mt-10">
                   <h1 className="text-xl font-extrabold text-color-b">
                     {thispet[0].pet_name} :
                   </h1>
@@ -119,7 +119,7 @@ const PetProfile = () => {
                     </div>
                   </div>
                 </div>
-                <div className="w-52 h-52 rounded-lg flex-shrink-0 ml-4">
+                <div className="w-52 h-52 rounded-lg flex-shrink-0 ml-4 mt-6">
                   <img
                     src={thispet[0].pet_photo}
                     alt={`${thispet[0].pet_photo} picture`}

@@ -115,7 +115,7 @@ function HealthPetPage() {
   return (
     <div className="min-h-screen flex items-center justify-center font-sans">
       <div className="bg-white rounded-large shadow-inner w-11/12 lg:w-3/4 xl:w-2/3">
-        <p className="pl-8 pt-8 text-color-b text-3xl font-bold">
+        <p className="pl-10 pt-8 text-color-b text-3xl font-bold mt-4">
           {thispet[0].pet_name}
         </p>
         <div className="grid grid-cols-4 items-center">
@@ -135,7 +135,6 @@ function HealthPetPage() {
               <div className="text-color-b text-xl">
                 สายพันธุ์สัตว์เลี้ยง: {} 
               </div>
-              
             </div>
             <div className="grid grid-cols-2 mb-2">
               <div className="ml-8 text-color-b text-xl">

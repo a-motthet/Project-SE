@@ -299,18 +299,18 @@ const PetProfile = () => {
   const petInfo = calculatePetAge(pet[0].pet_birthdate);
 
   return (
-    <div className="bg-[#EBE4F2]  flex flex-col items-start">
+    <div className="bg-[#EBE4F2]  flex flex-col items-start font-sans">
       <div className="container mx-auto p-8 flex flex-col items-center">
         <div className="p-9 bg-white rounded-lg shadow-xl flex flex-col lg:flex-row items-center w-full sm:w-3/5 lg:w-3/5">
           {/* Content Section */}
-          <div className="lg:w-2/3 w-full lg:pr-8 flex flex-col items-start">
+          <div className="lg:w-2/3 w-full lg:pr-8 flex flex-col items-start ">
             {!isEditing ? (
               <>
                 <div className="bg-white w-11/12 lg:w-3/4 xl:w-2/3">
                   <p className="pl-8 pt-8 text-color-b text-3xl font-bold">
                     {pet[0].pet_name}
                   </p>
-                  <div className="grid grid-cols-2 gap-5 mb-2">
+                  <div className="grid grid-cols-2 gap-8 mb-2 mt-4">
                     <div className="ml-8 text-color-b">
                       ชนิดสัตว์เลี้ยง: {pet[0].pet_breed}
                     </div>
@@ -318,7 +318,7 @@ const PetProfile = () => {
                       เพศของสัตว์: {pet[0].pet_gender}
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 gap-5 mb-2">
+                  <div className="grid grid-cols-2 gap-8 mb-2">
                     <div className="ml-8 text-color-b">
                       อายุของสัตว์เลี้ยง: {petInfo.age} ปี
                     </div>
@@ -326,7 +326,7 @@ const PetProfile = () => {
                       สายพันธุ์สัตว์เลี้ยง: {pet[0].petGene}
                     </div>
                   </div>
-                  <div className="grid grid-cols-2 mb-2">
+                  <div className="grid grid-cols-2 gap-8 mb-2">
                     <div className="ml-8 text-color-b">
                       โรคประจำตัว: {pet[0].pet_disease}
                     </div>
@@ -619,7 +619,6 @@ const PetProfile = () => {
                     "บูร์แมส",
                     "แคลิฟอร์เนีย สเปียล",
                     "คอร์เนียร์ส",
-
                   ].map(
                     (Gene, index) => (
                       <option key={index} value={Gene}>
