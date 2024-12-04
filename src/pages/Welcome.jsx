@@ -6,7 +6,7 @@ const Welcome = () => {
     <>
       <div className="flex bg-color-b rounded-b-large">
         <div className="md:ml-[320px] my-10 ml-auto">
-          <p className="justify-items-start text-white text-[30px] font-bold my-10 font-bold font-sans">
+          <p className="justify-items-start text-white text-[30px] my-10 font-bold font-sans">
             ยินดีต้อนรับสู่ Animalover <br />
             แพลตฟอร์มการดูแลสุขภาพสัตว์เลี้ยงครบวงจร
           </p>

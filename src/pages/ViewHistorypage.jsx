@@ -5,7 +5,6 @@ import { Vaccine } from "../constants";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-
 function ViewHistorypage() {
   const navigate = useNavigate();
   const { id } = useParams(); // ดึง id จาก URL ของหน้าปัจจุบัน
@@ -87,14 +86,18 @@ function ViewHistorypage() {
   return (
     <div className="min-h-screen flex items-center justify-center py-8 font-sans">
       <div className="bg-white rounded-large shadow-inner">
-        <p className="pl-8 pt-8 text-color-b text-3xl font-bold">{thispet[0].pet_name}</p>
+        <p className="pl-8 pt-8 text-color-b text-3xl font-bold">
+          {thispet[0].pet_name}
+        </p>
         <div className="grid grid-cols-4 items-center">
           <div className="col-span-3">
             <div className="grid grid-cols-2 mb-2">
               <div className="ml-8 text-color-b text-xl">
                 ชนิดสัตว์เลี้ยง: {thispet[0].pet_breed}
               </div>
-              <div className="text-color-b text-xl">เพศของสัตว์: {thispet[0].pet_gender}</div>
+              <div className="text-color-b text-xl">
+                เพศของสัตว์: {thispet[0].pet_gender}
+              </div>
             </div>
             <div className="grid grid-cols-2 mb-2">
               <div className="ml-8 text-color-b text-xl">
@@ -116,7 +119,7 @@ function ViewHistorypage() {
             </div>
           </div>
           <div className="flex justify-center items-center pr-8">
-          <img
+            <img
               src={thispet[0].pet_photo}
               alt={`${thispet[0].pet_photo} picture`}
               className="w-48 object-cover rounded-full border border-gray-300"
@@ -127,24 +130,24 @@ function ViewHistorypage() {
           <div className="p-8 flex flex-col text-color-b text-3xl font-bold">
             ประวัติการได้รับวัคซีน:
           </div>
-            <div className="px-4 grid mb-2 gap-2 mb-20 text-color-b">
-              <div>
-                  <div className="grid grid-cols-5 ">
-                    <h1 className="font-bold mt-8 justify-self-start ml-8">
-                      ลำดับ
-                    </h1>
-                    <h1 className="font-bold col-span-2 mt-8 justify-self-center">
-                      ชื่อวัคซีน
-                    </h1>
-                    <h1 className="font-bold mt-8 justify-self-center">
-                      วันที่ได้รับ
-                    </h1>
-                    <h1 className="font-bold mt-8 justify-self-center">
-                      วันหมดอายุ
-                    </h1>
-                  </div>
-                </div> 
-            <div className="px-4 grid mb-2 gap-2 mb-20 text-color-b">
+          <div className="px-4 grid mb-2 gap-2 text-color-b">
+            <div>
+              <div className="grid grid-cols-5 ">
+                <h1 className="font-bold mt-8 justify-self-start ml-8">
+                  ลำดับ
+                </h1>
+                <h1 className="font-bold col-span-2 mt-8 justify-self-center">
+                  ชื่อวัคซีน
+                </h1>
+                <h1 className="font-bold mt-8 justify-self-center">
+                  วันที่ได้รับ
+                </h1>
+                <h1 className="font-bold mt-8 justify-self-center">
+                  วันหมดอายุ
+                </h1>
+              </div>
+            </div>
+            <div className="px-4 grid mb-2 gap-2 text-color-b">
               {vaccine.map((val, index) => (
                 <div key={val.vaccine_id}>
                   <div className="grid grid-cols-5 ">

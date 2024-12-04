@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import mypic from "../images/2.jpg";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -132,7 +131,9 @@ const PetProfile = () => {
                 <h3 className="text-lg text-color-b font-bold">อาหารตามวัย</h3>
                 <div className="border-2 p-4 text-color-b font-bold rounded-large">
                   {guide[0].guide_foodwithage.split("\n").map((line, index) => (
-                    <p key={index}>{line} <br></br></p>
+                    <p key={index}>
+                      {line} <br></br>
+                    </p>
                   ))}
                 </div>
               </div>
@@ -142,7 +143,9 @@ const PetProfile = () => {
                 </h3>
                 <div className="border-2 p-4 text-color-b font-bold rounded-large">
                   {guide[0].guide_avoid_food.split("\n").map((line, index) => (
-                    <p key={index}>{line} <br></br></p>
+                    <p key={index}>
+                      {line} <br></br>
+                    </p>
                   ))}
                 </div>
               </div>
