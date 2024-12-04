@@ -55,6 +55,7 @@ const Addpet = () => {
   const [petType, setPetType] = useState("");
   const [petSex, setPetSex] = useState("");
   const [petAge, setPetAge] = useState("");
+  const [petGene, setPetGene] = useState("");
   const [petWeight, setPetWeight] = useState("");
   const [birthdate, setBirthdate] = useState("xxxx-xx-xx");
   const [note, setNote] = useState("");
@@ -80,6 +81,7 @@ const Addpet = () => {
     formData.append("petName", petName);
     formData.append("petType", editPetType);
     formData.append("petSex", petSex);
+    formData.append("prtGene", petGene);
     formData.append("petWeight", petWeight);
     formData.append("birthdate", dbbirthdate);
     formData.append("note", note);
@@ -90,6 +92,7 @@ const Addpet = () => {
       !petName ||
       !editPetType ||
       !petSex ||
+      !petGene ||
       !petWeight ||
       !birthdate ||
       !profilePic
@@ -246,6 +249,227 @@ const Addpet = () => {
                 ))}
               </div>
             </div>
+            <div className="w-full mb-4">
+              <label className="block text-color-b mb-1 font-sans">
+                สายพันธุ์สัตว์เลี้ยง:
+              </label>
+              <select
+                value={petGene}
+                onChange={(e) => setPetGene(e.target.value)}
+                className="w-full p-3 border-2 border-gray-300 rounded-md"
+              >
+                <option value="">เลือกสายพันธุ์</option>
+                {editPetType === "หมา" &&
+                  [
+                    "ไทยแท้",
+                    "ไทยหลังอาน",
+                    "ไซบีเรียน ฮัสกี้",
+                    "ไชนีส เครสต์ แฮร์เลส",
+                    "โอลด์อิงลิชชีปด็อก",
+                    "โทสะอินุ",
+                    "โดโกอาร์เจนติโน",
+                    "โดเบอร์แมน",
+                    "โคเรียนชินโด",
+                    "โกลเด้น รีทรีฟเวอร์",
+                    "แอฟเฟนพินเชอร์",
+                    "แจ็ครัสเซลล์เทอร์เรีย",
+                    "เวสตี้ เทอร์เรียร์",
+                    "เยอรมันเชฟเฟิร์ด",
+                    "เยอรมัน สปิตซ์",
+                    "เฟรนช์ มาสทิฟ",
+                    "เฟรนช์ บูลด็อก",
+                    "เบอร์นีส เมาน์เทนด็อก",
+                    "เซ็นทรัล เอเชีย เชพเพิร์ด",
+                    "เซาท์ แอฟริกัน มาสทิฟฟ์ (บัวโบว์)",
+                    "เซนต์เบอร์นาร์ด",
+                    "เชา เชา",
+                    "เชทแลนด์ ชีพด็อก",
+                    "เชดแลนด์ชิพด๊อก",
+                    "เจแปนนิส สปิตซ์",
+                    "เจแปนนิส ชิน",
+                    "เคอร์รี บลู เทอร์เรีย",
+                    "เครนเทอร์เรีย",
+                    "เคน คอร์โซ",
+                    "เกรย์ฮาวด์",
+                    "เกรทไพรีนีส",
+                    "เกรทเทอร์ สวิสส์ เมาน์เทนด๊อก",
+                    "เกรทเดน",
+                    "อเมริกันบูลล์ด็อก",
+                    "อเมริกันบูลลี่",
+                    "อเมริกัน พิทบูลเทอร์เรีย",
+                    "อเมริกัน ค็อกเกอร์ สแปเนียล",
+                    "อิตาเลียน เกรย์ฮาวด์",
+                    "อิงลิช บูลล์ด็อก",
+                    "อาคิตะ อินุ",
+                    "อัฟกัน ฮาวนด์",
+                    "อลาสกัน มาลามิวท์",
+                    "สแตฟเฟอร์ดไชร์ บูล เทอร์เรียร์",
+                    "วิปเพ็ท",
+                    "ลาบราดอร์รีทรีฟเวอร์",
+                    "ร็อตไวเลอร์",
+                    "ระบุสายพันธุ์ไม่ได้",
+                    "ยอร์คเชียร์เทอร์เรีย",
+                    "มิเนเจอร์พินช์เชอร์",
+                    "มาเมะชิบะ",
+                    "มอลทีส",
+                    "มอลทิพู",
+                    "ฟิล่า บราซิลเลียโร่",
+                    "พ็อมโบรค เวล์ช คอร์กี้",
+                    "พุดเดิ้ล",
+                    "พิทบูล เรดโนส",
+                    "พิทบูล เทอร์เรีย",
+                    "พิทบูล มาสทิฟ",
+                    "ปาปิยอง",
+                    "ปั๊ก",
+                    "ปักกิ่ง",
+                    "ปอมเมอเรเนียน",
+                    "บ็อกเซอร์",
+                    "บูลล์เทอร์เรีย",
+                    "บูลล์ด็อก",
+                    "บูลมาสทิฟฟ์",
+                    "บีเว่อร์ เทอร์เรีย",
+                    "บีเวอร์ยอร์คเชียร์เทอร์เรีย",
+                    "บีเกิล",
+                    "บิชอง ฟริเซ่",
+                    "บาเซนจิ",
+                    "บาสเซ็ต ฮาวด์",
+                    "บางแก้ว",
+                    "บอสตัน เทอร์เรียร์",
+                    "บอร์ซอย",
+                    "บลัดฮาวด์",
+                    "บริตทานีสแปเนียล",
+                    "ทิเบตัน มาสทิฟฟ์",
+                    "ดัลเมเชียน",
+                    "ดัชชุน",
+                    "ซาลูกิ",
+                    "ซามอยด์",
+                    "ชิสุ",
+                    "ชิวาวา",
+                    "ชิบะ อินุ",
+                    "ชาเป่ย",
+                    "คีชอน",
+                    "คาวาเลียร์ คิง ชาลส์ สแปเนียล",
+                    "คานารี ด็อก",
+                    "คอเคเซียน เชพเพิร์ด",
+                    "Wire Fox Terrier",
+                    "West Highland White Terrier",
+                    "Welsh Terrier",
+                    "Welsh Corgi Pembroke",
+                    "Weimaraner",
+                    "Teacup poodle",
+                    "standard poodle",
+                    "Spitz",
+                    "Siberian Wooly coat",
+                    "siberian standard",
+                    "Sheepadoodle",
+                    "Scottish Terrier",
+                    "Schnauzer",
+                    "Saarloos Wolfhound",
+                    "Rough collie",
+                    "Rhodesian Ridgeback",
+                    "Puli Hungarian Sheepdog",
+                    "Presa Canario",
+                    "Poodle Toy",
+                    "Pit Bull Terrier",
+                    "Pembroke Welsh Corgi",
+                    "Norwich Terrier",
+                    "Norfolk Terrier",
+                    "Miniature smooth fox terrier",
+                    "Miniature Schnauzer",
+                    "Miniature Dachshund",
+                    "Miniature Bull Terrier",
+                    "Miniature American Shepherd",
+                    "Micro Bulldog",
+                    "Maltipoo",
+                    "Labradoodle",
+                    "italian mastiff",
+                    "Irish Setter",
+                    "Goldendoodle",
+                    "Exotic Bully",
+                    "English Cocker Spaniel",
+                    "English Bulldog",
+                    "Dogue Brasileiro",
+                    "czechoslovakian wolfdog",
+                    "Coton de tulear",
+                    "Cavalier King Charles Spaniel",
+                    "Caucasian Shepherd",
+                    "Cardigan Welsh Corgi",
+                    "Cardigan Corgi",
+                    "Brussels Griffon",
+                    "Boston Terrier",
+                    "Border Collie",
+                    "Bichon Havanais",
+                    "Bichon Frise",
+                    "Belgian Malinois",
+                    "Australian Shepherd",
+                    "Australian Cattle Dog",
+                    "American Bandogge / Bandogge Mastiff",
+                    "American Akita",
+                    "ออสเตรเลียนเคลปี",
+                    "ไม่ระบุสายพันธุ์",
+                  ].map(
+                    (gene, index) => (
+                      <option key={index} value={gene}>
+                        {gene}
+                      </option>
+                    )
+                  )}
+                {editPetType === "แมว" &&
+                  [
+                    "เปอร์เซีย",
+                    "สก็อตติชโฟลด์",
+                    "อเมริกันชอร์ตแฮร์",
+                    "สฟิงซ์",
+                    "เมนคูน",
+                    "วิเชียรมาศ",
+                    "เบงกอล",
+                    "บริติชชอร์ตแฮร์",
+                    "อะบิสซิเนียน",
+                    "เร็กซ์ (Devon Rex)",
+                    "เร็กซ์ (Cornish Rex)",
+                    "สโนว์ชู",
+                    "นอร์วีเจียนฟอเรสต์",
+                    "ริกดอลล์",
+                    "เอ็กโซติกชอร์ตแฮร์",
+                    "โอเรียนทัลชอร์ตแฮร์",
+                    "ชาร์เทรอซ์",
+                    "เบอร์มีส",
+                    "ไทย",
+                    "ออซีแคท",
+                    "บอมเบย์",
+                    "ซาวันนาห์",
+                    "แมนซ์",
+                    "คูริเลียนบ็อบเทล",
+                    "รัสเซียนบลู",
+                    "แร็กามัฟฟิน",
+                    "ลาเปิร์ม",
+                    "แบลลิเนส",
+                    "ฮาวานา บราวน์",
+                    "โทนกินีส",
+                    "โซโกเก",
+                    "ทอยเกอร์",
+                    "เซเรนเกติ",
+                    "เคาเชียนบ็อบเทล",
+                    "ซิงกาปูรา",
+                    "เจแปนนีสบ็อบเทล",
+                    "ไลโคอิ",
+                    "พิกซีบ็อบ",
+                    "มังก์กี้ฟอร์เรสต์",
+                    "เดสเซอร์ตลิงซ์",
+                    "บูร์แมส",
+                    "แคลิฟอร์เนีย สเปียล",
+                    "คอร์เนียร์ส",
+                  ]
+                  .map(
+                    (gene, index) => (
+                      <option key={index} value={gene}>
+                        {gene}
+                      </option>
+                    )
+                  )}
+              </select>
+            </div>
+            <div class="input-note text-red-500">*ถ้าสายพันธุ์ของคุณไม่มีในรายการ กรุณาติดต่อเรา</div>
             <div className="w-full mb-4">
               <label className="block text-color-b mb-1 font-sans">เพศ:</label>
               <div className="flex space-x-6">

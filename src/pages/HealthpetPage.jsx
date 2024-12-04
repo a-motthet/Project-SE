@@ -133,12 +133,16 @@ function HealthPetPage() {
                 อายุของสัตว์เลี้ยง: {petInfo.age} ปี
               </div>
               <div className="text-color-b text-xl">
-                น้ำหนักของสัตว์เลี้ยง: {thispet[0].pet_weight} กิโลกรัม
+                สายพันธุ์สัตว์เลี้ยง: {} 
               </div>
+              
             </div>
-            <div className="grid grid-cols-1 mb-2">
+            <div className="grid grid-cols-2 mb-2">
               <div className="ml-8 text-color-b text-xl">
                 โรคประจำตัว: {thispet[0].pet_disease}
+              </div>
+              <div className="text-color-b text-xl">
+                น้ำหนักของสัตว์เลี้ยง: {thispet[0].pet_weight} กิโลกรัม
               </div>
             </div>
           </div>

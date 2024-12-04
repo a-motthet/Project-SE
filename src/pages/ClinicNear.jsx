@@ -29,7 +29,7 @@ function App() {
     },
   ]);
 
-  const [searchQuery, setSearchQuery] = useState("คลินิกสัตว์ใกล้ มจธ.");
+  const [searchQuery, setSearchQuery] = useState("คลินิกสัตว์ใกล้มจธ.");
   const [errorMessage, setErrorMessage] = useState("");
   const [geoError, setGeoError] = useState("");
 
@@ -117,7 +117,7 @@ function App() {
             <input
               type="text"
               className="w-full p-2 border rounded-lg"
-              placeholder="ค้นหาคลินิก เช่น 'คลินิกในประชาอุทิศ'"
+              placeholder="ค้นหาคลินิกสัตว์ เช่น 'คลินิกสัตว์ในประชาอุทิศ'"
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
@@ -138,7 +138,7 @@ function App() {
           <div className="w-full h-64 rounded-lg shadow-md overflow-hidden">
             <iframe
               title="ค้นหาคลินิก"
-              src={`https://www.google.com/maps/embed/v1/search?key=AIzaSyBPwGATC2MYwwKj2rMoFxJlEsy9qqphuKQ&q=${encodeURIComponent(
+              src={`https://www.google.com/maps/embed/v1/search?key=AIzaSyDkrkJNScs9Qjy3gwkqNzurOoucjfUqfmg&q=${encodeURIComponent(
                 searchQuery
               )}`}
               width="100%"
