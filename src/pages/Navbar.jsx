@@ -21,7 +21,13 @@ function Navbar() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
+    const currentPath = window.location.pathname;
+  
+    if (!token && currentPath !== "/Home") {
+      // ถ้าไม่มี token และไม่ใช่หน้า Home ให้นำไปหน้า login
+      navigate("/");
+    } else if (token) {
+      // ถ้ามี token ให้ตรวจสอบ username
       axios
         .get("http://localhost:3001/getUsername", {
           headers: { Authorization: `Bearer ${token}` },
@@ -40,8 +46,6 @@ function Navbar() {
           localStorage.removeItem("token");
           navigate("/");
         });
-    } else {
-      navigate("/");
     }
   }, [navigate]);
 
