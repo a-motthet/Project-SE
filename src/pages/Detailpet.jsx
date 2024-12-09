@@ -101,9 +101,9 @@ const PetProfile = () => {
 
     const formData = new FormData(); // ใช้ FormData เพื่อจัดการข้อมูลที่มีไฟล์
     formData.append("petName", petName);
-    formData.append("petType", editPetType);
-    formData.append("petSex", petSex);
+    formData.append("petType", editPetType);    
     formData.append("petGene", petGene);
+    formData.append("petSex", petSex);
     formData.append("petWeight", petWeight);
     formData.append("birthdate", dbbirthdate);
     formData.append("note", note);
@@ -201,10 +201,10 @@ const PetProfile = () => {
         const petData = response.data;
         setPet(response.data); // เก็บข้อมูลสัตว์เลี้ยงใน State
         setPetName(petData[0].pet_name);
-        setEditPetType(petData[0].pet_breed);
+        setEditPetType(petData[0].pet_type);
         setPetSex(petData[0].pet_gender);
         setPetAge(petData[0].age);
-        setPetGene(petData[0].petGene)
+        setPetGene(petData[0].pet_gene)
         setPetWeight(petData[0].pet_weight);
         setNote(petData[0].pet_description);
         setProfilePic(petData[0].pet_photo);
@@ -312,7 +312,7 @@ const PetProfile = () => {
                   </p>
                   <div className="grid grid-cols-2 gap-8 mb-2 mt-4">
                     <div className="ml-8 text-color-b">
-                      ชนิดสัตว์เลี้ยง: {pet[0].pet_breed}
+                      ชนิดสัตว์เลี้ยง: {pet[0].pet_type}
                     </div>
                     <div className="text-color-b">
                       เพศของสัตว์: {pet[0].pet_gender}
@@ -323,7 +323,7 @@ const PetProfile = () => {
                       อายุของสัตว์เลี้ยง: {petInfo.age} ปี
                     </div>
                     <div className="text-color-b">
-                      สายพันธุ์สัตว์เลี้ยง: {pet[0].petGene}
+                      สายพันธุ์สัตว์เลี้ยง: {pet[0].pet_gene}
                     </div>
                   </div>
                   <div className="grid grid-cols-2 gap-8 mb-2">
@@ -839,7 +839,6 @@ const PetProfile = () => {
             <p className="text-sm text-color-b mb-4 font-sans">
               หากลบสัตว์เลี้ยงของท่านแล้วจะไม่สามารถกู้ข้อมูลกลับมาคืนได้
               โปรดทำการนี้ด้วยความระมัดระวัง
-              โปรดระบุชื่อสัตว์เลี้ยงของท่านเพื่อทำการลบอย่างสมบูรณ์
             </p>
             {/* <input
               type="text"

@@ -80,8 +80,8 @@ const Addpet = () => {
     const formData = new FormData(); // ใช้ FormData เพื่อจัดการข้อมูลที่มีไฟล์
     formData.append("petName", petName);
     formData.append("petType", editPetType);
+    formData.append("petGene", petGene);
     formData.append("petSex", petSex);
-    formData.append("prtGene", petGene);
     formData.append("petWeight", petWeight);
     formData.append("birthdate", dbbirthdate);
     formData.append("note", note);
@@ -91,13 +91,21 @@ const Addpet = () => {
     if (
       !petName ||
       !editPetType ||
-      !petSex ||
       !petGene ||
+      !petSex ||
       !petWeight ||
       !birthdate ||
       !profilePic
     ) {
       setPopupMessage("กรุณากรอกข้อมูลให้ครบถ้วน");
+      setIsErrorPopupVisible(true); // แสดง Popup ความผิดพลาด
+      return;
+    }
+
+    if (
+      profilePic === "/static/media/64x64.38e4ab2d8921748a8414.png"
+    ) {
+      setPopupMessage("กรุณาอัปโหลดรูปสัตว์เลี้ยงของท่าน");
       setIsErrorPopupVisible(true); // แสดง Popup ความผิดพลาด
       return;
     }
@@ -642,7 +650,7 @@ const Addpet = () => {
               onClick={addPet}
               className="w-full bg-color-b text-white p-3 rounded-md mt-4 px-12 font-sans"
             >
-              เพิ่มสัตว์เลี้ยงของท่าน
+              เพิ่มสัตว์เลี้ยงของท่าน 
             </button>
           </div>
 

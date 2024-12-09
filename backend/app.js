@@ -20,9 +20,8 @@ const db = mysql.createConnection({
   database: "animalover",
 });
 
-app.get("/", (req, res) => {
-  res.send("Welcome to the server!");
-});
+
+
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
@@ -38,72 +37,8 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
-app.post("/login", (req, res) => {
-  const { username, password } = req.body;
-
-  db.query(
-    "SELECT * FROM customers WHERE user_username = ? AND user_password = ?",
-    [username, password],
-    (err, result) => {
-      if (err) {
-        res.status(500).send({ success: false, message: "Server error" });
-      } else if (result.length > 0) {
-        const userId = result[0].user_id;
-        const token = jwt.sign({ userId }, "1234", { expiresIn: "1h" });
-        res.send({ success: true, token, message: "Login successful" });
-      } else {
-        res.status(401).send({ success: false, message: "Invalid credentials" });
-      }
-    }
-  );
-});
 
 
-app.get("/getUsername", authenticateToken, (req, res) => {
-  const userId = req.userId; // รับ userId จาก query parameter
-
-  db.query(
-    "SELECT user_firstname FROM customers WHERE user_id = ?",
-    [userId],
-    (err, result) => {
-      if (err) {
-        res.status(500).send({ success: false, message: "Server error" });
-      } else if (result.length > 0) {
-        res.send({ success: true, username: result[0].user_firstname });
-      } else {
-        res.status(404).send({ success: false, message: "User not found" });
-      }
-    }
-  );
-});
-
-app.get("/customers", (req, res) => {
-  db.query("SELECT * FROM customers", (err, result) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send(result);
-    }
-  });
-});
-
-app.post("/edit", authenticateToken, (req, res) => {
-  const { firstname, lastname, phone, email } = req.body;
-  const userId = req.userId;
-
-  db.query(
-    "UPDATE customers SET user_firstname = ?, user_lastname = ?, user_phone = ?, user_email = ? WHERE user_id = ?",
-    [firstname, lastname, phone, email, userId],
-    (err, result) => {
-      if (err) {
-        console.error(err);
-        res.status(500).send({ success: false, message: "Failed to update profile." });
-      } else {
-        res.status(200).send({ success: true, message: "Profile updated successfully!" });
-      }
-    }
-  );
-});
 
 app.post("/register", (req, res) => {
   const { firstname, lastname, username, phone, email, password } = req.body;
@@ -115,7 +50,7 @@ app.post("/register", (req, res) => {
 
   // ตรวจสอบว่าฐานข้อมูลมี schema ตรงกับโค้ด SQL
   const query =
-    "INSERT INTO customers (user_firstname, user_lastname, user_email, user_username, user_password, user_phone) VALUES (?, ?, ?, ?, ?, ?)";
+    "INSERT INTO user (user_firstname, user_lastname, user_email, user_username, user_password, user_phone) VALUES (?, ?, ?, ?, ?, ?)";
   const values = [firstname, lastname, email, username, password, phone];
 
   db.query(query, values, (err, result) => {
@@ -127,6 +62,28 @@ app.post("/register", (req, res) => {
   });
 });
 
+
+app.post("/login", (req, res) => {
+  const { username, password } = req.body;
+
+  db.query(
+    "SELECT * FROM user WHERE user_username = ? AND user_password = ?",
+    [username, password],
+    (err, result) => {
+      if (err) {
+        res.status(500).send({ success: false, message: "Server error" });
+      } else if (result.length > 0) {
+        const userId = result[0].user_id;
+        const token = jwt.sign({ userId }, "1234", { expiresIn: "12h" });
+        res.send({ success: true, token, message: "Login successful" });
+      } else {
+        res.status(401).send({ success: false, message: "Invalid credentials" });
+      }
+    }
+  );
+});
+
+
 app.post("/forget", (req, res) => {
   const { firstname, lastname, phone, email, password } = req.body;
 
@@ -137,7 +94,7 @@ app.post("/forget", (req, res) => {
 
   // ตรวจสอบว่าฐานข้อมูลมี schema ตรงกับโค้ด SQL
   const query = `
-    UPDATE customers
+    UPDATE user
     SET user_password = ?
     WHERE user_firstname = ? AND user_lastname = ? AND user_email = ? AND user_phone = ?
   `;
@@ -151,6 +108,45 @@ app.post("/forget", (req, res) => {
     res.status(200).send("สมัครสมาชิกสำเร็จ");
   });
 });
+
+
+app.post("/edit", authenticateToken, (req, res) => {
+  const { firstname, lastname, phone, email } = req.body;
+  const userId = req.userId;
+
+  db.query(
+    "UPDATE user SET user_firstname = ?, user_lastname = ?, user_phone = ?, user_email = ? WHERE user_id = ?",
+    [firstname, lastname, phone, email, userId],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).send({ success: false, message: "Failed to update profile." });
+      } else {
+        res.status(200).send({ success: true, message: "Profile updated successfully!" });
+      }
+    }
+  );
+});
+
+
+app.get("/getUsername", authenticateToken, (req, res) => {
+  const userId = req.userId; // รับ userId จาก query parameter
+
+  db.query(
+    "SELECT user_firstname FROM user WHERE user_id = ?",
+    [userId],
+    (err, result) => {
+      if (err) {
+        res.status(500).send({ success: false, message: "Server error" });
+      } else if (result.length > 0) {
+        res.send({ success: true, username: result[0].user_firstname });
+      } else {
+        res.status(404).send({ success: false, message: "User not found" });
+      }
+    }
+  );
+});
+
 
 
 
@@ -184,15 +180,15 @@ app.get("/pets/:id", authenticateToken, (req, res) => {
 app.post('/addPet', authenticateToken, upload.single('imageFile'), (req, res) => {
   console.log("Request body:", req.body);
   const userId = req.userId;
-  const { petName, petType, petSex, petWeight, birthdate, note, imageFile,petDisease } = req.body;
+  const { petName, petType, petGene, petSex, petWeight, birthdate, note, imageFile,petDisease } = req.body;
 
-  if (!petName || !petType || !petSex || !petWeight || !birthdate || !imageFile) {
+  if (!petName || !petType || !petGene || !petSex || !petWeight || !birthdate || !imageFile) {
     return res.status(400).send("กรุณากรอกข้อมูลให้ครบถ้วน");
   }
 
   db.query(
-    "INSERT INTO pet (user_id, pet_name, pet_breed, pet_gender, pet_weight, pet_birthdate, pet_description, pet_photo, pet_disease) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)",
-    [userId, petName, petType, petSex, petWeight, birthdate, note, imageFile, petDisease],
+    "INSERT INTO pet (user_id, pet_name, pet_type, pet_gene, pet_gender, pet_weight, pet_birthdate, pet_description, pet_photo, pet_disease) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+    [userId, petName, petType, petGene, petSex, petWeight, birthdate, note, imageFile, petDisease],
     (err, result) => {
       if (err) {
         console.error("Database error: ", err);
@@ -243,7 +239,7 @@ app.post('/photo/:id', authenticateToken , upload.single('imageFile') , async (r
 app.post('/pets/:id', authenticateToken , upload.single('imageFile') , async (req, res) => {
   
   const petId = req.params.id;
-  const { petName, petType, petSex, petWeight, birthdate, note ,imageFile ,petDisease } = req.body;
+  const { petName, petType, petGene, petSex, petWeight, birthdate, note ,imageFile ,petDisease } = req.body;
 
   try {
     // // ตรวจสอบว่ามีสัตว์เลี้ยงนี้อยู่ในระบบหรือไม่
@@ -255,8 +251,8 @@ app.post('/pets/:id', authenticateToken , upload.single('imageFile') , async (re
     // อัปเดตข้อมูล
     
     await db.query(
-      'UPDATE pet SET pet_name = ?, pet_breed = ?, pet_gender = ?, pet_weight = ?, pet_birthdate = ?, pet_description = ?, pet_photo = ? , pet_disease = ? WHERE pet_id = ?',
-      [petName, petType, petSex, petWeight, birthdate, note, imageFile, petDisease, petId]
+      'UPDATE pet SET pet_name = ?, pet_type = ?, pet_gene = ?, pet_gender = ?, pet_weight = ?, pet_birthdate = ?, pet_description = ?, pet_photo = ? , pet_disease = ? WHERE pet_id = ?',
+      [petName, petType, petGene, petSex, petWeight, birthdate, note, imageFile, petDisease, petId]
     );
 
     res.status(200).send({ message: 'แก้ไขข้อมูลสัตว์เลี้ยงสำเร็จ' });
@@ -354,15 +350,15 @@ app.get("/history_Home/:id", authenticateToken, (req, res) => {
 
 
 app.get('/guide', authenticateToken, (req, res) => {
-  const { breed, gender, weight, age } = req.query;
+  const { type, gene, gender, weight, age } = req.query;
 
   // Query ฐานข้อมูลโดยใช้ Parameter
   const query = `
     SELECT *
     FROM nutrition_guide
-    WHERE ? = guide_breed AND ? = guide_gender AND ? >= guide_startweight AND ? < guide_endweight AND ? >= guide_startage	AND ? < guide_endage`;
+    WHERE ? = guide_type AND ? = guide_gene AND ? = guide_gender AND ? >= guide_startweight AND ? < guide_endweight AND ? >= guide_startage	AND ? < guide_endage`;
   
-  db.query(query, [breed, gender, weight, weight, age, age], (err, results) => {
+  db.query(query, [type, gene, gender, weight, weight, age, age], (err, results) => {
     if (err) {
       return res.status(500).json({ error: 'Database error' });
     }
