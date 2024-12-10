@@ -145,6 +145,24 @@ const PetProfile = () => {
     return { ageYears, ageMonths };
   };
 
+  const calculateApproximateBirthdate = (ageYears, ageMonths) => {
+    const today = new Date();
+    let birthdate = new Date(today);
+
+    // ลบปีและเดือนจากวันที่ปัจจุบัน
+    birthdate.setFullYear(birthdate.getFullYear() - ageYears);
+    birthdate.setMonth(birthdate.getMonth() - ageMonths);
+
+    // ตรวจสอบความถูกต้องของวันที่
+    if (birthdate.getDate() !== today.getDate()) {
+      birthdate.setDate(0); // ปรับวันที่เป็นวันสุดท้ายของเดือนก่อนหน้า
+    }
+
+    // แปลงวันที่เป็นรูปแบบ YYYY-MM-DD
+    return birthdate.toISOString().split("T")[0];
+  };
+
+
   const toggleEditMode = () => {
     if (isEditing) {
     }
@@ -250,6 +268,11 @@ const PetProfile = () => {
   useEffect(() => {
     if (birthdateOption === "approximate" && ageYears && ageMonths) {
       setPetAge(`${ageYears} ปี ${ageMonths} เดือน`);
+      const approximateDate = calculateApproximateBirthdate(
+        parseInt(ageYears, 10),
+        parseInt(ageMonths, 10)
+      );
+      setDbbirthdate(approximateDate); // เก็บวันเกิดในฟิลด์ dbbirthdate
     }
   }, [ageYears, ageMonths, birthdateOption]);
 
@@ -694,7 +717,7 @@ const PetProfile = () => {
                         onChange={() => setBirthdateOption("approximate")}
                         className="mr-2 "
                       />
-                      อายุโดยประมาณ
+                      อายุโดยประมาณ 
                     </label>
                     <label className="text-color-b font-sans">
                       <input

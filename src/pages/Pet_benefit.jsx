@@ -6,6 +6,7 @@ const PetProfile = () => {
   const { id } = useParams();
   const [thispet, setThispet] = useState([]);
   const [guide, setGuide] = useState([]);
+  const [gene, setGene] = useState();
 
   const formatter = new Intl.DateTimeFormat("th-TH", {
     day: "2-digit",
@@ -61,7 +62,6 @@ const PetProfile = () => {
           const token = localStorage.getItem("token");
           const type = thispet[0].pet_type;
           const petgene = thispet[0].pet_gene;
-          const [gene, setGene] = useState();
           const gender = thispet[0].pet_gender;
           const weight = thispet[0].pet_weight;
           const age = calculatePetAge(thispet[0].pet_birthdate).age;
@@ -79,7 +79,13 @@ const PetProfile = () => {
               "คาวาเลียร์ คิง ชาลส์ สแปเนียล",
               "แจ็ครัสเซลล์เทอร์เรีย",
               "มิเนเจอร์พินช์เชอร์",
-              "บอสตัน เทอร์เรียร์"
+              "บอสตัน เทอร์เรียร์",
+              "สฟิงซ์",
+              "ไทย",
+              "ไลโคอิ",
+              "โซโกเก",
+              "ทอยเกอร์",
+              "เซเรนเกติ"
             ].includes(petgene)
           ) {
             setGene("เล็ก");
@@ -97,7 +103,27 @@ const PetProfile = () => {
               "วิปเพ็ท",
               "คีชอน",
               "เครนเทอร์เรีย",
-              "เกรย์ฮาวด์"
+              "เกรย์ฮาวด์",
+              "สก็อตติชโฟลด์",
+              "อเมริกันชอร์ตแฮร์",
+              "วิเชียรมาศ",
+              "เบงกอล",
+              "บริติชชอร์ตแฮร์",
+              "เอ็กโซติกชอร์ตแฮร์",
+              "เร็กซ์ (Devon Rex)",
+              "เร็กซ์ (Cornish Rex)",
+              "สโนว์ชู",
+              "โอเรียนทัลชอร์ตแฮร์",
+              "ชาร์เทรอซ์",
+              "เบอร์มีส",
+              "บอมเบย์",
+              "แร็กามัฟฟิน",
+              "ลาเปิร์ม",
+              "แบลลิเนส",
+              "ฮาวานา บราวน์",
+              "โทนกินีส",
+              "ซิงกาปูรา",
+              "เจแปนนีสบ็อบเทล"
             ].includes(petgene)
           ) {
             setGene("กลาง");
@@ -149,8 +175,8 @@ const PetProfile = () => {
                       เพศ : {thispet[0].pet_gender}
                     </div>
                     <div className="text-md text-color-b  font-bold md:text-lg mt-1">
-                      อายุสัตว์ :{" "}
-                      {calculatePetAge(thispet[0].pet_birthdate).age}
+                      อายุสัตว์ : {" "}
+                       {calculatePetAge(thispet[0].pet_birthdate).age} ปี
                     </div>
                     <div className="text-md text-color-b  font-bold md:text-lg mt-1">
                       สายพันธุ์ : {thispet[0].pet_gene}
