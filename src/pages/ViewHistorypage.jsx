@@ -93,7 +93,7 @@ function ViewHistorypage() {
           <div className="col-span-3">
             <div className="grid grid-cols-2 mb-2">
               <div className="ml-8 text-color-b text-xl">
-                ชนิดสัตว์เลี้ยง: {thispet[0].pet_breed}
+                ชนิดสัตว์เลี้ยง: {thispet[0].pet_type}
               </div>
               <div className="text-color-b text-xl">
                 เพศของสัตว์: {thispet[0].pet_gender}
@@ -107,12 +107,10 @@ function ViewHistorypage() {
                 น้ำหนักของสัตว์เลี้ยง: {thispet[0].pet_weight} กิโลกรัม
               </div>
             </div>
-            {/* <div className="grid grid-cols-1 mb-2">
+            <div className="grid grid-cols-2 mb-2">
               <div className="ml-8 text-color-b text-xl">
-                สายพันธ์สัตว์เลี้ยง: {petA}
+                สายพันธ์สัตว์เลี้ยง: {thispet[0].pet_gene}
               </div>
-            </div> */}
-            <div className="grid grid-cols-1 mb-2">
               <div className="ml-8 text-color-b text-xl">
                 โรคประจำตัว : {thispet[0].pet_disease}
               </div>

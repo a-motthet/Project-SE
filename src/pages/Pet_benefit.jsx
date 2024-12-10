@@ -59,13 +59,54 @@ const PetProfile = () => {
       if (thispet.length > 0) {
         try {
           const token = localStorage.getItem("token");
-          const breed = thispet[0].pet_breed;
+          const type = thispet[0].pet_type;
+          const petgene = thispet[0].pet_gene;
+          const [gene, setGene] = useState();
           const gender = thispet[0].pet_gender;
           const weight = thispet[0].pet_weight;
           const age = calculatePetAge(thispet[0].pet_birthdate).age;
 
+          if (
+            [
+              "ชิวาวา",
+              "ยอร์คเชียร์เทอร์เรีย",
+              "พุดเดิ้ล",
+              "ปั๊ก",
+              "ปอมเมอเรเนียน",
+              "ชิสุ",
+              "บีเวอร์ยอร์คเชียร์เทอร์เรีย",
+              "บิชอง ฟริเซ่",
+              "คาวาเลียร์ คิง ชาลส์ สแปเนียล",
+              "แจ็ครัสเซลล์เทอร์เรีย",
+              "มิเนเจอร์พินช์เชอร์",
+              "บอสตัน เทอร์เรียร์"
+            ].includes(petgene)
+          ) {
+            setGene("เล็ก");
+          } else if (
+            [
+              "บีเกิล",
+              "สแตฟเฟอร์ดไชร์ บูล เทอร์เรียร์",
+              "บูลล์เทอร์เรีย",
+              "เชา เชา",
+              "ซามอยด์",
+              "อาคิตะ อินุ",
+              "ดัชชุน",
+              "บอร์เดอร์ คอลลี่",
+              "ออสเตรเลียนเคลปี",
+              "วิปเพ็ท",
+              "คีชอน",
+              "เครนเทอร์เรีย",
+              "เกรย์ฮาวด์"
+            ].includes(petgene)
+          ) {
+            setGene("กลาง");
+          } else {
+            setGene("ใหญ่");
+          }
+
           const response = await axios.get(
-            `http://localhost:3001/guide?breed=${breed}&gender=${gender}&weight=${weight}&age=${age}`,
+            `http://localhost:3001/guide?type=${type}&gene=${gene}&gender=${gender}&weight=${weight}&age=${age}`,
             {
               headers: { Authorization: `Bearer ${token}` },
             }
@@ -102,7 +143,7 @@ const PetProfile = () => {
                   </h1>
                   <div className="grid md:grid-cols-2 grid-cols-1">
                     <div className="text-md text-color-b font-bold md:text-lg mt-1">
-                      สัตว์เลี้ยง : {thispet[0].pet_breed}
+                      สัตว์เลี้ยง : {thispet[0].pet_type}
                     </div>
                     <div className="text-md text-color-b font-bold md:text-lg mt-1">
                       เพศ : {thispet[0].pet_gender}
@@ -111,9 +152,9 @@ const PetProfile = () => {
                       อายุสัตว์ :{" "}
                       {calculatePetAge(thispet[0].pet_birthdate).age}
                     </div>
-                    {/* <div className="text-md text-color-b  font-bold md:text-lg mt-1">
-                      สายพันธุ์ : xxxx
-                    </div> */}
+                    <div className="text-md text-color-b  font-bold md:text-lg mt-1">
+                      สายพันธุ์ : {thispet[0].pet_gene}
+                    </div>
                     <div className="text-md text-color-b font-bold md:text-lg mt-1">
                       น้ำหนัก : {thispet[0].pet_weight} กิโลกรัม
                     </div>
