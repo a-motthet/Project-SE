@@ -111,12 +111,12 @@ app.post("/forget", (req, res) => {
 
 
 app.post("/edit", authenticateToken, (req, res) => {
-  const { firstname, lastname, phone, email } = req.body;
+  const { firstname, lastname, phone, email, password } = req.body;
   const userId = req.userId;
 
   db.query(
-    "UPDATE user SET user_firstname = ?, user_lastname = ?, user_phone = ?, user_email = ? WHERE user_id = ?",
-    [firstname, lastname, phone, email, userId],
+    "UPDATE user SET user_firstname = ?, user_lastname = ?, user_phone = ?, user_email = ?, user_password = ? WHERE user_id = ?",
+    [firstname, lastname, phone, email, password, userId],
     (err, result) => {
       if (err) {
         console.error(err);
