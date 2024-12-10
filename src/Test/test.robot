@@ -17,6 +17,8 @@ Register
     Input Text    //*[@id="password"]    Ratiya19!
     Input Text    //*[@id="confirm-password"]    Ratiya19!
     Click Element    //*[@id="root"]/div/div/div/div[2]/div/form/div[7]/button
+    Sleep    5s
+    
 Login
     Open Browser    ${BASE_URL}    edge
     Input Text    //*[@id="username"]    RatiyaPhatitin

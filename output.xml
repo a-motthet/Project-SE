@@ -1,183 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.1.1 (Python 3.12.5 on win32)" generated="2024-11-28T10:50:05.992982" rpa="false" schemaversion="5">
+<robot generator="Robot 7.1.1 (Python 3.12.5 on win32)" generated="2024-12-11T00:45:05.192425" rpa="false" schemaversion="5">
 <suite id="s1" name="Test" source="c:\Users\jirak\Documents\Proj.SE\Project-SE\src\Test\test.robot">
-<test id="s1-t1" name="Login" line="20">
+<test id="s1-t1" name="Login" line="22">
 <kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2024-11-28T10:50:06.286337" level="INFO">Opening browser 'edge' to base url 'http://localhost:3000/'.</msg>
+<msg time="2024-12-11T00:45:05.437526" level="INFO">Opening browser 'edge' to base url 'http://localhost:3000/'.</msg>
 <arg>${BASE_URL}</arg>
 <arg>edge</arg>
 <doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2024-11-28T10:50:06.286337" elapsed="2.283317"/>
+<status status="PASS" start="2024-12-11T00:45:05.437526" elapsed="2.111730"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-11-28T10:50:08.578233" level="INFO">Typing text 'RatiyaPhatitin' into text field '//*[@id="username"]'.</msg>
+<msg time="2024-12-11T00:45:07.550427" level="INFO">Typing text 'RatiyaPhatitin' into text field '//*[@id="username"]'.</msg>
 <arg>//*[@id="username"]</arg>
 <arg>RatiyaPhatitin</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-11-28T10:50:08.569654" elapsed="0.140974"/>
+<status status="PASS" start="2024-12-11T00:45:07.549256" elapsed="0.135598"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-11-28T10:50:13.710874" level="INFO">Slept 5 seconds.</msg>
+<msg time="2024-12-11T00:45:12.686744" level="INFO">Slept 5 seconds.</msg>
 <arg>5s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-11-28T10:50:08.710628" elapsed="5.000246"/>
+<status status="PASS" start="2024-12-11T00:45:07.686233" elapsed="5.000511"/>
 </kw>
 <kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2024-11-28T10:50:13.710874" level="INFO">Typing text 'Ratiya19!' into text field '//*[@id="password"]'.</msg>
+<msg time="2024-12-11T00:45:12.686744" level="INFO">Typing text 'Ratiya19!' into text field '//*[@id="password"]'.</msg>
 <arg>//*[@id="password"]</arg>
 <arg>Ratiya19!</arg>
 <doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2024-11-28T10:50:13.710874" elapsed="0.062870"/>
+<status status="PASS" start="2024-12-11T00:45:12.686744" elapsed="0.063728"/>
 </kw>
 <kw name="Sleep" owner="BuiltIn">
-<msg time="2024-11-28T10:50:18.774000" level="INFO">Slept 5 seconds.</msg>
+<msg time="2024-12-11T00:45:17.751822" level="INFO">Slept 5 seconds.</msg>
 <arg>5s</arg>
 <doc>Pauses the test executed for the given time.</doc>
-<status status="PASS" start="2024-11-28T10:50:13.773744" elapsed="5.000256"/>
+<status status="PASS" start="2024-12-11T00:45:12.750472" elapsed="5.001350"/>
 </kw>
 <kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2024-11-28T10:50:18.774000" level="INFO">Clicking element '//*[@id="root"]/div/div/div/div[2]/div/form/div[4]/button'.</msg>
-<msg time="2024-11-28T10:50:18.774000" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
-from unknown error: web view not found
-  (Session info: MicrosoftEdge=131.0.2903.70)
-Stacktrace:
-	(No symbol) [0x00007FF7832A6B15]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF7835CF4A4+1437348]
-	sqlite3_dbdata_init [0x00007FF783672DE6+643190]
-	(No symbol) [0x00007FF783167657]
-	(No symbol) [0x00007FF7831F1CE5]
-	(No symbol) [0x00007FF78320670A]
-	(No symbol) [0x00007FF7831EBE03]
-	(No symbol) [0x00007FF7831C2984]
-	(No symbol) [0x00007FF7831C1E30]
-	(No symbol) [0x00007FF7831C2571]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF78357BB34+1094964]
-	(No symbol) [0x00007FF7832E32C8]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF78357AF73+1091955]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF78357AAD9+1090777]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF783380CE1+461569]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF78337CA04+444452]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF78337CB49+444777]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7833721C6+401382]
-	BaseThreadInitThunk [0x00007FFCC431259D+29]
-	RtlUserThreadStart [0x00007FFCC4E2AF38+40]
-</msg>
-<msg time="2024-11-28T10:50:18.774000" level="FAIL">NoSuchWindowException: Message: no such window: target window already closed
-from unknown error: web view not found
-  (Session info: MicrosoftEdge=131.0.2903.70)
-Stacktrace:
-	(No symbol) [0x00007FF7832A6B15]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF7835CF4A4+1437348]
-	sqlite3_dbdata_init [0x00007FF783672DE6+643190]
-	(No symbol) [0x00007FF783167657]
-	(No symbol) [0x00007FF7831F1CE5]
-	(No symbol) [0x00007FF78320670A]
-	(No symbol) [0x00007FF7831EBE03]
-	(No symbol) [0x00007FF7831C2984]
-	(No symbol) [0x00007FF7831C1E30]
-	(No symbol) [0x00007FF7831C2571]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF78357BB34+1094964]
-	(No symbol) [0x00007FF7832E32C8]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF78357AF73+1091955]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF78357AAD9+1090777]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF783380CE1+461569]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF78337CA04+444452]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF78337CB49+444777]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7833721C6+401382]
-	BaseThreadInitThunk [0x00007FFCC431259D+29]
-	RtlUserThreadStart [0x00007FFCC4E2AF38+40]
-</msg>
+<msg time="2024-12-11T00:45:17.752334" level="INFO">Clicking element '//*[@id="root"]/div/div/div/div[2]/div/form/div[4]/button'.</msg>
 <arg>//*[@id="root"]/div/div/div/div[2]/div/form/div[4]/button</arg>
 <doc>Click the element identified by ``locator``.</doc>
-<status status="FAIL" start="2024-11-28T10:50:18.774000" elapsed="0.023856">NoSuchWindowException: Message: no such window: target window already closed
-from unknown error: web view not found
-  (Session info: MicrosoftEdge=131.0.2903.70)
-Stacktrace:
-	(No symbol) [0x00007FF7832A6B15]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF7835CF4A4+1437348]
-	sqlite3_dbdata_init [0x00007FF783672DE6+643190]
-	(No symbol) [0x00007FF783167657]
-	(No symbol) [0x00007FF7831F1CE5]
-	(No symbol) [0x00007FF78320670A]
-	(No symbol) [0x00007FF7831EBE03]
-	(No symbol) [0x00007FF7831C2984]
-	(No symbol) [0x00007FF7831C1E30]
-	(No symbol) [0x00007FF7831C2571]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF78357BB34+1094964]
-	(No symbol) [0x00007FF7832E32C8]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF78357AF73+1091955]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF78357AAD9+1090777]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF783380CE1+461569]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF78337CA04+444452]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF78337CB49+444777]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7833721C6+401382]
-	BaseThreadInitThunk [0x00007FFCC431259D+29]
-	RtlUserThreadStart [0x00007FFCC4E2AF38+40]
-</status>
+<status status="PASS" start="2024-12-11T00:45:17.752334" elapsed="0.046019"/>
 </kw>
-<status status="FAIL" start="2024-11-28T10:50:06.286337" elapsed="12.520143">NoSuchWindowException: Message: no such window: target window already closed
-from unknown error: web view not found
-  (Session info: MicrosoftEdge=131.0.2903.70)
-Stacktrace:
-	(No symbol) [0x00007FF7832A6B15]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF7835CF4A4+1437348]
-	sqlite3_dbdata_init [0x00007FF783672DE6+643190]
-	(No symbol) [0x00007FF783167657]
-	(No symbol) [0x00007FF7831F1CE5]
-	(No symbol) [0x00007FF78320670A]
-	(No symbol) [0x00007FF7831EBE03]
-	(No symbol) [0x00007FF7831C2984]
-	(No symbol) [0x00007FF7831C1E30]
-	(No symbol) [0x00007FF7831C2571]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF78357BB34+1094964]
-	(No symbol) [0x00007FF7832E32C8]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF78357AF73+1091955]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF78357AAD9+1090777]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF783380CE1+461569]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF78337CA04+444452]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF78337CB49+444777]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7833721C6+401382]
-	BaseThreadInitThunk [0x00007FFCC431259D+29]
-	RtlUserThreadStart [0x00007FFCC4E2AF38+40]
-</status>
+<status status="PASS" start="2024-12-11T00:45:05.436018" elapsed="12.362335"/>
 </test>
-<status status="FAIL" start="2024-11-28T10:50:05.992982" elapsed="12.813498"/>
+<status status="PASS" start="2024-12-11T00:45:05.196465" elapsed="12.602935"/>
 </suite>
 <statistics>
 <total>
-<stat pass="0" fail="1" skip="0">All Tests</stat>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="0" fail="1" skip="0" id="s1" name="Test">Test</stat>
+<stat pass="1" fail="0" skip="0" id="s1" name="Test">Test</stat>
 </suite>
 </statistics>
 <errors>
-<msg time="2024-11-28T10:50:18.774000" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: no such window: target window already closed
-from unknown error: web view not found
-  (Session info: MicrosoftEdge=131.0.2903.70)
-Stacktrace:
-	(No symbol) [0x00007FF7832A6B15]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF7835CF4A4+1437348]
-	sqlite3_dbdata_init [0x00007FF783672DE6+643190]
-	(No symbol) [0x00007FF783167657]
-	(No symbol) [0x00007FF7831F1CE5]
-	(No symbol) [0x00007FF78320670A]
-	(No symbol) [0x00007FF7831EBE03]
-	(No symbol) [0x00007FF7831C2984]
-	(No symbol) [0x00007FF7831C1E30]
-	(No symbol) [0x00007FF7831C2571]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF78357BB34+1094964]
-	(No symbol) [0x00007FF7832E32C8]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF78357AF73+1091955]
-	Microsoft::Applications::Events::EventProperty::empty [0x00007FF78357AAD9+1090777]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF783380CE1+461569]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF78337CA04+444452]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF78337CB49+444777]
-	Microsoft::Applications::Events::ILogConfiguration::operator* [0x00007FF7833721C6+401382]
-	BaseThreadInitThunk [0x00007FFCC431259D+29]
-	RtlUserThreadStart [0x00007FFCC4E2AF38+40]
-</msg>
 </errors>
 </robot>
