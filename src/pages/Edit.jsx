@@ -39,6 +39,7 @@ function Edit() {
         lastname: formData.lastname,
         phone: formData.phone,
         email: formData.email,
+        password: formData.password,
       },
       {
         headers: {
